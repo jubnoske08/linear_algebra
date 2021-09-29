@@ -1,0 +1,567 @@
+\documentclass[11pt]{extarticle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{extsizes}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{microtype} 
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage[varg]{txfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM ENVIRONMENT         																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NUMBERING																				           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\thesection{\Alph{section}:}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START              																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-2em}Chapter 1: Vector Spaces}
+\author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+
+\begin{document}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION A            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{$\R$ and $\C$}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $a$ and $b$ are real numbers, not both $0$.  Find real numbers $c$ and $d$ such that 
+\begin{equation*}
+\frac{1}{a+bi}=c+di
+\end{equation*}
+\end{problem}
+\begin{proof}
+We have
+\begin{align*}
+\frac{1}{a+bi} &= \frac{a-bi}{a^2+b^2} = \frac{a}{a^2+b^2} - \frac{b}{a^2+b^2}i,
+\end{align*}
+and hence let
+\begin{equation*}
+c = \frac{a}{a^2+b^2}, ~~~ d = - \frac{b}{a^2+b^2},
+\end{equation*}
+and we're done.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Find two distinct square roots of $i$.
+\end{problem}
+\begin{proof}
+Suppose $a,b\in\R$ are such that $(a+bi)^2 = i$.  Then
+\begin{equation*}
+(a^2 - b^2) + (2ab)i= i.
+\end{equation*}
+Since the real and imaginary part of both sides must be equal, respectively, we have a system of two equations in two variables
+\begin{align*}
+a^2 -b^2&= 0\\
+ab &= \frac{1}{2}.
+\end{align*}
+The first equation implies $b=\pm a$.  Plugging $b=-a$ into the second equation would imply $-a^2 = 1/2$, which is impossible, and hence we must have $a=b$.  But this in turn tells us $a=\pm 1/\sqrt{2}$, and hence our two roots are
+\begin{equation*}
+\pm\left(\frac{1}{\sqrt{2}}\right)(1+i),
+\end{equation*}
+as desired.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Show that $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$ for all $\alpha,\beta,\lambda\in\C$.
+\end{problem}
+\begin{proof}
+Suppose $\alpha = a_1 + a_2i$, $\beta = b_1 + b_2i$, and $\lambda = c_1+c_2i$ for $a_k, b_k, c_k\in\R$, where $k=1,2$.  Then
+\begin{align*}
+(\alpha + \beta) + \lambda &= \left[(a_1 + a_2i) + (b_1 + b_2i)\right] + (c_1 + c_2i)\\
+               	 			&= \left[(a_1 + b_1) + (a_2 + b_2)i\right]+ (c_1 + c_2i) \\
+				 	&= \left[(a_1 + b_1) + c_1\right] + \left[(a_2 + b_2) + c_2\right]i \\
+					&= \left[a_1 + (b_1+ c_1)\right] + \left[a_2 + (b_2 + c_2)\right]i\\
+					&= (a_1 + a_2i) + \left[(b_1 + c_1) + (b_2 + c_2)i\right]\\
+					&= (a_1 + a_2i) + \left[(b_1 + b_2i) + (c_1 + c_2)i\right]\\
+					&= \alpha + (\beta + \lambda),
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Show that for every $\alpha\in\C$, there exists a unique $\beta\in\C$ such that $\alpha + \beta = 0$.
+\end{problem}
+\begin{proof}
+Suppose $\alpha = a_1 + a_2i$ for some $a_1,a_2\in\R$, and define $\beta = -a_1 - a_2i$.  Then
+\begin{align*}
+\alpha + \beta &= (a_1 + a_2i) + (-a_1 - a_2i)\\
+                       &= (a_1 - a_1) + (a_2 - a_2)i\\
+                       &= 0 + 0i\\
+                       &= 0,
+\end{align*}
+proving existence.  To see that $\beta$ is unique, suppose  $\lambda\in\C$ such that $\alpha + \lambda = 0$.  Then
+\begin{align*}
+\lambda = \lambda + (\alpha + \beta) = (\lambda + \alpha) + \beta = 0 + \beta = \beta,
+\end{align*}
+and thus $\beta$ is unique.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Show that $\lambda(\alpha+\beta) = \lambda\alpha + \lambda\beta$ for all $\lambda,\alpha,\beta\in\C$.
+\end{problem}
+\begin{proof}
+Suppose $\alpha = a_1 + a_2i$, $\beta = b_1 + b_2i$, and $\lambda = c_1+c_2i$ for $a_k, b_k, c_k\in\R$, where $k=1,2$.  Then
+\begin{align*}
+\lambda(\alpha+\beta) &= (c_1 + c_2i)\left[(a_1 + a_2i) + (b_1 + b_2i)\right]\\
+				  &= (c_1 + c_2i)\left[(a_1 + b_1) + (a_2 + b_2)i\right]\\
+				  &= \left[c_1(a_1 + b_1) - c_2(a_2 + b_2)\right] + \left[c_1(a_2 + b_2) + c_2(a_1 + b_1)\right]i\\
+				  &= \left[(c_1a_1 + c_1b_1) - (c_2a_2 + c_2b_2) \right] + \left[(c_1a_2 + c_1b_2) + (c_2a_1 + c_2b_1)\right]i \\
+				  &= \left[(c_1a_1 - c_2a_2) + (c_1b_1 - c_2b_2)\right] + \left[(c_1a_2 + c_2a_1) + (c_1b_2 + c_2b_1)\right]i \\
+				  &= \left[(c_1a_1 - c_2a_2) + (c_1a_2 + c_2a_1)i\right] + \left[(c_1b_1 - c_2b_2) +  (c_1b_2 + c_2b_1)i\right] \\
+				  &= (c_1 + c_2i)(a_1 + a_2i) + (c_1 + c_2i)(b_1 + b_2i)\\
+				  &= \lambda\alpha + \lambda\beta,
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Explain why  there does not exist $\lambda\in\C$ such that
+\begin{equation*}
+\lambda(2-3i, 5 + 4i, -6 + 7i) = (12 - 5i, 7 + 22i, -32 - 9i).
+\end{equation*}
+\end{problem}
+\begin{proof}
+Suppose such a $\lambda\in\C$ exists, say $\lambda = a +bi$ for some $a,b\in\R$.  Then
+\begin{align*}
+(a+bi)(2-3i) &= 12-5i\\
+(a+bi)(5+4i) &= 7 + 22i\\
+(a+bi)(-6+7i) &= -32-9i,
+\end{align*}
+which is equivalent to
+\begin{align}
+(2a+3b) + (-3a+2b)i &= 12-5i \\
+(5a-4b) + (4a+5b)i &= 7 + 22i\\
+(-6a-7b) + (7a-6b)i &= -32-9i.
+\end{align}
+For each equation above, the real part of the LHS must equal the real part of the RHS, and similarly for their imaginary parts.  In particular, the following two equations hold by comparing the real parts of Equations $(1)$ and $(3)$
+\begin{align*}
+2a+3b &= 12\\
+-6a-7b &= -32.
+\end{align*}
+Multiplying the first equation by $3$ and adding it to the second, we find $b=2$.  Substituting this value back into the first equation yields $a=2$.  However, comparing the imaginary parts of Equation $(3)$ tells us we must have
+\begin{equation*}
+7a-6b = -9,
+\end{equation*}
+a contradiction, since $a=3$ and $b=2$ yields $7a-6b = 9$.  Thus no such $\lambda\in\C$ exists, as was to be shown.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Show that $(ab)x = a(bx)$ for all $x\in\F^n$ and all $a,b\in\F$.
+\end{problem}
+\begin{proof}
+We may write $x = (x_1, \dots, x_n)$ for $x_1,\dots,x_n\in\F$.  It follows
+\begin{align*}
+(ab)x &= \left((ab)x_1,\dots,(ab)x_n\right)\\
+&= \left(a(bx_1),\dots,a(bx_n)\right)\\
+&= a\left(bx_1,\dots,bx_n\right)\\
+&= a(bx),
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Show that $\lambda(x + y)=\lambda x +\lambda y$ for all $\lambda\in\F$ and all $x,y\in\F^n$.
+\end{problem}
+\begin{proof}
+We may write $x = (x_1, \dots, x_n)$ and $y = (y_1,\dots,y_n)$ for $x_k,y_k\in\F^n$, where $k=1,\dots,n$.  It follows
+\begin{align*}
+\lambda(x+y) &= \lambda( (x_1,\dots,x_n) + (y_1,\dots,y_n) )\\
+&= \lambda ( (x_1 + y_1) + \dots + (x_n + y_n) )\\
+&= (\lambda (x_1 + y_1) + \dots + \lambda(x_n + y_n) )\\
+&= ((\lambda x_1 + \lambda y_1) + \dots + (\lambda x_n + \lambda y_n))\\
+&= (\lambda x_1 + \dots + \lambda x_n) + (\lambda y_1 + \dots + \lambda y_n)\\
+&= \lambda x + \lambda y,
+\end{align*}
+as desired.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION B           																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Definition of a Vector Space}
+
+% Problem 1
+\begin{problem}{1}
+Prove that $-(-v)=v$ for every $v\in V$.
+\end{problem}
+\begin{proof}
+We wish to show that $v$ is the additive inverse of $(-v)$.  We have
+\begin{align*}
+(-v) + v = (-1)v + 1v = (-1 + 1)v = 0v = 0,
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $v,w\in V$.  Explain why there exists a unique $x\in V$ such that $v + 3x = w$.
+\end{problem}
+\begin{proof}
+First we prove existence.  Define $x\in V$ by
+\begin{align*}
+x = \frac{1}{3}(w - v).
+\end{align*}
+Then
+\begin{align*}
+v + 3x &= v + 3\left( \frac{1}{3}(w - v)\right) \\
+&= v + \left(3 \cdot \frac{1}{3}\right)(w-v)\\
+&= v + (w - v)\\
+&= w,
+\end{align*}
+and so such an $x$ exists.  To see that it's unique, suppose $y\in V$ such that $v + 3y = w$.  Then
+\begin{align*}
+v + 3y = v + 3x \iff 3y = 3x \iff y = x,
+\end{align*}
+proving uniqueness.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Show that in the definition of a vector space (1.19), the additive inverse condition can be replaced with the condition that
+\begin{equation*}
+0v = 0 \text{ for all } v \in V.
+\end{equation*}
+Here the $0$ on the left side is the number $0$, and the $0$ on the right side is the additive identity of $V$.  (The phrase ``a condition can be replaced'' in a definition means that the collection of objection satisfying the definition is unchanged if the original condition is replaced with the new definition.)
+\end{problem}
+\begin{proof}
+We show that the two statements are equivalent.  
+\par First suppose that every $v\in V$ has an additive inverse.  Since we have
+\begin{equation*}
+0v + 0v = (0 + 0)v = 0v,
+\end{equation*}
+adding the additive inverse to both sides yields $0v = 0$.
+\par Conversely, suppose that $0v = 0$ for all $v\in V$.  Then
+\begin{align*}
+v + (-1)v = (1 + (-1))v = 0v = 0,
+\end{align*}
+and hence every element has an additive inverse, as desired.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION C          																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subspaces}
+
+% Problem 1
+\begin{problem}{1}
+For each of the following subsets of $\F^3$, determine whether it is a subspace of $\F^3$:
+\begin{enumerate}[(a)]
+\item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 +2x_2 +3x_3 = 0\}$
+\item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 +2x_2 +3x_3 = 4\}$
+\item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1x_2x_3 = 0\}$
+\item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 = 5x_3\}$ 
+\end{enumerate}
+\end{problem}
+\begin{proof}[Proof of $(a)$]
+Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
+\begin{align*}
+x_1 +2x_2 +3x_3 = 0 ~~~ \text{and} ~~~ y_1 + 2y_2 + 3y_3 = 0,
+\end{align*}
+and hence
+\begin{align*}
+(x_1 + 2x_2 + 3x_3) + (y_1 + 2y_2 + 3y_3) &= (x_1 + y_1) + 2(x_2 + y_2) + 3(x_3 + y_3)\\ 
+&= 0,
+\end{align*}
+and so $x+y\in S$ and $S$ is closed under addition.  Now letting $a\in\F$, we have
+\begin{align*}
+a(x_1 + 2x_2 + 3x_3) = ax_1 + 2(ax_2) + 3(ax_3) = 0, 
+\end{align*}
+and hence $ax\in S$ as well, and so $S$ is closed under scalar multiplication, thus proving $S$ is a subspace, as claimed.
+\end{proof}
+\begin{proof}[Proof of $(b)$]
+Let $S$ denote the specified subset.  Then $S$ is not a subspace, for $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $S$ does not contain the additive identity.
+\end{proof}
+\begin{proof}[Proof of $(c)$]
+Let $S$ denote the specified subset.  We claim $S$ is not a subspace since it is not closed under addition.  To see this, let $x = (1, 0, 0)$ and $y = (0, 1, 1)$.  Then $x,y\in S$, but $x + y = (1, 1, 1)\not\in S$ since $(x_1 + y_1)(x_2 + y_2)(x_3 + y_3) = 1 \cdot 1 \cdot 1 \neq  0$.
+\end{proof}
+\begin{proof}[Proof of $(d)$]
+Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 = 5\cdot 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
+\begin{align*}
+x_1 = 5x_3 ~~~ \text{ and } ~~~ y_1 = 5y_3,
+\end{align*}
+and hence
+\begin{align*}
+(x_1 + y_1) = 5x_3 + 5y_3 = 5(x_3 + y_3),
+\end{align*}
+and so $x+ y\in S$ and $S$ is closed under addition.  Now letting $a\in\F$, we have
+\begin{align*}
+a(x_1) = a(5x_3) 
+\end{align*}  
+and thus
+\begin{align*}
+(ax_1) = 5(ax_3),
+\end{align*}
+showing $ax\in S$ as well.   Therefore $S$ is closed under scalar multiplication as well, proving $S$ is a subspace, as claimed.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Show that the set of differentiable real-valued functions $f$ on the interval $(-4, 4)$ such that $f'(-1) = 3f(2)$ is a subspace of $\R^{(-4, 4)}$.
+\end{problem}
+\begin{proof}
+Let $S$ denote the set of differentiable real-valued functions $f$ on the interval $(-4, 4)$ such that $f'(-1) = 3f(2)$ . Denote the zero-function (the additive identity of $\R^{(-4, 4)}$) by $f_0$.  Then $f_0' = f_0$ and $f_0'(-1) = 0$, and hence $f_0'(-1) = 3f_0(2)$ --- both sides are $0$ --- showing $f_0\in S$.  Now suppose $f,g\in S$.  Then
+\begin{align*}
+(f+ g)' = f' + g',
+\end{align*}
+and hence
+\begin{align*}
+(f+g)'(-1) &= f'(-1) + g'(-1)\\
+ &= 3f(2) + 3g(2)\\
+ &= 3(f(2) + g(2))\\
+ &= 3(f+g)(2),
+\end{align*}
+showing $(f+g)\in S$ and $S$ is closed under addition.  Now letting $a\in \R$, we have
+\begin{align*}
+a(f'(-1)) = a(3f(2)) \implies (af')(-1) = 3(af)(2),
+\end{align*}
+and hence $(af)\in S$ as well, and $S$ is closed under scalar multiplication.  Therefore, $S$ is a subspace.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Is $\R^2$ a subspace of the complex vector space $\C^2$?
+\end{problem}
+\begin{proof}
+The set $\R^2$ is not a subspace of $\C^2$ over the field $\C$ since $\R^2$ is not closed under scalar multiplication.  In particular, we have $ix\not\in\R^2$ for all $x\in\R^2-\{0\}$.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Give an example of a nonempty subset $U$ of $\R^2$ such that $U$ is closed under addition and taking additive inverses (meaning $-u\in U$ whenever $u\in U$), but $U$ is not a subspace of $\R^2$.
+\end{problem}
+\begin{proof}
+Consider the set $\Z\times \Z$.  Then for all $(a,b)\in\Z\times\Z$, we have $(-a,-b)\in\Z\times\Z$, and so it's closed under additive inverses.  Similarly, for any $(c,d)\in\Z\times \Z$, we have $(a, b) + (c, d) = (a+c, b + d)\in\Z\times \Z$, and so it's closed under addition.  But $\Z\times\Z$ is not a subspace of $\R^2$, since it is not closed under scalar multiplication.  In particular, $\frac{1}{2}(1, 1) = \left(\frac{1}{2}, \frac{1}{2}\right)\not\in\Z\times\Z$. 
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+A function $f:\R\to\R$ is called {\bf{\emph{periodic}}} if there exists a positive number $p$ such that $f(x) = f(x+p)$ for all $x\in\R$.  Is the set of periodic functions from $\R$ to $\R$ a subspace of $\R^\R$?  Explain.
+\end{problem}
+\begin{proof}
+Let $P$ denote the set of periodic functions from $\R$ to $\R$.  We claim $P$ is not a subspace of $\R^\R$, since it is not closed under addition.  To see this, define
+\begin{align*}
+f(x) = \cos\left(\frac{2\pi }{\sqrt{2}}x\right) ~~~ \text{and} ~~~ g(x) = \cos(2\pi x).
+\end{align*}
+Then
+\begin{align*}
+f(x + \sqrt{2}) &= \cos\left(\frac{2\pi}{\sqrt{2}}(x + \sqrt{2})\right)\\
+&= \cos\left(\frac{2\pi}{\sqrt{2}}x + 2\pi\right)\\
+&= \cos\left(\frac{2\pi}{\sqrt{2}}x\right)\\
+&= f(x),
+\end{align*}
+and so $f$ has period $\sqrt{2}$, and 
+\begin{align*}
+g(x + 1) = \cos(2\pi(x + 1)) = \cos(2\pi x + 2\pi) = \cos(2\pi x) = g(x),
+\end{align*}
+so that $g$ has period $1$.
+\par Suppose by way of contradiction that $f+g$ were periodic with respect to some $p\in\R^+$.  Then, since
+\begin{align*}
+(f+g)(0) =  \cos\left(\frac{2\pi }{\sqrt{2}}\cdot 0\right) + \cos(2\pi\cdot 0) = \cos(0) + \cos(0) = 2,
+\end{align*}
+by periodicity of $f+g$ we must also have
+\begin{align*}
+(f+g)(p) =  \cos\left(\frac{2\pi }{\sqrt{2}} p\right) + \cos(2\pi p) = 2.
+\end{align*}
+The maximum of cosine is $1$, and hence both $f$ and $g$ must have maxima at $p$.  But the maxima of cosine occur at the integer multiples of $2\pi$, and hence we must have
+\begin{align*}
+\frac{2\pi}{\sqrt{2}}p = 2\pi n ~~~ \text{and} ~~~ 2\pi p = 2\pi m
+\end{align*}
+for some $n,m\in\Z^+$.  But this implies
+\begin{align*}
+p = \sqrt{2}n ~~~ \text{and} ~~~ p = m.
+\end{align*}
+In other words,
+\begin{align*}
+\frac{m}{n} = \sqrt{2},
+\end{align*}
+a contradiction since $\sqrt{2}$ is irrational.  Thus $f+g$ cannot be periodic, and indeed $P$ is not closed under addition, as claimed.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Prove that the intersection of every collection of subspaces of $V$ is a subspace of $V$.
+\end{problem}
+\begin{proof}
+Let $\mathfrak{C}$ denote a collection of subspaces of $V$, and let 
+\begin{align*}
+U = \bigcap_{W\in \mathfrak{C}}W.
+\end{align*}
+Then, since $0\in W$ for all $W \in \mathfrak{C}$, we have $0\in U$ and so $U$ contains the additive identity.  Now suppose $u,v\in U$.  Then $u,v\in W$ for all $W\in\mathfrak{C}$, and hence $u+v\in W$ for all $W\in\mathfrak{C}$.  Therefore, $u+v\in U$ and $U$ is closed under addition.  Next let $a\in\F$.  Then $au\in W$ for all $W\in\mathfrak{C}$, and hence $au\in U$, showing $U$ is closed under scalar multiplication.  Therefore, $U$ is indeed a subspace of $V$.
+\end{proof}
+
+% Problem 12
+\begin{problem}{12}
+Prove that the union of two subspaces of $V$ is a subspace of $V$ if and only if one of the subspaces is contained in the other.
+\end{problem}
+\begin{proof}
+Let $U_1, U_2$ be subspaces of $V$.  
+\par First suppose that one of the subspaces is contained in the other.  Then either $U_1\cup U_2 = U_1$ or $U_1\cup U_2 = U_2$, and in both cases $U_1\cup U_2$ is indeed a subspace of $V$.
+\par Conversely, suppose by way of contradiction that $U_1\cup U_2$ is a subspace of $V$, but neither subspace is contained in the other.  That is, the sets $U_1 \setminus U_2$ and $U_2 \setminus U_1$ are both nonempty.  Let $x\in U_1 \setminus U_2$ and $y\in U_2 \setminus U_1$.  We claim $x+y\not\in U_1$ and $x+y\not\in U_2$, so that $U_1\cup U_2$ is not closed under addition, a contradiction.  To see this, suppose $x+y\in U_1$.  Then $(x+y) - x\in U_1$ by closure of addition in $U_1$, but this is absurd since this implies $y\in U_1$, contrary to assumption.  Similarly, suppose $x+y\in U_2$.  Then $(x+y) -y\in U_2$, which is also absurd since this implies $x\in U_2$.  Therefore $U_1\cup U_2$ is not closed under addition, producing a contradiction as claimed.  Thus we must have one of the subspaces contained in the other, as desired.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Prove that the union of three subspaces of $V$ is a subspace of $V$ if and only if one of the subspaces contains the other two.
+\end{problem}
+\begin{proof}
+Let $U_1,U_2,U_3$ be subspaces of $V$.
+\par $(\Leftarrow)$ Suppose that one of the subspaces contains the other two.  Without loss of generality, assume $U_1\subseteq U_3$ and $U_2\subseteq U_3$.  Then $U_1\cup U_2\cup U_3 = U_3$, and so $U_1\cup U_2\cup U_3$ is indeed a subspace of $V$.
+\par $(\Rightarrow)$ Now suppose $U_1\cup U_2\cup U_3$ is a subspace.  If $U_2$ contains $U_3$ (or conversely), let $W = U_2 \cup U_3$.  Then applying Problem 12 to the union $U_1\cup W$, we have that either $U_1$ contains $W$ or $W$ contains $U_1$, showing that one of the three subspaces contains the other two, as desired.  So assume $U_2$ and $U_3$ are such that neither contains the other.  Let
+\begin{equation*}
+x\in U_2\setminus U_3 ~~~ \text{and} ~~~ y\in U_3\setminus U_2,
+\end{equation*} 
+and choose $a,b\in\F\setminus\{0\}$ such that $a-b = 1$ (such $a,b$ exist since we assume $\F$ is not finite).  
+\par We claim that $ax + y$ and $bx + y$ are both in $U_1$.  To see that $ax + y\in U_1$, suppose not.  Then either $ax + y\in U_2$ or $ax + y\in U_3$.  If $ax + y\in U_2$, then we have $(ax + y) - ax = y\in U_2$, a contradiction.  And if $ax +y \in U_3$, we have $(ax + y) - y = ax \in U_3$, another contradiction, and so $ax+y\in U_1$.  Similarly for $bx + y$, suppose $bx + y\in U_2$.  Then $(bx + y) - bx = y \in U_2$, a contradiction.  And if $bx + y\in U_3$, then $(bx + y) - y = bx \in U_3$, also a contradiction.  Thus $bx + y\in U_1$ as well.  Therefore
+\begin{equation*}
+(ax + y) - (bx + y) = (a-b)x = x \in U_1. 
+\end{equation*}
+Now, since $x\in U_2\setminus U_3$ implies $x \in U_1$, we have $U_2\setminus U_3\subseteq U_1$.  A similar argument shows that $x + ay$ and $x + by$ must be in $U_1$ as well, and hence
+\begin{equation*}
+(x + ay) - (x + by) = (a - b)y = y \in U_1,
+\end{equation*}
+and therefore $U_3\setminus U_2\subseteq U_1$.   If $U_2\cap U_3=\emptyset$, we're done, so assume otherwise.
+\par Now for any $u\in U_2\cap U_3$, choose $v \in U_3\setminus U_2\subseteq U_1$.  Then $u+v\not\in U_2\cap U_3$, for otherwise $(u+v)-u=v\in U_2$, a contradiction.  But this implies $u+v$ must be in $U_1$, and hence so is $(u+v) - v = u$.  In other words, if $u\in U_2\cap U_3$, then $u\in U_1$, and hence $U_2\cap U_3\subseteq U_1$, as was to be shown.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Suppose $U$ is a subspace of $V$.  What is $U+V$?
+\end{problem}
+\begin{proof}
+We claim $U+V=V$.  First suppose $x \in V$.  Then $x = 0 + x \in U + V$, and hence $V\subseteq U + V$.  Now suppose $y\in U + V$.  Then there exist $u\in U$ and $v\in V$ such that $y = u + v$.  But since $U$ is a subspace of $V$, we have $u\in V$, and hence $u+v\in V$.  Therefore $U+V\subseteq V$, proving the claim.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Is the operation of addition on the subspaces of $V$ associative?  In other words, if $U_1, U_2, U_3$ are subspaces of $V$, is 
+\begin{equation*}
+(U_1 + U_2) + U_3 = U_1 + (U_2 + U_3)?
+\end{equation*}
+\end{problem}
+\begin{proof}
+Let $U_1,U_2,U_3$ be subspaces of $V$, and let $V_1 = U_1 + U_2$ and $V_2 = U_2 + U_3$.  We claim
+\begin{equation*}
+V_1 + U_3 = U_1 + V_2.
+\end{equation*}
+To see this, suppose $x \in V_1 + U_3$.  Then there exist $v_1\in V_1$ and $u_3\in U_3$ such that $x = v_1 + u_3$.  But since $v_1\in V_1=U_1 + U_2$, there exist $u_1\in U_1$ and $u_2\in U_2$ such that $v_1 = u_1 + u_2$.  Then $x = u_1 + u_2 + u_3$, and since $u_2 + u_3\in U_2+U_3 = V_2$, we have $x\in U_1 + V_2$ and hence $V_1 + U_3\subseteq U_1 + V_2$.  Now suppose $y\in U_1 + V_2$.  Then there exist $u'_1\in U_1$ and $v_2 \in V_2$ such that $y = u'_1 + v_2$.  But since $v_2 \in V_2 = U_2 + U_3$, there exist $u'_2\in U_2$ and $u_3'\in U_3$ such that $v_2 = u'_2 + u'_3$.   Then $y=u'_1 + u'_2 + u'_3$, and since $u'_1+u'_2\in U_1 + U_2 = V_1$, have $y\in V_1 + U_3$ and hence $U_1 + V_2\subseteq V_1 + U_3$.  Thus $V_1 + U_3 = U_1 + V_2$, as claimed.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Prove or give a counterexample: if $U_1,U_2,W$ are subspaces of $V$ such that 
+\begin{equation*}
+U_1 + W = U_2 + W,
+\end{equation*}
+then $U_1 = U_2$.
+\end{problem}
+\begin{proof}
+The statement is false.  To see this, let $V = U_1 = W = \R^2$ and $U_2 = \R\times\{0\}$.  Then $U_1 + W = \R^2$ and $U_2 + W = \R^2$, but clearly $U_1\neq U_2$.
+\end{proof}
+
+% Problem 21
+\begin{problem}{21}
+Suppose 
+\begin{equation*}
+U = \{(x, y, x + y, x - y, 2x)\in\F^5 \mid x, y\in \F\}.
+\end{equation*}
+Find a subspace $W$ of $\F^5$ such that $\F^5 = U \oplus W$.
+\end{problem}
+\begin{proof}
+Let $v_1 = (1, 0, 1, 1, 2,), v_2 = (0, 1, 1, -1, 0)$, so that we may instead write $V$ as
+\begin{equation*}
+V = \{\alpha_1 v_1 + \alpha_2 v_2 \in \F^5\mid \alpha_1,\alpha_2\in\F\}.
+\end{equation*}
+Now let $w_1 = (0, 0, 1, 0, 0), w_2 = (0, 0, 0, 1, 0), w_3 = (0, 0, 0, 0, 1)$ and define
+\begin{equation*}
+W = \{\alpha_1 w_1 + \alpha_2 w_2 + \alpha_3 w_3\in\F^5\mid \alpha_1,\alpha_2, \alpha_3\in\F\}.
+\end{equation*}
+We claim $U\oplus W = \F^5$.  There are three things to prove: (1) $W$ is a subspace of $\F^5$, (2) $U + W = \F^5$, and (3) this sum is direct.
+\par To see that $W$ is a subspace of $\F^5$, note that $0\cdot w_1 + 0\cdot w_2 + 0\cdot w_3 = 0$, and hence $0\in W$.  Next suppose $a,b\in W$.  Then there exist some $\alpha_k,\beta_k\in\F$, where $k = 1,2,3$, such that $a = \alpha_1 w_1 + \alpha_2 w_2 + \alpha_3 w_3$ and $b = \beta_1 w_1 + \beta_2 w_2 +\beta_3 w_3$.  But then $a + b= (\alpha_1 + \beta_1)w_1 + (\alpha_2 + \beta_2)w_2 + (\alpha_3 + \beta_3)w_3$, which is again in $W$, and hence $W$ is closed under addition.  Finally, let $\gamma\in\F$.  Then $\gamma a = \gamma(\alpha_1 w_1 + \alpha_2 w_2 + \alpha_3 w_3) = (\gamma\alpha_1) w_1 + (\gamma\alpha_2) w_2 + (\gamma\alpha_3) w_3$ which is again in $W$, and hence $W$ is closed under scalar multiplication.  So $W$ is indeed a subspace.
+\par We next show that $U+W = \F^5$.  First notice that $U+W\subseteq \F^5$ since $U,W$ are both subspaces of $\F^5$.  To see the that $\F^5\subseteq U+W$, let $a=(a_1, a_2, a_3, a_4, a_5)\in\F^5$.   Recalling our definition of the vectors $v_1,v_2,w_1,w_2,w_3$, consider the linear combination
+\begin{equation*}
+\left(a_1v_1 + a_2v_2\right) + \left[(a_3 - a_1 - a_2)w_1 + (a_4-a_1+a_2)w_2 + (a_5-2a_1)w_3\right].
+\end{equation*}
+Note that the sum above is an element of $U+W$.  And after reducing, we find that the sum above equals $(a_1, a_2, a_3, a_4, a_5)$, and hence $a\in U+W$ and so in fact $\F^5=U+W$.
+\par Lastly we show that the sum is direct.  Every element of $U+W$ has the form $\alpha_1v_1 + \alpha_2v_2 + \alpha_3v_3 + \alpha_4v_4 + \alpha_5v_5$ for some $\alpha_k\in\F$ with $k=1,\dots, 5$, so suppose $0 = \alpha_1v_1 + \alpha_2v_2 + \alpha_3v_3 + \alpha_4v_4 + \alpha_5v_5$.  Simplifying yields
+\begin{align*}
+(\alpha_1, \alpha_2, \alpha_1 + \alpha_2 + \alpha_3, \alpha_1 - \alpha_2 +\alpha_4, 2\alpha_1 + \alpha_5) = 0.
+\end{align*}
+Clearly $\alpha_1 = \alpha_2 =0$.  But now this equation simplifies to
+\begin{align*}
+(0, 0, \alpha_3, \alpha_4, \alpha_5) = 0,
+\end{align*}
+and so $\alpha_3=\alpha_4=\alpha_5=0$ as well, and hence the sum is indeed direct.
+\end{proof}
+
+% Problem 23
+\begin{problem}{23}
+Prove or give a counterexample: if $U_1,U_2, W$ are subspaces of $V$ such that 
+\begin{equation*}
+V=U_1\oplus W ~~~ \text{and} ~~~ V = U_2\oplus W,
+\end{equation*}
+then $U_1=U_2$.
+\end{problem}
+\begin{proof}
+The statement is false.  Let $V=\R^2$, $W=\R\times\{0\}$, $U_1=\{0\}\times\R$, and $U_2=\{(x,x)\in\R^2\mid x\in\R\}$.  Then clearly
+\begin{equation*}
+V = U_1 + W = U_2 + W.
+\end{equation*}
+Moreover, $U_1\cap W = \{0\}$ and $U_2\cap W = \{0\}$, and hence the sums are direct.  That is,
+\begin{equation*}
+V = U_1 \oplus W = U_2 \oplus W,
+\end{equation*}
+but $U_1\neq U_2$.
+\end{proof}
+\end{document}

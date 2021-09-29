@@ -1,0 +1,1946 @@
+\documentclass[11pt]{extarticle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{extsizes}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{microtype} 
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[varg]{txfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM ENVIRONMENT         																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NUMBERING																				           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\thesection{\Alph{section}:}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START              																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-2em}Chapter 3: Linear Maps}
+\author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+
+\begin{document}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION A            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Vector Space of Linear Maps}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $b,c\in\R$.  Define $T:\R^3\to\R^2$ by
+\begin{equation*}
+T(x,y,z) = (2x - 4y + 3z + b, 6x + cxyz).
+\end{equation*}
+Show that $T$ is linear if and only if $b = c = 0$.
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$ Suppose $b = c = 0$.  Then
+\begin{equation*}
+T(x,y,z) = (2x - 4y + 3z, 6x).
+\end{equation*}
+Let $(x_1,y_1,z_1), (x_2,y_2,z_2)\in\R^3$.  Then 
+\begin{align*}
+T((x_1,y_1,z_1) + (x_2,y_2,z_2)) &= T(x_1 + x_2, y_1 + y_2, z_1 + z_2)\\
+&= (2(x_1 + x_2) - 4(y_1 + y_2) + 3(z_1 + z_2), 6(x_1 + x_2))\\
+&= (2x_1 + 2x_2 - 4y_1 - 4y_2 + 3z_1 + 3z_2, 6x_1 + 6x_2)\\
+&= (2x_1 - 4y_1 + 3z_1, 6x_1) + (2x_2 - 4y_2 + 3z_2, 6x_2)\\
+&= T(x_1, y_1, z_1) + T(x_2, y_2,z_2).
+\end{align*}
+Now, for $\lambda\in\F$ and $(x,y,z)\in\R^3$, we have
+\begin{align*}
+T(\lambda(x,y,z)) &= T(\lambda x, \lambda y, \lambda z)\\
+&= (2(\lambda x) - 4(\lambda y) + 3(\lambda z), 6(\lambda x))\\
+&= (\lambda(2x - 4y + 3z), \lambda(6x))\\
+&= \lambda(2x - 4y + 3z, 6x)\\
+&= \lambda T(x, y, z),
+\end{align*}
+and thus $T$ is a linear map.
+\par ($\Rightarrow$) Supose $T$ is a linear map.  Then
+\begin{equation}\tag{$\dagger$}
+T(x_1 + x_2,y_1 + y_2, z_1 + z_2) = T(x_1, y_1, z_1) + T(x_2, y_2, z_2)
+\end{equation}
+for all $(x_1,y_1,z_1),(x_2, y_2, z_2)\in\R^3$.  In particular, by applying the definition of $T$ and comparing first coordinates of both sides of $(\dagger)$, we have
+\begin{align*}
+2(x_1 + x_2) - 4(y_1+y_2) + 3(z_1&+ z_2) + b =\\ &(2x_1 - 4y_1 + 3z_1 + b) + (2x_2 - 4y_2 +3z_2 + b),
+\end{align*}
+and after simplifying, we have $b = 2b$, and hence $b= 0$.  Now by applying the definition of $T$ and comparing second coordinates of both sides of $(\dagger)$, we have
+\begin{align*}
+6(x_1 + x_2) + c(x_1+x_2)(y_1+y_2)(z_1+z_2) &= 6x_1 + c(x_1y_1z_1) + 6x_2 +  c(x_2y_2z_2)\\
+&= 6(x_1 + x_2) + c(x_1y_1z_1 + x_2y_2z_2),
+\end{align*}
+which implies
+\begin{equation*}
+c(x_1+x_2)(y_1+y_2)(z_1+z_2)  = c(x_1y_1z_1 + x_2y_2z_2).
+\end{equation*}
+Now suppose $c\neq 0$.  Then choosing $(x_1,y_1,z_1) = (x_2,y_2,z_2) = (1,1,1)$, the equation above implies $8 = 2$, a contradiction.  Thus $c=0$, completing the proof.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $T\in \Hom(\F^n,\F^m)$.  Show that there exist scalars $A_{j,k}\in\F$ for $j=1,\dots,m$ and $k=1,\dots,n$ such that
+\begin{equation*}
+T(x_1,\dots,x_n) = (A_{1,1}x_1 + \dots + A_{1,n}x_n,\dots, A_{m,1}x_1 + \dots + A_{m,n}x_n)
+\end{equation*}
+for every $(x_1,\dots,x_n)\in\F^n$.
+\end{problem}
+\begin{proof}
+Given $x\in\F^n$, we may write
+\begin{equation*}
+x = x_1 e_1 + \dots + x_n e_n,
+\end{equation*}
+where $e_1,\dots,e_n$ is the standard basis of $\F^n$.  Since $T$ is linear, we have
+\begin{equation*}
+Tx = T(x_1 e_1 + \dots +x_n e_n) = x_1 Te_1 + \dots + x_n Te_n.
+\end{equation*}
+Now for each $Te_k\in\F^m$, where $k=1,\dots, n$, there exist $A_{1,k},\dots, A_{m,k}\in\F$ such that
+\begin{align*}
+Te_k &= A_{1,k}e_1 + \dots + A_{m,k}e_m\\
+        &= \left(A_{1,k}, \dots, A_{m,k}\right)
+\end{align*}
+and thus 
+\begin{equation*}
+x_kTe_k = \left(A_{1,k}x_k, \dots, A_{m,k}x_k\right).
+\end{equation*}
+Therefore, we have
+\begin{align*}
+Tx &= \sum_{k = 1}^n \left(A_{1,k}x_k, \dots, A_{m,k}x_k\right)\\
+     &= \left(\sum_{k = 1}^nA_{1,k}x_k, \dots, \sum_{k = 1}^nA_{m,k}x_k \right),
+\end{align*}
+and thus there exist scalars $A_{j,k}\in\F$ for $j=1,\dots,m$ and $k=1,\dots,n$ of the desired form.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Prove that $\Hom(V,W)$ is a vector space.
+\end{problem}
+\begin{proof}
+We check each property in turn.\\
+\textbf{Commutative:}  Given $S,T\in\Hom(V,W)$ and $v\in V$, we have 
+\begin{equation*}
+(T+S)(v) = Tv + Sv = Sv + Tv = (S + T)(v)
+\end{equation*} 
+and so addition is commutative.\\
+\textbf{Associative:} Given $R,S,T\in\Hom(V,W)$ and $v\in V$, we have 
+\begin{align*}
+((R + S) + T)(v) = (R+S)(v) + Tv &= Rv + Sv + Tv\\
+&= R + (S + T)(v) = (R + (S + T))(v)
+\end{align*}
+and so addition is associative.  And given $a,b\in\F$, we have
+\begin{equation*}
+((ab)T)(v) = (ab)(Tv) = a(b(Tv)) = (a(bT))(v)
+\end{equation*}
+and so scalar multiplication is associative as well.\\
+\textbf{Additive identity:} Let $0\in\Hom(V,W)$ denote the zero map, let $T\in\Hom(V,W)$, and let $v\in V$.  Then 
+\begin{equation*}
+(T + 0)(v) = Tv + 0v = Tv + 0 = Tv
+\end{equation*}
+and so the zero map is the additive identity.\\
+\textbf{Additive inverse:} Let $T\in\Hom(V,W)$ and define $(-T)\in\Hom(V,W)$ by $(-T)v = -Tv$.  Then
+\begin{equation*}
+(T + (-T))(v) = Tv + (-T)v = Tv - Tv = 0,
+\end{equation*}
+and so $(-T)$ is the additive inverse for each $T\in\Hom(V,W)$.\\
+\textbf{Multiplicative identity:}  Let $T\in\Hom(V,W)$.  Then
+\begin{equation*}
+(1T)(v) = 1(Tv) = Tv
+\end{equation*}
+and so the multiplicative identity of $\F$ is the multiplicative identity of scalar multiplication.\\
+\textbf{Distributive properties:}  Let $S,T\in\Hom(V,W)$, $a,b\in\F$, and $v\in V$.  Then 
+\begin{align*}
+(a(S + T))(v) = a((S + T)(v)) = a(Sv + Tv) &= a(Sv) + a(Tv)\\
+ & = (aS)(v) + (aT)(v)
+\end{align*}
+and
+\begin{align*}
+((a + b)T)(v) = (a+b)(Tv) = a(Tv) + b(Tv) = (aT)(v) + (bT)(v)
+\end{align*}
+and so the distributive properties hold.
+\par Since all properties of a vector space hold, we see $\Hom(V,W)$ is in fact a vector space, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Show that every linear map from a $1$-dimensional vector space to itself is multiplication by some scalar.  More precisely, prove that if $\dim V= 1$ and $T\in\Hom(V,V)$, then there exists $\lambda\in\F$ such that $Tv = \lambda v$ for all $v\in V$.
+\end{problem}
+\begin{proof}
+Since $\dim V = 1$, a basis of $V$ consists of a single vector.  So let $w\in V$ be such a basis.  Then there exists $\alpha\in\F$ such that $v = \alpha w$ and $\lambda\in \F$ such that $Tw = \lambda w$.  It follows
+\begin{equation*}
+Tv = T(\alpha w) = \alpha Tw = \alpha\lambda w = \lambda(\alpha w) = \lambda v,
+\end{equation*}
+as desired.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Give an example of a function $\varphi:\C\to\C$ such that 
+\begin{equation*}
+\varphi(w + z) = \varphi(w) + \varphi(z)
+\end{equation*}
+for all $w,z\in\C$ but $\varphi$ is not linear.  (Here $\C$ is thought of as a complex vector space.)
+\end{problem}
+\begin{proof}
+Define 
+\begin{align*}
+\varphi:\C&\to\C\\
+       x + yi &\mapsto x - yi.
+\end{align*}
+Then for $x_1 + y_1i, x_2 + y_2i\in\C$, it follows
+\begin{align*}
+\varphi((x_1 + y_1i) + (x_2 + y_2i)) &= \varphi((x_1 + x_2) + (y_1 + y_2)i)\\
+&= (x_1 + x_2) - (y_1 + y_2)i\\
+&= (x_1 - y_1)i + (x_2 - y_2)i\\
+&= \varphi(x_1 + y_1i) + \varphi(x_2 + y_2i)
+\end{align*}
+and so $\varphi$ satisfies the additivity requirement.  However, we have
+\begin{align*}
+\varphi(i\cdot i) = \varphi(-1) = -1
+\end{align*}
+and 
+\begin{equation*}
+i\cdot\varphi(i) = i(-i) = 1
+\end{equation*}
+and hence $\varphi$ fails the homogeneity requirement of a linear map.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $V$ is finite-dimensional.  Prove that every linear map on a subspace of $V$ can be extended to a linear map on $V$.  In other words, show that if $U$ is a subspace of $V$ and $S\in\Hom(U,W)$, then there exists $T\in\Hom(V,W)$ such that $Tu = Su$ for all $u\in U$.
+\end{problem}
+\begin{proof}
+Suppose $U$ is a subspace of $V$ and $S\in\Hom(U,W)$.  Let $v_1,\dots, u_m$ be a basis of $U$ and let $v_1,\dots, v_m, v_{m+1},\dots, v_n$ be an extension of this basis to $V$.  For any $z\in V$, there exist $a_1,\dots, a_n\in\F$ such that $z =\sum_{k=1}^na_kv_k$, and so we define 
+\begin{align*}
+T: V &\to W\\
+    \sum_{k = 1}^n a_kv_k &\mapsto \sum_{k = 1}^m a_kSv_k + \sum_{k = m+1}^n a_kv_k.
+\end{align*}
+Since every $v\in V$ has a unique representation as a linear combination of elements of our basis, the map is well-defined.  We first show $T$ is a linear map.  So suppose $z_1,z_2\in V$.  Then there exist $a_1,\dots a_n\in \F$ and $b_1,\dots, b_n\in\F$ such that 
+\begin{equation*}
+z_1 = a_1v_1 + \dots + a_nv_n ~~~\text{and}~~~ z_2 = b_1v_1 + \dots + b_nv_n.
+\end{equation*}
+It follows
+\begin{align*}
+T(z_1 + z_2) &= T\left(\sum_{k=1}^na_kv_k + \sum_{k=1}^nb_kv_k\right)\\
+&= T\left(\sum_{k=1}^n(a_k + b_k)v_k\right)\\
+&= \sum_{k=1}^m(a_k + b_k)Sv_k + \sum_{k=m+1}^n(a_k + b_k)v_k\\
+&= \left(\sum_{k=1}^ma_kSv_k + \sum_{k=m+1}^na_kv_k\right) + \left(\sum_{k=1}^mb_kSv_k + \sum_{k=m+1}^nb_kv_k\right)\\
+&= T\left(\sum_{k=1}^na_kv_k\right) + T\left(\sum_{k=1}^nb_kv_k \right)\\
+&= Tz_1 + Tz_2
+\end{align*}
+and so $T$ is additive.  To see that $T$ is homogeneous, let $\lambda \in\F$ and $z\in V$, so that we may write $z =\sum_{k=1}^na_kv_k$ for some $a_1,\dots,a_n\in\F$. We have
+\begin{align*}
+T(\lambda z) &= T\left(\lambda \sum_{k=1}^na_kv_k\right)\\
+&= T\left(\sum_{k=1}^n(\lambda a_k)v_k\right)\\
+&= S\left(\sum_{k=1}^m(\lambda a_k)v_k\right) + \sum_{k=m+1}^n(\lambda a_k)v_k\\
+&= \lambda S\left(\sum_{k=1}^ma_kv_k\right) + \lambda\sum_{k=m+1}^n a_kv_k\\
+&= \lambda\left(S\left(\sum_{k=1}^ma_kv_k\right) + \sum_{k=m+1}^n\lambda a_kv_k\right)\\
+&= \lambda T\left(\sum_{k=1}^na_kv_k\right)\\
+&= \lambda Tz
+\end{align*}
+and so $T$ is homogeneous as well hence $T\in\Hom(V,W)$.  Lastly, to see that $T\mid_U = S$, let $u\in U$.  Then there exist $a_1,\dots, a_m\in\F$ such that $u=\sum_{k=1}^ma_kv_k$, and hence
+\begin{align*}
+Tu &= T\left( \sum_{k=1}^ma_kv_k\right)\\
+&= S\left(\sum_{k=1}^ma_kv_k\right)\\
+&= Su,
+\end{align*}
+and so indeed $T$ agrees with $S$ on $U$, completing the proof.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $v_1,\dots, v_m$ is a linearly dependent list of vectors in $V$.  Suppose also that $W\neq\{0\}$.  Prove that there exist $w_1,\dots, w_m\in W$ such that no $T\in\Hom(V,W)$ satisfies $Tv_k=w_k$ for each $k = 1,\dots, m$.
+\end{problem}
+\begin{proof}
+Since $v_1,\dots,v_m$ is linearly dependent, one of them may be written as a linear combination of the others.  Without loss of generality, suppose this is $v_m$.  Then there exist $a_1,\dots,a_{m-1}\in\F$ such that
+\begin{align*}
+v_m = a_1v_1 + \dots + a_{m-1}v_{m-1}.
+\end{align*}
+Since $W\neq\{0\}$, there exists some nonzero $z\in W$.  Define $w_1,\dots,w_m\in W$ by
+\begin{equation*}
+w_k = \begin{cases}z &\text{ if }k = m\\ 0 &\text{ otherwise.} \end{cases}
+\end{equation*}
+Now suppose there exists $T\in\Hom(V,W)$ such that $Tv_k = w_k$ for $k = 1,\dots, m$.  It follows
+\begin{align*}
+T(0) &= T(v_m - a_1v_1 - \dots - a_{m-1}v_{m-1})\\
+ &= Tv_m - a_1Tv_1 - \dots - a_{m-1}Tv_{m-1}\\
+&= z.
+\end{align*}
+But $z\neq0$, and thus $T(0)\neq 0$, a contradiction, since linear maps take $0$ to $0$.  Therefore, no such linear map can exist.
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION B            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Null Spaces and Ranges}
+
+% Problem 1
+\begin{problem}{1}
+Give an example of a linear map $T$ such that $\dim\Null T = 3$ and $\dim\Range T = 2$.
+\end{problem}
+\begin{proof}
+Define the map
+\begin{align*}
+T:\R^5 &\to \R^5\\
+  (x_1, x_2, x_3,x_4, x_5) &\mapsto (0, 0, 0, x_4, x_5).
+\end{align*}
+First we show $T$ is a linear map.  Suppose $x,y\in\R^5$.  Then
+\begin{align*}
+T(x + y) &= T((x_1, x_2, x_3,x_4, x_5) + (y_1, y_2, y_3,y_4, y_5) )\\
+&= T(x_1+y_1, x_2+y_2, x_3+y_3,x_4+y_4, x_5+y_5)\\
+&= (0, 0, 0, x_4 + y_5, x_5 + y_5)\\
+&= (0, 0, 0, x_4, x_5) + (0, 0, 0, y_4, y_5)\\
+&= T(x) + T(y).
+\end{align*}
+Next let $\lambda\in\R$.  Then
+\begin{align*}
+T(\lambda x) &= T(\lambda x_1, \lambda x_2, \lambda x_3, \lambda x_4, \lambda x_5) \\
+&= (0, 0, 0, \lambda x_4, \lambda x_5)\\
+&= \lambda(0,0,0,x_4, x_5)\\
+&= \lambda T(x),
+\end{align*}
+and so $T$ is in fact a linear map.  Now notice that
+\begin{equation*}
+\Null T = \{(x_1,x_2,x_3,0,0)\in\R^5\mid x_1, x_2, x_3\in\R\}.
+\end{equation*}  
+This space clearly has as a basis $e_1,e_2,e_3\in\R^5$ and hence has dimension $3$.  Now, by the Fundamental Theorem of Linear Maps, we have 
+\begin{equation*}
+\dim\R^5 = 3 + \dim\Range T
+\end{equation*}
+and hence $\dim\Range T = 2$, as desired.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $v_1,\dots,v_m$ is a list of vectors in $V$.  Define $T\in\Hom(\F^m, V)$ by
+\begin{equation*}
+T(z_1,\dots, z_m) = z_1v_1 + \dots + z_m v_m.
+\end{equation*}
+\begin{enumerate}[(a)]
+\item What property of $T$ corresponds to $v_1,\dots, v_m$ spanning $V$?
+\item What property of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent?
+\end{enumerate}
+\end{problem}
+\begin{proof}[Proof of $(a)$]
+We claim surjectivity of $T$ corresponds to $v_1,\dots, v_m$ spanning $V$.  To see this, suppose $T$ is surjective, and let $w\in V$.  Then there exists $z\in \F^m$ such that $Tz = w$.  This yields 
+\begin{equation*}
+z_1v_1 + \dots + z_m v_m = w,
+\end{equation*}
+and hence every $w\in V$ can be expressed as a linear combination of $v_1,\dots, v_n$.  That is, $\Span(v_1,\dots,v_n)= V$.
+\end{proof}
+\begin{proof}[Proof of $(b)$]
+We claim injectivity of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent.  To see this, suppose $T$ is injective, and let $a_1,\dots, a_n\in\F$ such that 
+\begin{equation*}
+a_1v_1 + \dots + a_nv_n = 0.
+\end{equation*}
+Then 
+\begin{equation*}
+T(a) = T(a_1,\dots, a_n) = a_1v_1 + \dots + a_nv_n = 0
+\end{equation*}
+which is true iff $a = 0$ since $T$ is injective.  That is, $a_1=\dots = a_n=0$ and hence $v_1,\dots, v_n$ is linearly independent. 
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Give an example of a linear map $T:\R^4\to\R^4$ such that 
+\begin{equation*}
+\Range T = \Null T.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Define
+\begin{align*}
+T: \R^4 &\to \R^4\\
+(x_1,x_2,x_3,x_4) &\mapsto (x_3, x_4, 0, 0).
+\end{align*}
+Clearly $T$ is a linear map, and we have
+\begin{equation*}
+\Null T =\{(x_1, x_2, x_3, x_4)\mid x_3 = x_4 = 0\in\R\} = \R^2\times \{0\}^2
+\end{equation*}
+and 
+\begin{equation*}
+\Range T = \{(x, y, 0, 0)\mid x, y\in\R\} = \R^2 \times \{0\}^2.
+\end{equation*}
+Hence $\Range T = \Null T$, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $V$ and $W$ are finite-dimensional with $2\leq \dim V\leq \dim W$.  Show that $\{T\in \Hom(V,W)\mid T \text{ is not injective}\}$ is not a subspace of $\Hom(V,W)$.
+\end{problem}
+\begin{proof}
+Let $Z = \{T\in \Hom(V,W)\mid T \text{ is not injective}\}$, let $v_1,\dots, v_m$ be a basis of $V$, where $m\geq 2$, and let $w_1,\dots, w_n$ be a basis of $W$, where $n\geq m$.  We define $T\in \Hom(V,W)$ by its behavior on the basis
+\begin{equation*}
+Tv_k \defeq \begin{cases}0 &\text{ if }k = 1\\ w_2 &\text{ if }k = 2 \\ \frac{1}{2}w_{k} &\text{ otherwise}\end{cases}
+\end{equation*}
+so that clearly $T$ is not injective since $Tv_1 = 0 = T(0)$, and hence $T\in Z$.  Similarly, define $S\in\Hom(V,W)$ by its behavior on the basis
+\begin{equation*}
+Sv_k \defeq \begin{cases}w_1 &\text{ if }k = 1\\0 &\text{ if }k = 2\\ \frac{1}{2}w_{k} &\text{ otherwise}\end{cases}
+\end{equation*}
+and note that $S$ is not injective either since $Sv_2 = 0 = S(0)$, and hence $S\in Z$.  However, notice
+\begin{align*}
+(S+ T)(v_k) = w_k \text{ for } k = 1,\dots, n
+\end{align*}
+and hence $\Null(S+T)=\{0\}$ since it takes the basis of $V$ to the basis of $W$, so that $S+T$ is in fact injective.  Therefore $S+T\not\in Z$, and $Z$ is not closed under addition.  Thus $Z$ is not a subspace of $\Hom(V,W)$.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $T\in\Hom(V,W)$ is injective and $v_1,\dots, v_n$ is linearly independent in $V$.  Prove that $Tv_1,\dots, Tv_n$ is linearly independent in $W$.  
+\end{problem}
+\begin{proof}
+Suppose $a_1,\dots, a_n\in\F$ are such that 
+\begin{equation*}
+a_1Tv_1 + \dots + a_nTv_n = 0.
+\end{equation*}
+Since $T$ is a linear map, it follows
+\begin{align*}
+T(a_1v_1 + \dots + a_nv_n) = 0.
+\end{align*}
+But since $\Null T = \{0\}$ (by virtue of $T$ being a linear map), this implies $a_1v_1 + \dots + a_nv_n= 0$.  And since $v_1,\dots, v_n$ are linearly independent, we must have $a_1=\dots = a_n = 0$, which in turn implies $Tv_1,\dots, Tv_n$ is indeed linearly independent in $W$.  
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $S_1,\dots,S_n$ are injective linear maps such that $S_1S_2\dots S_n$ makes sense.  Prove that $S_1S_2\dots S_n$ is injective.
+\end{problem}
+\begin{proof}
+For $n\in\Z_{\geq 2}$, let $P(n)$ be the statement: $S_1,\dots, S_n$ are injective linear maps such that $S_1S_2\dots S_n$ makes sense, and the product $S_1S_2\dots S_n$ is injective.  We induct on $n$.\\
+\textbf{Base case:} Suppose $n =2$, and assume $S_1\in\Hom(V_0,V_1)$ and $S_2\in\Hom(V_1,V_2)$, so that the product $S_1S_2$ is defined, and assume that both $S_1$ and $S_2$ are injective.  Suppose $v_1,v_2\in V_0$ are such that $v_1\neq v_2$, and let $w_1 = S_2v_1$ and $w_2 = S_2v$.  Since $S_2$ is injective, $w_1\neq w_2$.  And since $S_1$ is injective, this in turn implies that $S_1(w_1)\neq S_1(w_2)$.  In other words, $S_1(S_2(v_1)) \neq S_1(S_2(v_2))$, so that $S_1S_2$ is injective as well, and hence $P(2)$ is true.\\
+\textbf{Inductive step:} Suppose $P(k)$ is true for some $k\in\Z^+$, and consider the product $(S_1S_2\dots S_{k})S_{k+1}$.  The term in parentheses is injective by hypothesis, and the product of this term with $S_{k+1}$ is injective by our base case.  Thus $P(k+1)$ is true.
+\par By the principle of mathematical induction, the statement $P(n)$ is true for all $n\in\Z_{\geq 2}$, as was to be shown.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $T$ is a linear map from $\F^4$ to $\F^2$ such that
+\begin{equation*}
+\Null T = \{(x_1,x_2,x_3,x_4)\in\F^4\mid x_1 = 5x_2\text{ and }x_3 = 7x_4\}.
+\end{equation*}
+Prove that $T$ is surjective.
+\end{problem}
+\begin{proof}
+We claim the list
+\begin{equation*}
+(5, 1, 0, 0), (0, 0, 7, 1)
+\end{equation*}
+is a basis of $\Null T$.  This implies
+\begin{align*}
+\dim \Range T &= \dim\F^4 - \dim\Null T\\
+&= 4 - 2\\
+&= 2,
+\end{align*}
+and hence $T$ is surjective (since the only $2$-dimensional subspace of $\F^2$ is the space itself).  So let's prove our claim that this list is a basis.  
+\par Clearly the list is linearly independent.  To see that it spans $\Null T$, suppose $x=(x_1,x_2,x_3,x_4)\in \Null T$, so that $x_1 = 5x_2$ and $x_3 = 7x_4$.  We may write
+\begin{align*}
+\begin{pmatrix}x_1\\x_2\\x_3\\x_4 \end{pmatrix} = \begin{pmatrix}5x_2\\x_2\\7x_4\\x_4 \end{pmatrix} = x_2\begin{pmatrix}5\\1\\0\\0\end{pmatrix}  + x_4\begin{pmatrix}0\\0\\7\\1\end{pmatrix},
+\end{align*}
+and indeed $x$ is in the span of our list, so that our list is in fact a basis, completing the proof.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Prove that there does not exist a linear map from $\F^5$ to $\F^2$ whose null space equals
+\begin{equation*}
+\{(x_1,x_2,x_3,x_4,x_5)\in\F^5\mid x_1=3x_2 \text{ and }x_3 = x_4 = x_5\}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Suppose such a $T\in\Hom(\F^5, \F^2)$ did exist.  We claim 
+\begin{equation*}
+(3, 1, 0, 0, 0), (0, 0, 1, 1, 1)
+\end{equation*}
+is a basis of $\Null T$.  This implies
+\begin{align*}
+\dim \Range T &= \dim\F^5 - \dim \Null T\\
+&= 5 - 2\\
+&= 3,
+\end{align*}
+which is absurd, since the codomain of $T$ has dimension $2$.  Hence such a $T$ cannot exist.  So, let's prove our claim that this list is a basis.
+\par Clearly $(3, 1, 0, 0, 0), (0, 0, 1, 1, 1)$ is linearly independent.  To see that it spans $\Null T$, suppose $x=(x_1,\dots,x_5)\in\Null T$, so that $x_1=3x_2$ and $x_3 = x_4 = x_5$.  We may write
+\begin{align*}
+\begin{pmatrix}x_1\\x_2\\x_3\\x_4\\x_5 \end{pmatrix} = \begin{pmatrix}3x_2\\x_2\\x_3\\x_3\\x_3 \end{pmatrix} = x_2\begin{pmatrix}3\\1\\0\\0\\0\end{pmatrix}  + x_3\begin{pmatrix}0\\0\\1\\1\\1\end{pmatrix},
+\end{align*}
+and indeed $x$ is in the span of our list, so that our list is in fact a basis, completing the proof.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Suppose $V$ and $W$ are both finite-dimensional.  Prove that there exists an injective linear map from $V$ to $W$ if and only if $\dim V\leq \dim W$.  
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$  Suppose $T\in\Hom(V,W)$ is injective.  If $\dim V > \dim W$, Thereom 3.23 tells us that no map from $V$ to $W$ would be injective, a contradiction, and so we must have $\dim V\leq \dim W$.    
+\par $(\Leftarrow)$  Suppose $\dim V\leq \dim W$.  Then the inclusion map $\iota:V\to W$ is both a linear map and injective.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $V$ and $W$ are finite-dimensional and that $U$ is a subspace of $V$.  Prove that there exists $T\in\Hom(V,W)$ such that $\Null T = U$ if and only if $\dim U\geq \dim V - \dim W$.
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$  Suppose $\dim U \geq \dim V- \dim W$.  Since $U$ is a subspace of $V$, there exists a subspace $U'$ of $V$ such that 
+\begin{equation*}
+V = U \oplus U'.
+\end{equation*}
+Let $u_1,\dots u_m$ be a basis for $U$, let $u'_1,\dots, u'_n$ be a basis for $U'$, and let $w_1,\dots, w_p$ be a basis for $W$.  By hypothesis, we have
+\begin{equation*}
+m \geq (m + n) - p,
+\end{equation*}
+which implies $p\geq n$.  Thus we may define a linear map $T\in\Hom(V, W)$ by its values on the basis of $V=U\oplus U'$ by taking $Tu_k = 0$ for $k = 1,\dots m$ and $Tu'_j = w_j$ for $j = 1,\dots, n$ (since $p\geq n$, there is a $w_j$ for each $u'_j$).  The map is linear by Theorem 3.5, and its null space is $U$ by construction.
+\par $(\Rightarrow)$ Suppose $U$ is a subspace of $V$, $T\in\Hom(V,W)$, and $\Null T = U$.  Then, since $\Range T$ is a subspace of $W$, we have $\dim\Range T \leq \dim W$.  Combining this inequality with the Fundamental Theorem of Linear Maps yields
+\begin{align*}
+\dim \Null T &= \dim V - \dim\Range T\\
+&\geq \dim V - \dim W.
+\end{align*}
+Since $\dim \Null T = \dim U$, we have the desired inequality.
+\end{proof}
+
+% Problem 21
+\begin{problem}{21}
+Suppose $V$ is finite-dimensional and $T\in\Hom(V,W)$.  Prove that $T$ is surjective if and only if there exists $S\in\Hom(W,V)$ such that $TS$ is the identity map on $W$.  
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$  Suppose $T\in\Hom(V,W)$ is surjective, so that $W$ is necessarily finite-dimensional as well.  Let $v_1,\dots, v_m$ be a basis of $V$ and let $n=\dim W$, where $m\geq n $ by surjectivity of $T$.  Note that
+\begin{equation*}
+Tv_1,\dots, Tv_m
+\end{equation*}
+span $W$.  Thus we may reduce this list to a basis by removing some elements (possibly none, if $n = m$).  Suppose this reduced list were $Tv_{i_1},\dots, Tv_{i_n}$ for some $i_1,\dots, i_n\in\{1,\dots, m\}$.  We define $S\in\Hom(W,V)$ by its behavior on this basis
+\begin{align*}
+S(Tv_{i_k}) \defeq v_{i_k} \text{ for }k = 1,\dots, n.
+\end{align*}
+Suppose $w \in W$.  Then there exist $a_1,\dots, a_n\in\F$ such that
+\begin{equation*}
+w = a_1 Tv_{i_1} + \dots + a_nTv_{i_n}
+\end{equation*}
+and thus
+\begin{align*}
+TS(w) &= TS\left(a_1 Tv_{i_1} + \dots + a_nTv_{i_n}\right)\\
+&= T\left(S\left( a_1 Tv_{i_1} + \dots + a_nTv_{i_n}\right)\right)\\
+&= T\left( a_1 S(Tv_{i_1}) + \dots + a_nS(Tv_{i_n})\right)\\
+&= T(a_1 v_{i_1} + \dots + a_nv_{i_n})\\
+&= a_1 Tv_{i_1} + \dots + a_nTv_{i_n}\\
+&= w,
+\end{align*}
+and so $TS$ is the identity map on $W$.
+\par $(\Leftarrow)$ Suppose there exists $S\in\Hom(W,V)$ such that $TS\in\Hom(W,W)$ is the identity map, and suppose by way of contradiction that $T$ is not surjective, so that $\dim \Range TS < \dim W$.  By the Fundamental Theorem of Linear Maps, this implies
+\begin{align*}
+\dim W &= \dim\Null TS + \dim \Range TS\\
+&< \dim\Null TS + \dim W
+\end{align*}
+and hence $\dim\Null TS > 0$, a contradiction, since the identity map can only have trivial null space.  Thus $T$ is surjective, as desired.
+\end{proof}
+
+% Problem 23
+\begin{problem}{23}
+Suppose $U$ and $V$ are finite-dimensional vector spaces and $S\in\Hom(V,W)$ and $T\in\Hom(U,V)$.  Prove that
+\begin{equation*}
+\dim\Range ST \leq \min\{\dim\Range S, \dim\Range T\}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+We will show that both $\dim\Range ST \leq \dim \Range S$ and $\dim\Range ST \leq \dim \Range T$, since this implies the desired inequality.
+\par We first show that $\dim\Range ST \leq \dim \Range S$.  Suppose $w \in \Range ST$.  Then there exists $u\in U$ such that $ST(u) = w$.  But this implies that $w\in\Range S$ as well, since $Tu\in S^{-1}(w)$.  Thus $\Range ST \subseteq \Range S$, which implies $\dim \Range ST \leq \dim\Range S$.
+\par We now show that $\dim\Range ST \leq \dim \Range T$.  Note that if $v\in\Null T$, so that $Tv =0$, then $ST(v) = 0$ (since linear maps take zero to zero).  Thus we have $\Null T\subseteq \Null ST$, which implies $\dim \Null T\leq \dim \Null ST$.  Combining this inequality with the Fundamental Theorem of Linear Maps applied to $T$ yields
+\begin{align}
+\dim U \leq \dim \Null ST + \dim \Range T.
+\end{align}
+Similarly, we have
+\begin{equation}
+\dim U = \dim\Null ST + \dim\Range ST.
+\end{equation}
+Combining $(1)$ and $(2)$ yields
+\begin{align*}
+\dim\Null ST + \dim\Range ST \leq \dim\Null ST + \dim\Range T
+\end{align*}
+and hence $\dim\Range ST \leq \dim\Range T$, completing the proof.
+\end{proof}
+
+% Problem 25
+\begin{problem}{25}
+Suppose $V$ is finite-dimensional and $T_1,T_2\in\Hom(V,W)$.  Prove that $\Range T_1\subseteq \Range T_2$ if and only if there exists $S\in\Hom(V,V)$ such that $T_1= T_2S$.  
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$ Suppose there exists $S\in\Hom(V,V)$ such that $T_1=T_2S$, and let $w\in\Range T_1$.  Then there exists $v\in V$ such that $T_1v = w$, and hence $T_2S(v) = w$.  But then $w \in\Range T_2$ as well, and hence $\Range T_1\subseteq \Range T_2$.
+\par $(\Rightarrow)$  Suppose $\Range T_1\subseteq \Range T_2$, and let $v_1,\dots, v_n$ be a basis of $V$.  Let $w_k = Tv_k$ for $k=1,\dots, n$.  Then there exist $u_1,\dots,u_n\in V$ such that $T_2u_k = w_k$ for $k=1,\dots,n$ (since $w_k\in\Range T_1$ implies $w_k\in\Range T_2$).  Define $S\in\Hom(V,V)$ by its behavior on the basis
+\begin{equation*}
+Sv_k \defeq u_k \text{ for }k= 1,\dots, n.
+\end{equation*}
+It follows that $T_2S(v_k) = T_2u_k = w_k = T_1v_k$.  Since $T_2S$ and $T_1$ are equal on the basis, they are equal as linear maps, as was to be shown.
+\end{proof}
+
+% Problem 27
+\begin{problem}{27}
+Suppose $p\in\poly(\R)$.  Prove that there exists a polynomial $q\in\poly(\R)$ such that $5q'' + 3q' = p$.
+\end{problem}
+\begin{proof}
+Suppose $\deg p =n$, and consider the linear map 
+\begin{align*}
+D: \poly_{n+1}(\R) &\to \poly_n(\R)\\
+            q &\mapsto 5q'' + 3q'.
+\end{align*}
+If we can show $D$ is surjective, we're done, since this implies that there exists some $q\in\poly_{n+1}(\R)$ such that $Dq = 5q'' + 3q' = p$.  To that end, suppose $r \in\Null D$.  Then we must have $r'' = 0$ and $r' = 0$, which is true if and only if $r$ is constant.  Thus any $\alpha\in\R^\times$ is a basis of $\Null D$, and so $\dim\Null D=1$.  By the Fundamental Theorem of Linear Maps, we have 
+\begin{align*}
+\dim\Range D  =\dim\poly_{n + 1}(\R) -  \dim\Null D,
+\end{align*}
+and hence
+\begin{align*}
+\dim\Range D = (n + 2) - 1 = n + 1.
+\end{align*}
+Since the only subspace of $\poly_n(\R)$ with dimension $n + 1$ is the space itself, $D$ is surjective, as desired.
+\end{proof}
+
+% Problem 29
+\begin{problem}{29}
+Suppose $\varphi\in\Hom(V,\F)$.  Suppose $u\in V$ is not in $\Null\varphi$.  Prove that
+\begin{equation*}
+V = \Null\varphi \oplus \{au\mid a\in\F\}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+First note that since $u\in V-\Null\varphi$, there exists some nonzero $\varphi(u)\in\Range\varphi$ and hence  $\dim\Range\varphi\geq 1$.  But since $\Range\varphi\subseteq\F$, and $\dim\F = 1$, we must have $\dim\Range\varphi = 1$.  Thus, letting $n= \dim V$, it follows
+\begin{align*}
+\dim\Null\varphi &= \dim V - \dim\Range\varphi\\
+&= n - 1.
+\end{align*}
+Let $v_1,\dots,v_{n-1}$ be a basis for $\Null\varphi$.  We claim $v_1,\dots,v_{n-1}, u$ is an extension of this basis to a basis of $V$, which would then imply $V = \Null\varphi \oplus  \{au\mid a\in\F\}$, as desired.  
+\par To show  $v_1,\dots,v_{n-1}, u$ is a basis of $V$, it suffices to show linearly independence (since it has length $n = \dim V$).  So suppose $a_1,\dots,a_n\in\F$ are such that
+\begin{equation*}
+a_1v_1 + \dots + a_{n-1}v_{n-1} + a_nu = 0.
+\end{equation*} 
+We may write
+\begin{equation*}
+a_nu = -a_1v_1 - \dots - a_{n-1}v_{n-1},
+\end{equation*}
+which implies $a_nu\in\Null \varphi$.  By hypothesis, $u\not\in\Null\varphi$, and thus we must have $a_n = 0$.  But now each of the $a_1,\dots,a_{n-1}$ must be $0$ as well (since $v_1,\dots,v_{n-1}$ form a basis of $\Null\varphi$ and thus are linearly independent).  Therefore, $v_1,\dots,v_{n-1}, u$ is indeed linearly independent, proving our claim.
+\end{proof}
+
+% Problem 31
+\begin{problem}{31}
+Give an example of two linear maps $T_1$ and $T_2$ from $\R^5$ to $\R^2$ that have the same null space but are such that $T_1$ is not a scalar multiple of $T_2$.  
+\end{problem}
+\begin{proof}
+Let $e_1,\dots, e_5$ be the standard basis of $\R^5$.  We define $T_1,T_2\in\Hom(\R^5,\R^2)$ by their behavior on the basis (using the standard basis for $\R^2$ as well)
+\begin{align*}
+T_1e_1 &\defeq e_2\\
+T_1e_2 &\defeq e_1\\
+T_1e_k &\defeq 0 \text{ for }k = 3, 4, 5
+\end{align*} 
+and 
+\begin{align*}
+T_2e_1 &\defeq e_1\\
+T_2e_2 &\defeq e_2\\
+T_2e_k &\defeq 0 \text{ for }k = 3, 4, 5.
+\end{align*}
+Clearly $\Null T_1 = \Null T_2$.  We claim $T_2$ is not a scalar multiple of $T_1$.  To see this, suppose not.  Then there exists $\alpha\in\R$ such that $T_1 = \alpha T_2$.  In particular, this implies $T_1e_1 = \alpha T_2e_1$.  But this is absurd, since $T_1e_1 = e_2$ and $T_2e_1 = e_1$, and of course $e_1,e_2$ is linearly independent.  Thus no such $\alpha$ can exist, and $T_1,T_2$ are as desired.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION C            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Matrices}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $V$ and $W$ are finite-dimensional and $T\in\Hom(V,W)$.  Show that with respect to each choice of bases of $V$ and $W$, the matrix of $T$ has at least $\dim\Range T$ nonzero entries.
+\end{problem}
+\begin{proof}
+Let $v_1,\dots, v_n$ be a basis of $V$, let $w_1,\dots, w_m$ be a basis of $W$, let $r = \dim\Range T$, and let $s = \dim\Null T$.  Then there are $s$ basis vectors of $V$ which map to zero and $r$ basis vectors of $V$ with nontrivial representation as linear combinations of $w_1,\dots, w_m$.  That is, suppose $Tv_k\neq 0$, where $k\in\{1,\dots, n\}$. Then there exist $a_1,\dots, a_m\in\F$, not all zero, such that
+\begin{equation*}
+Tv_k = a_1w_1 + \dots + a_mw_m.
+\end{equation*}
+The coefficients form column $k$ of $\mat(T)$, and there are $r$ such vectors in the basis of $V$.  Hence there are $r$ columns of $\mat(T)$ with at least one nonzero entry, as was to be shown. 
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $V$ and $W$ are finite-dimensional and $T\in\Hom(V,W)$.  Prove that there exist a basis of $V$ and a basis of $W$ such that with respect to these bases, all entries of $\mat(T)$ are $0$ except the entries in row $j$, column $j$, equal $1$ for $1\leq j\leq \dim\Range T$.  
+\end{problem}
+\begin{proof}
+Let $R$ be the subspace of $V$ such that 
+\begin{equation*}
+V = R\oplus \Null T,
+\end{equation*}
+let $r_1,\dots, r_m$ be a basis of $R$ (where $m =\dim\Range T$), and let $v_1,\dots, v_n$ be a basis of $\Null T$ (where $n = \dim\Null T$).  Then $r_1,\dots, r_m, v_1,\dots,v_n$ is a basis of $V$.  It follows that $Tr_1,\dots, Tr_m$ is a basis of $\Range T$, and hence there is an extension of this list to a basis of $W$.  Suppose $Tr_1,\dots, Tr_m, w_1,\dots, w_p$ is such an extension (where $p = \dim W - m$).  Then, for $j = 1,\dots m$, we have
+\begin{equation*}
+Tr_j = \left(\sum_{i = 1}^m\delta_{i,j}\cdot Tr_t\right) + \left(\sum_{k = 1}^p 0\cdot w_k\right),
+\end{equation*}
+where $\delta_{i,j}$ is the Kronecker delta function.  Thus, column $j$ of $\mat(T)$ is has an entry of $1$ in row $j$ and $0$'s elsewhere, where $j$ ranges over $1$ to $m = \dim\Range T$.  Since $Tv_1 = \dots = Tv_n = 0$, the remaining columns of $\mat(T)$ are all zero.  Thus $\mat(T)$ has the desired form.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $w_1,\dots, w_n$ is a basis of $W$ and $V$ is finite-dimensional.  Suppose $T\in\Hom(V,W)$.  Prove that there exists a basis $v_1,\dots, v_m$ of $V$ such that all the entries in the first row of $\mat(T)$ (with respect to the bases $v_1,\dots,v_m$ and $w_1,\dots,w_n$) are $0$ except for possibly a $1$ in the first row, first column.
+\end{problem}
+\begin{proof}
+First note that if $\Range T\subseteq \Span(w_2,\dots,w_n)$, the first row of $\mat(T)$ will be all zeros regardless of choice of basis for $V$.  
+\par So suppose $\Range T\not\subseteq \Span(w_2,\dots, w_n)$ and let $u_1\in V$ be such that $Tu_1\not\in\Span(w_2,\dots, w_n)$.  There exist $a_1,\dots, a_n\in\F$ such that 
+\begin{equation*}
+Tu_1=a_1w_1+\dots + a_nw_n,
+\end{equation*}
+and notice $a_1\neq 0$ since $Tu_1\not\in\Span(w_2,\dots,w_n)$.  Hence we may define
+\begin{equation*}
+z_1 \defeq \frac{1}{a_1}u_1.
+\end{equation*} 
+It follows
+\begin{equation}\label{eq:1}
+Tz_1 = w_1 + \frac{a_2}{a_1}w_2 + \dots + \frac{a_n}{a_1}w_n.
+\end{equation}
+Now extend $z_1$ to a basis $z_1,\dots, z_m$ of $V$.  Then for $k=2,\dots, m$, there exist $A_{1,k},\dots, A_{n,k}\in\F$ such that 
+\begin{equation*}
+Tz_k = A_{1,k}w_1 + \dots + A_{n,k}w_n,
+\end{equation*}
+and notice
+\begin{align}
+T(z_k - A_{1,k}z_1) &= Tz_k - A_{1,k}Tz_1 \nonumber \\
+			       &= \left(A_{1,k}w_1 + \dots + A_{n,k}w_n\right) - A_{1,k}\left( w_1 + \frac{a_2}{a_1}w_2 + \dots + \frac{a_n}{a_1}w_n\right) \nonumber\\
+			       &= \left(A_{2,k} - A_{1,k}\right)\frac{a_2}{a_1}w_2 + \dots + \left(A_{n,k} - A_{1,k}\right)\frac{a_n}{a_1}w_n.  \label{eq:2}
+\end{align}
+Now we define a new list in $V$ by
+\begin{align*}
+v_k \defeq \begin{cases}z_1 &\text{ if }k = 1\\ z_k - A_{1,k}z_1 &\text{ otherwise}\end{cases}
+\end{align*}
+for $k = 1,\dots, m$.  We claim $v_1,\dots,v_m$ is a basis.  To see this, it suffices to prove the list is linearly independent, since its length equals $\dim V$.  So suppose $b_1,\dots, b_m\in\F$ are such that
+\begin{equation*}
+b_1v_1 + \dots + b_mv_m = 0.
+\end{equation*}
+By definition of the $v_k$, it follows
+\begin{equation*}
+b_1z_1 +  b_2(z_2 - A_{1,k}z_1) + \dots + b_m(z_m - A_{1,k}z_1 ) = 0.
+\end{equation*}
+But since $z_1,\dots, z_m$ is a basis of $V$, the expression on the LHS above is simply a linear combination of vectors in a basis.  Thus we must have $b_1=\dots=b_m=0$, and indeed $v_1,\dots, v_m$ are linearly independent, as claimed.
+\par Finally, notice \eqref{eq:1} tells us the first column of $\mat(T, v_k, w_k)$ is all $0$'s except a $1$ in the first entry, and \eqref{eq:2} tells us the remaining columns have a $0$ in the first entry.  Thus $\mat(T, v_k, w_k)$ has the desired form, completing the proof.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $S,T\in\Hom(V,W)$.  Prove that $\mat(S+T) = \mat(S) + \mat(T)$.  
+\end{problem}
+\begin{proof}
+Let $v_1,\dots, v_m$ be a basis of $V$ and let $w_1,\dots, w_n$ be a basis of $W$.  Also, let $A = \mat(S)$ and $B =\mat(T)$ be the matrices of these linear transformations with respect to these bases.  It follows
+\begin{align*}
+(S + T)v_k &= Sv_k + Tv_k\\
+&= \left(A_{1, k}w_1 + \dots + A_{n,k}w_n\right) + \left(B_{1, k}w_1 + \dots + B_{n,k}w_n\right) \\
+&= (A_{1, k} + B_{1,k})w_1 + \dots + (A_{n,k} + B_{n,k})w_n.
+\end{align*}
+Hence $\mat(S + T)_{j,k}=A_{j,k} + B_{j,k}$, and indeed we have $\mat(S+T) = \mat(S) + \mat(T)$, as desired.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $A$ is an $m$-by-$n$ matrix and $c = \begin{pmatrix}c_1\\ \vdots \\ c_n\end{pmatrix}$ is an $n$-by-$1$ matrix.  Prove that
+\begin{equation*}
+Ac = c_1A_{\cdot, 1} + \dots + c_nA_{\cdot, n}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+By definition, it follows
+\begin{align*}
+Ac &= \begin{pmatrix}
+		&A_{1,1} &A_{1,2}    &\dots    &A_{1, n} \\ 
+		&A_{2,1} &A_{2,2}    &\dots    &A_{2, n} \\
+		&\vdots   &\vdots      & \ddots &\vdots \\ 
+		&A_{m,1} &A_{m, 2} &\dots    &A_{m,n}\end{pmatrix}
+		\begin{pmatrix}c_1\\ c_2\\ \vdots \\ c_n\end{pmatrix}\\
+   &= \begin{pmatrix} A_{1,1}c_1 + A_{1,2}c_2 + \dots + A_{1, n}c_n \\ 
+   				A_{2,1}c_1 + A_{2,2}c_2 + \dots + A_{2, n}c_n \\
+				  \vdots \\ 
+				A_{m,1}c_1 + A_{m,2}c_2 + \dots + A_{m, n}c_n \end{pmatrix}\\
+   &= c_1\begin{pmatrix} A_{1,1}\\ A_{2,1}\\ \vdots \\ A_{m,1}\end{pmatrix} + c_2\begin{pmatrix} A_{1,2}\\ A_{2,2}\\ \vdots \\ A_{m,2}\end{pmatrix} + \dots + c_n\begin{pmatrix} A_{1,n}\\ A_{2,n}\\ \vdots \\ A_{m,n}\end{pmatrix}\\
+   &= c_1A_{\cdot, 1} + \dots + c_nA_{\cdot, n},
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $a = (a_1, \dots, a_n)$ is a $1$-by-$n$ matrix and $C$ is an $n$-by-$p$ matrix.  Prove that
+\begin{equation*}
+aC = a_1C_{1,\cdot} + \dots + a_nC_{n,\cdot}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+By definition, it follows
+\begin{align*}
+aC &= (a_1, \dots, a_n)\begin{pmatrix}
+		&C_{1,1} &C_{1,2}    &\dots    &C_{1, p} \\ 
+		&C_{2,1} &C_{2,2}    &\dots    &C_{2, p} \\
+		&\vdots   &\vdots      & \ddots &\vdots \\ 
+		&C_{n,1} &C_{n, 2} &\dots    &C_{n,p}\end{pmatrix}\\
+&= \left(\sum_{k = 1}^n a_k C_{k, 1}, \sum_{k = 1}^n a_k C_{k, 2}, \dots, \sum_{k = 1}^n a_k C_{k, p}  \right)\\
+&= \sum_{k = 1}^n\left(a_kC_{k,1}, \dots, a_kC_{k, p}\right)\\
+&= \sum_{k = 1}^na_k\left(C_{k,1}, \dots, C_{k, p}\right)\\
+&= \sum_{k = 1}^na_kC_{k, \cdot},
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Prove that the distributive property holds for matrix addition and matrix multiplication.  In other words, suppose $A,B,C,D,E,$ and $F$ are matrices whose sizes are such that $A(B+C)$ and $(D+E)F$ make sense.  Prove that $AB+AC$ and $DF + EF$ both make sense and that $A(B+ C) = AB + AC$ and $(D + E)F = DF + EF$.  
+\end{problem}
+\begin{proof}
+First note that if $A(B+C)$ makes sense, then the number of columns of $A$ must equal the number of rows of $B+C$.  But the sum of two matrices is only defined if their dimensions are equal, and hence the number of rows of both $B$ and $C$ must equal the number of columns of $A$.  Thus $AB + AC$ makes sense.  So suppose $A\in\F^{m,n}$ and $B,C\in\F^{n,p}$.  It follows
+\begin{align*}
+\left(A(B+C)\right)_{j,k} &= \sum_{r = 1}^n A_{j, r}(B + C)_{r,k}\\
+&= \sum_{r = 1}^n A_{j, r}(B_{r,k} + C_{r,k})\\
+&= \sum_{r = 1}^n\left(A_{j,r}B_{r,k} + A_{j,r}C_{r,k}\right)\\
+&=  \sum_{r = 1}^nA_{j,r}B_{r,k} +  \sum_{r = 1}^nA_{j,r}C_{r,k} \\
+&= (AB)_{j,k} + (AC)_{j,k},
+\end{align*}
+proving the first distributive property.
+\par Now note that if $(D + E)F$ makes sense, then the number of columns of $D + E$ must equal the number of rows of $F$.  Hence the number of columns of both $D$ and $E$ must equal the number of rows of $F$, and thus $DF+ EF$ makes sense as well.  So suppose $D,E \in\F^{m,n}$ and $F\in\F^{n,p}$.  It follows
+\begin{align*}
+\left((D+E)F\right)_{j,k} &= \sum_{r = 1}^n (D+E)_{j,r} F_{r, k}\\
+&= \sum_{r = 1}^n (D_{j,r} + E_{j,r})F_{r,k}\\
+&= \sum_{r = 1}^n D_{j,r}F_{r,k} + E_{j,r}F_{r,k}\\
+&= \sum_{r=1}^n D_{j,r}F_{r,k} + \sum_{r = 1}^nE_{j,r}F_{r,k}\\
+&= (DF)_{j,k} + (EF)_{j,k},
+\end{align*}
+proving the second distributive property.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Suppose $A$ is an $n$-by-$n$ matrix and $1\leq j,k\leq n$.  show that the entry in row $j$, column $k$, of $A^3$ (which is defined to mean $AAA$) is
+\begin{equation*}
+\sum_{p=1}^n\sum_{r = 1}^nA_{j,p}A_{p,r}A_{r,k}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+For $1\leq p,k\leq n$, we have
+\begin{align*}
+(A^2)_{p,k} = \sum_{r=1}^nA_{p,r}A_{r,k}.
+\end{align*}
+Thus, for $1\leq j,k\leq n$, it follows
+\begin{align*}
+(A^3)_{j,k} &= \sum_{p = 1}^n A_{j,p}(A^2)_{p,k}\\
+&= \sum_{p = 1}^nA_{j,p}\sum_{r = 1}^n A_{p, r}A_{r, k}\\
+&= \sum_{p = 1}^n\sum_{r = 1}^nA_{j,p}A_{p,r}A_{r, k},
+\end{align*}
+as desired.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION D            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invertibility and Isomorphic Vector Spaces}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $T\in\Hom(U,V)$ and $S\in\Hom(V,W)$ are both invertible linear maps.  Prove that $ST\in\Hom(U,W)$ is invertible and that $(ST)^{-1}=T^{-1}S^{-1}$.  
+\end{problem}
+\begin{proof}
+For all $u \in U$, we have
+\begin{align*}
+(T^{-1}S^{-1}ST)(u) &= T^{-1}(S^{-1}(S(T(u))))\\
+&= T^{-1}(I(T(u))\\
+&= T^{-1}(T(u))\\
+&= v
+\end{align*}
+and hence $T^{-1}S^{-1}$ is a left inverse of $ST$.  Similarly, for all $w \in W$, we have
+\begin{align*}
+(STT^{-1}S^{-1})(w) &= S(T(T^{-1}(S^{-1}(w))))\\
+&= S(I(S^{-1}(w)))\\
+&= S(S^{-1}(w))\\
+&= w
+\end{align*}
+and hence $T^{-1}S^{-1}$ is a right inverse of $ST$.  Therefore, $ST$ is invertible, as desired.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $V$ is finite-dimensional, $U$ is a subspace of $V$, and $S\in\Hom(U,V)$.  Prove there exists an invertible operator $T\in\Hom(V)$ such that $Tu=Su$ for every $u\in U$ if and only if $S$ is injective.
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$ Suppose $S$ is injective, and let $W$ be the subspace of $V$ such that $V = U\oplus W$.  Let $u_1,\dots, u_m$ be a basis of $U$ and let $w_1,\dots, w_n$ be a basis of $W$, so that $u_1,\dots, u_m,w_1,\dots,w_n$ is a basis of $V$.  Define $T\in\Hom(V)$ by its behavior on this basis of $V$
+\begin{align*}
+Tu_k &\defeq Su_k\\
+Tw_j &\defeq w_j
+\end{align*}
+for $k = 1,\dots, m$ and $j = 1,\dots, n$.  Since $S$ is injective, so too is $T$.  And since $V$ is finite-dimensional, this implies that $T$ is invertible, as desired.
+\par $(\Rightarrow)$  Suppose there exists an invertible operator $T\in\Hom(V)$ such that $Tu=Su$ for every $u\in U$.  Since $T$ is invertible, it is also injective.  And since $T$ is injective, so to is $S = T\mid_U$, completing the proof.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $V$ is finite-dimensional and $T_1,T_2\in\Hom(V,W)$.  Prove that $\Range T_1 = \Range T_2$ if and only if there exists an invertible operator $S\in\Hom(V)$ such that $T_1=T_2S$.  
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $\Range T_1=\Range T_2 \defeq R$, so that $\Null T_1 = \Null T_2\defeq N$ as well.  Let $Q$ be the unique subspace of $V$ such that
+\begin{equation*}
+V = N \oplus Q,
+\end{equation*}
+and let $u_1,\dots,u_m$ be a basis of $N$ and $v_1,\dots,v_n$ be a basis of $Q$.  We claim there exists a unique $q_k\in Q$ such that $T_2q_k = T_1v_k$ for $k = 1,\dots, n$.  To see this, suppose $q_k,q'_k\in Q$ are such that $T_2q_k = T_2q'_k = T_1v_k$.  Then $T_2(q_k - q'_k) = 0$, and hence $q_k - q'_k \in N$.  But since $N\cap Q = \{0\}$, this implies $q_k - q'_k = 0$ and thus $q_k = q'_k$.  And so the choice of $q_k$ is indeed unique.  We now define $S\in\Hom(V)$ by its behavior on the basis
+\begin{align*}
+Su_k &= u_k \text{ for } k = 1,\dots,m\\
+Sv_j &= q_j \text{ for }j = 1,\dots,n.
+\end{align*}
+Let $v\in V$, so that there exist $a_1,\dots, a_m,b_1,\dots,b_n\in\F$ such that 
+\begin{equation*}
+v = a_1u_1 + \dots + a_mu_m + b_1v_1 + \dots + b_nv_n.
+\end{equation*}
+It follows
+\begin{align*}
+(T_2S)(v) &= T_2(S(a_1u_1 + \dots + a_mu_m + b_1v_1 + \dots + b_nv_n))\\
+&= T_2(a_1Su_1 + \dots + a_mSu_m + b_1Sv_1 + \dots + b_nSv_n)\\
+&= T_2(a_1u_1 + \dots + a_mu_m + b_1q_1 + \dots + b_nq_n)\\
+&= a_1T_2u_1 + \dots + a_mT_2u_m + b_1T_2q_1 + \dots + b_nT_2q_n\\
+&= b_1T_1v_1 + \dots + b_nT_1v_n.
+\end{align*}
+Similarly, we have
+\begin{align*}
+T_1v &= T_1(a_1u_1 + \dots + a_mu_m + b_1v_1 + \dots + b_nv_n)\\
+&= a_1T_1u_1 + \dots + a_mT_1u_m + b_1T_1v_1 + \dots + b_nT_1v_n\\
+&= b_1T_1v_1 + \dots + b_nT_1v_n,
+\end{align*}
+and so indeed $T_1 = T_2S$.  To see that $S$ is invertible, it suffices to prove it is injective.  So let $v\in V$ be as before, and suppose $Sv = 0$.  It follows
+\begin{align*}
+Sv &= S(a_1u_1 + \dots + a_mu_m + b_1v_1 + \dots + b_nv_n)\\
+&= (a_1u_1 + \dots + a_mu_m) + (b_1Sv_1 + \dots + b_nSv_n)\\
+&= 0.
+\end{align*}
+By the proof of Theorem 3.22, $Sv_1,\dots, Sv_n$ is a basis of $R$, and thus the list $u_1,\dots, u_m, Sv_1,\dots, Sv_n$ is a basis of $V$, and each of the $a$'s and $b$'s must be zero.  Therefore $S$ is indeed injective, completing the proof in this direction.
+\par $(\Leftarrow)$ Suppose there exists an invertible operator $S\in\Hom(V)$ such that $T_1 = T_2S$.  If $w\in\Range T_1$, then there exists $v\in V$ such that $T_1v = w$, and hence $(T_2S)(v) = T_2(S(v)) = w$, so that $w\in\Range T_2$ and we have $\Range T_1\subseteq \Range T_2$.  Conversely, suppose $w'\in\Range T_2$, so that there exists $v'\in V$ such that $T_2v' = w'$.  Then, since $T_2 = T_1S^{-1}$, we have $(T_1S^{-1})(v') = T_1(S^{-1}(v')) = w'$, so that $w'\in\Range T_1$.  Thus $\Range T_2\subseteq\Range T_1$, and we have shown $\Range T_1 = \Range T_2$, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $V$ and $W$ are finite-dimensional.  Let $v\in V$.  Let 
+\begin{equation*}
+E = \{T\in \Hom(V,W)\mid Tv = 0\}.
+\end{equation*}
+\begin{enumerate}[(a)]
+\item Show that $E$ is a subspace of $\Hom(V,W)$.
+\item Suppose $v\neq 0$.  What is $\dim E$?
+\end{enumerate}
+\end{problem}
+\begin{proof}[Proof of $(a)$]
+First note that the zero map is clearly an element of $E$, and hence $E$ contains the additive identity of $\Hom(V,W)$.  Now suppose $T_1,T_2\in E$.  Then 
+\begin{align*}
+(T_1 + T_2)(v) = T_1v + T_2v = 0
+\end{align*}
+and hence $T_1 + T_2\in E$, so that $E$ is closed under addition.  Finally, suppose $T\in E$ and $\lambda\in\F$.  Then
+\begin{equation*}
+(\lambda T)(v) = \lambda Tv = \lambda 0 = 0,
+\end{equation*}
+and so $E$ is closed under scalar multiplication as well.  Thus $E$ is indeed a subspace of $\Hom(V,W)$.  
+\end{proof}
+\begin{proof}[Proof of $(b)$]
+Suppose $v\neq 0$, and let $\dim V = m$ and $\dim W = n$.   Extend $v$ to a basis $v, v_2, \dots, v_m$ of $V$, and endow $W$ with any basis.  Let $\mathcal{E}$ denote the subspace of $\F^{m,n}$ of matrices whose first column is all zero.  
+\par We claim $T\in E$ if and only if $\mat(T)\in \mathcal{E}$, so that $\mat: E\to \mathcal{E}$ is an isomorphism.  Clearly if $T\in E$ (so that $Tv = 0$), then $\mat(T)_{\cdot, 1}$ is all zero, and hence $T\in\mathcal{E}$.  Conversely, suppose $\mat(T)\in \mathcal{E}$.  It follows
+\begin{align*}
+\mat(Tv) &= \mat(T)\mat(v)\\ 
+&= \begin{pmatrix}
+0 &A_{1, 2} &\dots &A_{1,n}\\ 
+0 &A_{2,2} &\dots &A_{2,n}\\
+\vdots &\vdots &\vdots &\vdots\\
+0 &A_{m,2} &\dots &A_{m,n}
+\end{pmatrix}
+\begin{pmatrix}1\\ 0\\ \vdots\\ 0\end{pmatrix}\\
+&= \begin{pmatrix}0\\ 0\\ \vdots\\ 0\end{pmatrix},
+\end{align*}
+and thus we must have $Tv = 0$ so that $T\in E$, proving our claim.  So indeed $E\cong \mathcal{E}$.  
+\par Now note that $\mathcal{E}$ has as a basis the set of all matrices with a single $1$ in a column besides the first, and zeros everywhere else.  There are $mn - n$ such matrices, and hence $\dim \mathcal{E} = mn - n$.  Thus we have $\dim E = mn - n$ as well, as desired.  
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $V$ is finite-dimensional and $S,T\in\Hom(V)$.  Prove that $ST$ is invertible if and only if both $S$ and $T$ are invertible.  
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$  Suppose $S$ and $T$ are both invertible.  Then by Problem 1, $ST$ is invertible.
+\par $(\Rightarrow)$  Suppose $ST$ is invertible.  We will show $T$ is injective and $S$ is surjective.  Since $V$ is finite-dimensional, this implies that both $S$ and $T$ are invertible.  So suppose $v_1,v_2\in V$ are such that $Tv_1 = Tv_2$.  Then $(ST)(v_1) = (ST)(v_2)$, and since $ST$ is invertible (and hence injective), we must have $v_1 = v_2$, so that $T$ is injective.  Next, suppose $v\in V$.  Since $T^{-1}$ is surjective, there exists $w\in V$ such that $T^{-1}w = v$.  And since $ST$ is surjective, there exists $p\in V$ such that $(ST)(p) = w$.  It follows that $(STT^{-1})(p) = T^{-1}(w)$, and hence $Sp = v$.  Thus $S$ is surjective, completing the proof.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $V$ is finite-dimensional and $S,T,U\in\Hom(V)$ and $STU = I$.  Show that $T$ is invertible and that $T^{-1}=US$.
+\end{problem}
+\begin{proof}
+Notice $STU$ is invertible since $STU=I$ and $I$ is invertible.  By Problem 9, we have that $(ST)U$ is invertible if and only if $ST$ and $U$ are invertible.  By a second application of the result, $ST$ is invertible if and only if $S$ and $T$ are invertible.  Thus $S,T,$ and $U$ are all invertible.  To see that $T^{-1}=US$, notice
+\begin{align*}
+US &= (T^{-1}T)US\\
+&= T^{-1}(S^{-1}S)TUS\\
+&= T^{-1}S^{-1}(STU)S\\
+&= T^{-1}S^{-1}S\\
+&= T^{-1},
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $V$ is a finite-dimensional vector space and $R,S,T\in\Hom(V)$ are such that $RST$ is surjective.  Prove that $S$ is injective.
+\end{problem}
+\begin{proof}
+Since $V$ is finite-dimensional and $RST$ is surjective, $RST$ is also invertible.  By Problem 9, we have that $(RS)T$ is invertible if and only if $RS$ and $T$ are invertible.  By a second application of the result, $RS$ is invertible if and only if $R$ and $S$ are invertible.  Thus $R,S,$ and $T$ are all invertible, and hence injective.  In particular, $S$ is injective, as desired.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Prove that every linear map from $\F^{n,1}$ to $\F^{m,1}$ is given by a matrix multiplication.  In other words, prove that if $T\in\Hom(\F^{n,1}, \F^{m,1})$, then there exists an $m$-by-$n$ matrix $A$ such that $Tx=Ax$ for every $x\in\F^{n,1}$.
+\end{problem}
+\begin{proof}
+Endow both $\F^{n,1}$ and $\F^{m,1}$ with the standard basis, and let $T\in\Hom(\F^{n,1}, \F^{m,1})$.  Let $A=\mat(T)$ with respect to these bases, and note that if $x\in\F^{n,1}$, then $\mat(x) = x$ (and similarly if $y\in\F^{m,1}$, then $\mat(y) = y$).  Hence
+\begin{align*}
+Tx &= \mat(Tx)\\
+&= \mat(T)\mat(x)\\
+&= Ax,
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Suppose $V$ is finite-dimensional and $\mathcal{E}$ is a subspace of $\Hom(V)$ such that $ST\in\mathcal{E}$ and $TS \in\mathcal{E}$ for all $S\in\Hom(V)$ and all $T\in\mathcal{E}$.  Prove that $\mathcal{E}=\{0\}$ or $\mathcal{E}=\Hom(V)$.  
+\end{problem}
+\begin{proof}
+If $\mathcal{E}=\{0\}$, we're done.  So suppose $\mathcal{E}\neq \{0\}$.  If $\dim V= n$, then $\Hom(V)\cong \F^{n,n}$, and so there exists an isomorphic subspace $\mathfrak{E}\defeq\mat(\mathcal{E})\subseteq\F^{n,n}$ with the property that $AB\in \mathfrak{E}$ and $BA\in \mathfrak{E}$ for all $A\in \F^{n,n}$ and all $B\in \mathfrak{E}$.  It suffices to show $\mathfrak{E} = \F^{n,n}$.  
+\par  Define $E^{i,j}$ to be the matrix which is $1$ in row $i$ and column $j$ and $0$ everywhere else, and let $A\in\F^{n,n}$ be nonzero.  Then there exists some $1\leq j,k\leq n$ such that $A_{j,k}\neq 0$.  Notice for $1\leq i,j,r,s\leq n$, we have $E^{i,j}A\in \mathfrak{E}$, and hence $E^{i,j}AE^{r,s}\in\mathfrak{E}$. This product has the form
+\begin{align*}
+E^{i,j}AE^{k,\ell} &= A_{j,k}\cdot E^{i,\ell}.
+\end{align*}
+In other words, $E^{i,j}AE^{k,\ell}$ takes $A_{j,k}$ and puts it in the $i^{\text{th}}$ row and $\ell^{\text{th}}$ column of a matrix which is $0$ everywhere else.  Since $\mathfrak{E}$ is closed under addition, this implies
+\begin{align*}
+E^{1,j}AE^{k,1} + E^{2,j}AE^{k,2} + \dots +  E^{n,j}AE^{k,n} = A_{j,k}\cdot I\in \mathfrak{E}. 
+\end{align*}
+But since $\mathfrak{E}$ is closed under scalar multiplication, and $A_{j,k}\neq 0$, we have
+\begin{equation*}
+\left(\frac{1}{A_{j,k}}\cdot A_{j,k}\right) \cdot I = I \in \mathfrak{E}.
+\end{equation*}
+Since $\mathfrak{E}$ contains $I$, by our characterization of $\mathfrak{E}$ it must also contain every element of $\F^{n,n}$.  Thus $\mathfrak{E}=\F^{n,n}$, and since $\mathfrak{E}\cong \mathcal{E}$, we must have $\mathcal{E} = \Hom(V)$, as desired.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $T\in\Hom(\poly(\R))$ is such that $T$ is injective and $\deg Tp\leq \deg p$ for every nonzero polynomial $p\in\poly(\R)$.
+\begin{enumerate}[(a)]
+\item Prove that $T$ is surjective.
+\item Prove that $\deg Tp = \deg p$ for every nonzero $p\in\poly(\R)$.  
+\end{enumerate}
+\end{problem}
+\begin{proof}[Proof of $(a)$]
+Let $q\in\poly(\R)$, and suppose $\deg q = n$.  Let $T_n = T\mid_{\poly_n(\R)}$, so that $T_n$ is the restriction of $T$ to a linear operator on $\poly_n(\R)$.  Since $T$ is injective, so is $T_n$.  And since $T_n$ is an injective linear operator over a finite-dimensional vector space, $T_n$ is surjective as well.  Thus there exists $r\in\poly_n(\R)$ such that $T_nr = q$, and so we have $Tr = q$ as well.  Therefore $T$ is surjective.
+\end{proof}
+\begin{proof}[Proof of $(b)$]
+We induct on the degree of the restriction maps $T_n\in\Hom(\poly_n(\R))$, each of which is bijective by $(a)$.  Let $P(k)$ be the statement: $\deg T_k p = k$ for every nonzero $p\in\poly_k(\R)$.\\
+\textbf{Base case:} Suppose $p\in\poly_0(\R)$ is nonzero.  Since $T_0$ is a bijective , $T_0p = 0$ iff $p = 0$ (the zero polynomial), which is the only polynomial with degree $< 0$.  Since $p$ is nonzero by hypothesis, we must have $\deg T_0p = 0$.  Hence $P(0)$ is true.\\
+\textbf{Inductive step:} Let $n\in\Z^+$, and suppose $P(k)$ is true for all $0\leq k < n$.  Let $p\in\poly_{n}(\R)$ be nonzero.  If $\deg T_{n}p < n$, then for some $k < n$ there exists $q\in\poly_k(R)$ and $T_k\in\poly(\R)$ such that $T_kq = p$ (since $T_k$ is surjective).  Hence $Tq = Tp$, a contradiction since $\deg p\neq \deg q$ and $T$ is injective.  Thus we must have $\deg T_{n}p = n$, and $P(n)$ is true.
+\par By the principle of mathematical induction, $P(k)$ is true for all $k\in\Z_{\geq 0}$.  Hence $\deg Tp = \deg p$ for all nonzero $p\in\poly(\R)$, since $Tp = T_k p$ for $k = \deg p$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION E            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Products and Quotients of Vector Spaces}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $T$ is a function from $V$ to $W$.  The \textbf{graph} of $T$ is the subset of $V\times W$ defined by
+\begin{equation*}
+\text{graph of }T=\{(v,Tv)\in V\times W\mid v\in V\}. 
+\end{equation*}
+Prove that $T$ is a linear map if and only if the graph of $T$ is a subspace of $V\times W$.  
+\end{problem}
+\begin{proof}
+Define $G \defeq \{(v, Tv)\in V\times W \mid v\in V\}$.
+\par $(\Rightarrow)$ Suppose $T$ is a linear map.  Since $T$ is linear, $T0 =0$, and hence $(0, 0)\in G$, so that $G$ contains the additive identity.  Next, let $(v_1, Tv_1),(v_2,Tv_2)\in G$.  Then
+\begin{equation*}
+(v_1, Tv_1) + (v_2,Tv_2) = (v_1 + v_2, Tv_1 + Tv_2) = (v_1 + v_2, T(v_1 + v_2))\in G,
+\end{equation*} 
+and $G$ is closed under addition.  Lastly, let $\lambda\in\F$ and $(v, Tv)\in G$.  It follows
+\begin{equation*}
+\lambda(v, Tv) = (\lambda v, \lambda Tv) = (\lambda v, T(\lambda v))\in G,
+\end{equation*}
+and $G$ is closed under scalar multiplication.  Thus $G$ is a subspace of $V\times W$.  
+\par $(\Leftarrow)$ Suppose $G$ is a subspace of $V\times W$, and let $(v_1, Tv_1),(v_2, Tv_2)\in G$.  Since $G$ is closed under addition, it follows
+\begin{equation*}
+(v_1 + v_2, Tv_1 + Tv_2)\in G,
+\end{equation*}
+and hence we must have $Tv_1 + Tv_2 = T(v_1 + v_2)$, so that $T$ is additive.  And since $G$ is closed under scalar multiplication, for $\lambda\in \F$ and $(v, Tv)\in G$, it follows
+\begin{equation*}
+(\lambda v, \lambda Tv)\in G,
+\end{equation*}
+and hence we must have $\lambda Tv = T(\lambda v)$, so that $T$ is homogeneous.  Therefore, $T$ is a linear map, as desired.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Give an example of a vector space $V$ and subspaces $U_1,U_2$ of $V$ such that $U_1\times U_2$ is isomorphic to $U_1 + U_2$ but $U_1 + U_2$ is not a direct sum.
+\end{problem}
+\begin{proof}
+Define the following two subspaces of $\poly(\R)$
+\begin{align*}
+U_1 &\defeq \poly(\R)\\
+U_2 &\defeq \R,
+\end{align*}
+so that $U_1\cap U_2 = \R$ and the sum $U_1 + U_2 = \poly(\R)$ is not direct.  Endow $\poly(\R)$ and $\R$ with their standard bases, and define $\varphi$ by its behavior on the basis of $U_1\times U_2$
+\begin{align*}
+\varphi:U_1\times U_2 &\to U_1 + U_2\\
+            \left(X^k, 0\right) &\mapsto X^{k + 1}\\
+            (0, 1) &\mapsto 1.
+\end{align*}
+We claim $\varphi$ is an isomorphism.  To see that $\varphi$ is injective, suppose 
+\begin{equation*}
+\left(a_0 + a_1X + \dots + a_mX^m, \alpha\right), \left(b_0 + b_1X + \dots + b_nX^n, \beta\right)\in U_1\times U_2
+\end{equation*}
+and 
+\begin{equation*}
+\left(a_0 + a_1X + \dots + a_mX^m, \alpha\right) \neq \left(b_0 + b_1X + \dots + b_nX^n, \beta\right).
+\end{equation*}
+We have
+\begin{equation}\label{eq3}
+\varphi\left(a_0 + a_1X + \dots + a_mX^m, \alpha\right) = \alpha + a_0X + a_1X^2 + \dots + a_mX^{m + 1}
+\end{equation}
+and 
+\begin{equation}\label{eq4}
+\varphi\left(b_0 + b_1X + \dots + b_nX^n, \beta\right) = \beta + b_0X + b_1X^2 + \dots + b_nX^{n + 1}.
+\end{equation}
+Since $\alpha\neq \beta$, this implies \eqref{eq3} does not equal \eqref{eq4} and hence $\varphi$ is injective.  To see that $\varphi$ is surjective, suppose $c_0 + c_1X + \dots + c_pX^p\in U_1 + U_2$.  Then 
+\begin{equation*}
+\varphi\left(c_1 + c_2X + \dots + c_pX^{p - 1}, c_0\right) = c_0 + c_1X + \dots + c_pX^p
+\end{equation*}
+and $\varphi$ is indeed surjective.  
+\par Since $\varphi$ an injective and surjective linear map, it is an isomorphism.  Thus $U_1\times U_2\cong U_1 + U_2$, as was to be shown.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $W_1,\dots, W_m$ are vector spaces.  Prove that $\Hom(V, W_1\times \dots \times W_m)$ and $\Hom(V, W_1)\times \dots \times \Hom(V, W_m)$ are isomorphic vector spaces.
+\end{problem}
+\begin{proof}
+Define the projection map $\pi_k$ for $k=1,\dots,m$ by
+\begin{align*}
+\pi_k: W_1\times \dots \times W_m &\to W_k \\
+          (w_1,\dots, w_m) &\mapsto w_k.
+\end{align*}
+Clearly $\pi_k$ is linear.  Now define
+\begin{align*}
+\varphi: \Hom(V, W_1\times \dots \times W_m) &\to \Hom(V, W_1)\times \dots \times \Hom(V, W_m)\\
+             T &\mapsto (\pi_1T, \dots, \pi_mT).
+\end{align*}
+To see that $\varphi$ is linear, let $T_1, T_2\in \Hom(V, W_1\times \dots \times W_m)$.  It follows
+\begin{align*}
+\varphi(T_1 + T_2) &= (\pi_1(T_1 + T_2), \dots, \pi_m(T_1 + T_2))\\
+&= (\pi_1T_1 + \pi_1T_2, \dots, \pi_mT_1 + \pi_mT_2)\\
+&= (\pi_1T_1, \dots, \pi_mT_1) + (\pi_1T_2, \dots, \pi_mT_2)\\
+&= \varphi(T_1) + \varphi(T_2),
+\end{align*}
+and hence $\varphi$ is additive.  Now for $\lambda\in\F$ and $T\in \Hom(V, W_1\times \dots \times W_m)$, we have
+\begin{align*}
+\varphi(\lambda T) &= (\pi_1(\lambda T), \dots, \pi_m(\lambda T))\\
+&=  (\lambda(\pi_1 T), \dots, \lambda(\pi_m T))\\
+&= \lambda(\pi_1T, \dots, \pi_mT),
+\end{align*}
+and thus $\varphi$ is homogenous.  Therefore, $\varphi$ is linear.
+\par We now show $\varphi$ is an isomorphism.  To see that it is injective, suppose $T\in\Hom(V, W_1\times \dots \times W_m)$ and $\varphi(T) = 0$.
+Then
+\begin{equation*}
+(\pi_1T, \dots, \pi_mT) = (0,\dots, 0)
+\end{equation*}
+which is true iff $T$ is the zero map.  Thus $\varphi$ is injective.  To see that $\varphi$ is surjective, suppose $(S_1,\dots, S_m)\in\Hom(V,W_1)\times \dots\times \Hom(V,W_m)$.  Define
+\begin{align*}
+S: V &\to W_1\times \dots \times W_m\\
+    v &\mapsto (S_1v,\dots, S_mv),
+\end{align*}
+so that $\varphi_k S = S_k$ for $k = 1,\dots, m$.  Then
+\begin{align*}
+\varphi(S) &= (\pi_1S, \dots, \pi_mS)\\
+&= (S_1,\dots, S_n)
+\end{align*}
+and $S$ is indeed surjective.  Therefore, $\varphi$ is an isomorphism, and we have 
+\begin{equation*}
+\Hom(V, W_1\times \dots \times W_m)\cong\Hom(V, W_1)\times \dots \times \Hom(V, W_m), 
+\end{equation*}
+as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $v,x$ are vectors in $V$ and $U,W$ are subspaces of $V$ such that $v + U = x + W$.  Prove that $U = W$.
+\end{problem}
+\begin{proof}
+First note that since $v + 0 = v\in v + U$, there exists $w_0\in W$ such that $v = x + w_0$, and hence $v - x = w_0\in W$.  Similarly, there exists $u_0\in U$ such that $x - v = u_0 \in U$.
+\par Suppose $u\in U$.  Then there exists $w\in W$ such that $v + u = x + w$, and hence
+\begin{align*}
+u = (x - v) + w = -w_0 + w \in W,
+\end{align*}
+and we have $U \subseteq W$.  Conversely, suppose $w' \in W$.  Then there exists $u'\in U$ such that $x + w' = v + u'$, and hence
+\begin{align*}
+w' = (v - x) + u' = -u_0 + u'\in U,
+\end{align*}
+and we have $W\subseteq U$.  Therefore $U = W$, as desired.
+\end{proof}
+
+% Problem 8
+\begin{problem}{8}
+Prove that a nonempty subset $A$ of $V$ is an affine subset of $V$ if and only if $\lambda v + (1 - \lambda)w\in A$ for all $v,w\in A$ and all $\lambda \in \F$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $A\subseteq V$ is an affine subset of $V$.  Then there exists $x\in V$ and a subspace $U\subseteq V$ such that $A = x + U$.  Suppose $v,w \in A$.  Then there exist $u_1,u_2\in U$ such that $v = x + u_1$ and $w = x + u_2$.  Thus, for all $\lambda \in \F$, we have
+\begin{align*}
+\lambda v + (1 - \lambda) w &= \lambda( x+  u_1) + (1 - \lambda)(x + u_2)\\
+&= x + \lambda u_1 + (1 - \lambda)u_2.
+\end{align*}
+Since $\lambda u_1 + (1 - \lambda)u_2 \in U$, this implies $ v + (1 - \lambda) w\in x + U = A$, as desired.
+\par $(\Leftarrow)$ Suppose $\lambda v + (1 - \lambda)w\in A$ for all $v,w\in A$ and all $\lambda \in \F$.  Choose $a \in A$ and define
+\begin{equation*}
+U \defeq -a + A.
+\end{equation*}
+We claim $U$ is a subspace of $V$.  Clearly $0\in U$ since $a\in A$.  Let $x \in U$, so that $x = -a + a_0$ for some $a_0\in A$, and let $\lambda\in \F$.  It follows
+\begin{align*}
+\lambda a_0 + (1 - \lambda)a \in A \Rightarrow -\lambda a +\lambda a_0 + a \in A \Rightarrow \lambda(-a + a_0)\in -a + A = U,
+\end{align*}
+and thus $\lambda x = \lambda(-a + a_0)\in U$, and $U$ is closed under scalar multiplication.  Now let $x, y\in U$.  Then there exist $a_1,a_2\in A$ such that $x = -a + a_1$ and $y = -a + a_2$. Notice 
+\begin{align*}
+\frac{1}{2}a_1 + \left(1 - \frac{1}{2}\right)a_2 = \frac{1}{2}a_1 + \frac{1}{2}a_2 \in A,
+\end{align*}
+and hence 
+\begin{equation*}
+-a + \frac{1}{2}a_1 + \frac{1}{2}a_2 \in U.
+\end{equation*}
+It follows
+\begin{align*}
+x + y &= -2a + a_1 + a_2\\
+&= 2\left(-a + \frac{1}{2}a_1 + \frac{1}{2}a_2\right)\in U,
+\end{align*}
+using the fact that $U$ has already been shown to be closed under scalar multiplication.  Thus $U$ is also closed under addition, and so $U$ is a subspace of $V$.  Now, since $A = a + U$, we have that $A$ is indeed an affine subset of $V$, as desired.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $A_1$ and $A_2$ are affine subsets of $V$.  Prove that the intersection $A_1\cap A_2$ is either an affine subset of $V$ or the empty set.
+\end{problem}
+\begin{proof}
+If $A_1\cap A_2 = \emptyset$, we're done, so suppose $A_1\cap A_2$ is nonempty and let $v\in A_1\cap A_2$.  Then we may write 
+\begin{equation*}
+A_1 = v + U_1~~\text{and}~~A_2 = v + U_2
+\end{equation*}
+for some subspaces $U_1,U_2\subseteq V$.  
+\par We claim $A_1\cap A_2 = v + (U_1\cap U_2)$, which is an affine subset of $V$.  To see this, suppose $x \in v + (U_1\cap U_2)$.  Then there exists $u\in U_1\cap U_2$ such that $x = v + u$.  Since $u\in U_1$, we have $x \in v + U_1 = A_1$.  And since $u\in U_2$, we have $x\in v + U_2 = A_2$.  Thus $x\in A_1\cap A_2$ and $ v + (U_1\cap U_2) \subseteq A_1\cap A_2$.  Conversely, suppose $y\in A_1\cap A_2$.  Then there exist $u_1\in U_1$ and $u_2\in U_2$ such that $y = v + u_1$ and $y = v + u_2$.  But this implies $u_1= u_2$, and hence $u_1=u_2\in U_1\cap U_2$, thus $y\in v + (U_1\cap U_2)$.  Therefore $A_1\cap A_2\subseteq v + (U_1\cap U_2)$, and hence we have $A_1\cap A_2 = v + (U_1\cap U_2)$, as claimed.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $v_1,\dots, v_m\in V$.  Let
+\begin{equation*}
+A = \{\lambda_1 v_1 + \dots + \lambda_m v_m\mid \lambda_1,\dots,\lambda_m\in\F\text{ and }\lambda_1 + \dots + \lambda_m = 1\}.
+\end{equation*}
+\begin{enumerate}[(a)]
+\item Prove that $A$ is an affine subset of $V$.
+\item Prove that every affine subset of $V$ that contains $v_1,\dots, v_m$ also contains $A$.
+\item Prove that $A = v + U$ for some $v\in V$ and some subspace $U$ of $V$ with $\dim U\leq m - 1$.
+\end{enumerate}
+\end{problem}
+\begin{proof}[Proof of $(a)$]
+Let $v,w\in A$, so that there exist $\alpha_1,\dots, \alpha_m\in\F$ and $\beta_1,\dots, \beta_m\in\F$ such that
+\begin{align*}
+v &= \alpha_1v_1 + \dots + \alpha_mv_m\\
+w &= \beta_1v_1 + \dots + \beta_mv_m,
+\end{align*}
+where $\sum \alpha_k = 1$ and $\sum\beta_k = 1$.  Given $\lambda\in\F$, it follows
+\begin{align*}
+\lambda v + (1 - \lambda)w &= \lambda\sum_{k = 1}^m \alpha_kv_k + (1 - \lambda)\sum_{k = 1}^m\beta_kv_k\\
+&= \sum_{k = 1}^m\left[\lambda \alpha_k + (1 - \lambda)\beta_k\right]v_k.
+\end{align*}
+But notice
+\begin{align*}
+\sum_{k = 1}^m\left[\lambda \alpha_k + (1 - \lambda)\beta_k\right] &= \lambda + (1 - \lambda) = 1,
+\end{align*}
+and hence $\lambda v + (1 - \lambda)w \in A$ by the way we defined $A$.  By Problem 8, this implies that $A$ is an affine subset of $V$, as was to be shown.
+\end{proof}
+\begin{proof}[Proof of $(b)$]
+We induct on $m$.\\
+\textbf{Base case:} When $m = 1$, the statement is trivially true, since $A = \{v_1\}$, and hence any affine subset of $V$ that contains $v_1$ of course contains $A$.\\
+\textbf{Inductive step:} Let $k\in\Z^+$, and suppose the statement is true for $m = k$.  Suppose $A'$ is an affine subset of $V$ that contains $v_1,\dots, v_{k + 1}$, and let $x\in A$.  Then there exist $\lambda_1,\dots, \lambda_{k + 1}\in\F$ such that $\sum_{j}\lambda_j = 1$ and
+\begin{align*}
+x = \lambda_1v_1 + \dots + \lambda_{k+1}v_{k+1}.
+\end{align*}
+Now, if $\lambda_{k + 1} = 1$, then $x = v_{k + 1}\in A'$.  Otherwise, we have
+\begin{align*}
+\frac{\lambda_1}{1 - \lambda_{k + 1}} + \dots + \frac{\lambda_{k}}{1-\lambda_{k + 1}} = 1,
+\end{align*}
+and hence by our inductive hypothesis, this implies
+\begin{align*}
+\frac{\lambda_1}{1 - \lambda_{k + 1}}v_1 + \dots + \frac{\lambda_{k}}{1-\lambda_{k + 1}}v_k \in A'.
+\end{align*}
+By Problem 8, we know
+\begin{align*}
+(1 - \lambda_{k + 1})\left(\frac{\lambda_1}{1 - \lambda_{k + 1}}v_1 + \dots + \frac{\lambda_{k}}{1-\lambda_{k + 1}}v_k\right) + \lambda_{k + 1}v_{k + 1}\in A'.
+\end{align*}
+But after simplifying, this tells us
+\begin{align*}
+\lambda_1v_1 + \dots + \lambda_{k+1}v_{k+1} = x \in A'.
+\end{align*}
+Hence $A\subseteq A'$, and the statement is true for $m = k + 1$.
+\par By the principal of mathematical induction, the statement is true for all $m\in\Z^+$.  Thus any affine subset of $V$ that contains $v_1,\dots, v_m$ also contains $A$, as was to be shown.
+\end{proof}
+\begin{proof}[Proof of $(c)$]
+Define $U \defeq \Span(v_2 - v_1, \dots, v_m - v_1)$.  Let $x\in A$, so that there exist $\lambda_1,\dots, \lambda_m\in\F$ with $\sum_k\lambda_k = 1$ such that
+\begin{equation*}
+x = \lambda_1v_1 + \dots + \lambda_mv_m.
+\end{equation*}
+Notice
+\begin{align*}
+v_1 + \lambda_2(v_2 - v_1) + \dots + \lambda_m(v_m - v_1) &= \left(1 - \sum_{k = 2}^m\lambda_k\right)v_1 + \lambda_2v_2 + \dots + \lambda_mv_m\\
+&= \lambda_1v_1 + \dots +\lambda_mv_m\\
+&= x,
+\end{align*}
+and hence $x\in v_1 + U$, so that $A\subseteq v_1 + U$.  Next suppose $y\in v_1 + U$, so that there exist $\alpha_1,\dots,\alpha_{m - 1}\in\F$ such that
+\begin{equation*}
+y = v_1 + \alpha_1(v_2 - v_1) + \dots + \alpha_{m - 1}(v_m - v_1).
+\end{equation*}
+Expanding the RHS yields
+\begin{align*}
+y = \left(1 - \sum_{k = 1}^{m-1}\alpha_k\right)v_1 + \alpha_1v_2 + \dots + \alpha_{m-1}v_m.
+\end{align*}
+But since 
+\begin{equation*}
+\left(1 - \sum_{k = 1}^{m-1}\alpha_k\right)+ \sum_{k=1}^{m-1}\alpha_k = 1,
+\end{equation*}
+this implies $y \in A$, and hence $v_1 + U\subseteq A$.  Therefore $A = v_1 + U$, and since $\dim U \leq m - 1$, we have the desired result.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $U$ is a subspace of $V$ and $v_1+U,\dots,v_m+U$ is a basis of $V/U$ and $u_1,\dots,u_n$ is a basis of $U$.  Prove that $v_1,\dots,v_m,u_1,\dots,u_n$ is a basis of $V$.
+\end{problem}
+\begin{proof}
+Since 
+\begin{align*}
+\dim V &= \dim V/U + \dim U\\
+&= m + n,
+\end{align*}
+it suffices to show $v_1,\dots, v_m,u_1,\dots,u_n$ spans $V$.  Suppose $v\in V$.  Then there exist $\alpha_1,\dots,\alpha_m\in\F$ such that
+\begin{equation*}
+v + U = \alpha_1(v_1 + U) + \dots + \alpha_m(v_m + U).
+\end{equation*}
+But then
+\begin{equation*}
+v + U = \left(\alpha_1v_1 + \dots + \alpha_mv_m\right) + U
+\end{equation*}
+and hence 
+\begin{equation*}
+v - \left(\alpha_1v_1 + \dots + \alpha_mv_m\right) \in U.
+\end{equation*}
+Thus there exist $\beta_1,\dots, \beta_n\in U$ such that
+\begin{equation*}
+v - \left(\alpha_1v_1 + \dots + \alpha_mv_m\right) = \beta_1u_1 + \dots + \beta_nu_n,
+\end{equation*}
+and we have
+\begin{equation*}
+v = \alpha_1v_1 + \dots + \alpha_mv_m +  \beta_1u_1 + \dots + \beta_nu_n,
+\end{equation*}
+so that indeed $v_1,\dots,v_m,u_1,\dots,u_n$ spans $V$.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Suppose $\varphi\in\Hom(V,\F)$ and $\varphi\neq 0$.  Prove that $\dim V/(\Null\varphi) = 1$.
+\end{problem}
+\begin{proof}
+Since $\varphi\neq 0$, we must have $\dim\Range\varphi = 1$, so that $\Range\varphi = \F$.  Since $V/(\Null\varphi)\cong \Range\varphi$, this implies $V/(\Null\varphi)\cong\F$, and hence $\dim V/(\Null\varphi) = 1$, as desired.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Suppose $U$ is a subspace of $V$ such that $V/U$ is finite-dimensional.  Prove that there exists a subspace $W$ of $V$ such that $\dim W = \dim V/U$ and $V = U\oplus W$.  
+\end{problem}
+\begin{proof}
+Suppose $\dim V/U = n$, and let $v_1 + U,\dots, v_n + U$ be a basis of $V/U$.  Define  $W \defeq \Span(v_1,\dots, v_n)$.  We claim $v_1,\dots, v_n$ must be linearly independent, so that $v_1,\dots, v_n$ is a basis of $W$.  To see this, suppose $\alpha_1,\dots,\alpha_n\in\F$ are such that
+\begin{equation*}
+\alpha_1v_1 + \dots + \alpha_nv_n = 0.
+\end{equation*}
+Then
+\begin{equation*}
+(\alpha_1v_1 + \dots + \alpha_nv_n) + U = \alpha_1(v_1 + U) + \dots + \alpha_n(v_n + U),
+\end{equation*}
+and hence we must have $\alpha_1= \dots = \alpha_n=0$.  Thus $v_1,\dots,v_n$ is indeed linearly independent, as claimed. 
+\par We now claim $V = U\oplus W$.  To see that $V = U + W$, suppose $v\in V$.  Then there exist $\beta_1,\dots, \beta_n\in\F$ such that 
+\begin{equation*}
+v + U = \beta_1(v_1 + U) + \dots + \beta_n(v_n + U).
+\end{equation*}
+It follows
+\begin{equation*}
+v - \sum_{k=1}^n\beta_kv_k\in U,
+\end{equation*}
+and hence
+\begin{equation*}
+v = \left(v - \sum_{k=1}^n\beta_kv_k\right) + \left(\sum_{k=1}^n\beta_kv_k\right).
+\end{equation*}
+Since first term in parentheses is in $U$ and the second term in parentheses is in $W$, we have $v \in U + W$, and hence $V \subseteq U + W$.  Clearly $U + W\subseteq V$, since $U$ and $W$ are each subspaces of $V$, and hence $V = U + W$.  To see that the sum is direct, suppose $w\in U \cap W$.  Since $w\in W$, there exist $\lambda_1,\dots,\lambda_n$ such that $w = \lambda_1v_1 + \dots + \lambda_nv_n$, and hence 
+\begin{align*}
+w + U &= (\lambda_1v_1 + \dots + \lambda_nv_n) + U\\
+&= \lambda_1(v_1 + U) + \dots + \lambda_n(v_n + U).
+\end{align*}  
+Since $w\in U$, we have $w + U = 0 + U$.  Thus $\lambda_1 = \dots = \lambda_n = 0$, which implies $w = 0$.  Since $U\cap W = \{0\}$, the sum is indeed direct.  Thus $V = U \oplus W$, with $\dim W = n = \dim V/U$, as desired.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Find a correct statement analogous to $3.78$ that is applicable to finite sets, with unions analogous to sums of subspaces and disjoint unions analogous to direct sums.
+\end{problem}
+\begin{thm-non}
+Suppose $|V|<\infty$ and $U_1,\dots,U_n\subseteq V$.  Then $U_1,\dots,U_n$ are pairwise disjoint if and only if 
+\begin{equation*}
+|U_1 \cup \dots \cup U_n| = |U_1| + \dots + |U_n|.
+\end{equation*}
+\end{thm-non}
+\begin{proof}
+We induct on $n$.\\
+\textbf{Base case:} Let $n = 2$.  Since $|U_1 \cup U_2| = |U_1| + |U_2| - |U_1\cap U_2|$, we have  $U_1\cap U_2=\emptyset$ iff $|U_1\cup U_2| = |U_1| + |U_2|$.\\
+\textbf{Inductive hypothesis:} Let $k\in\Z_{\geq 2}$, and suppose the statement is true for $n = k$.  Let $U_{k+1}\subseteq V$.  Then
+\begin{equation*}
+|U_1\cup\dots\cup U_{k + 1}| = |U_1\cup\dots\cup U_k| + |U_{k+1}|
+\end{equation*}
+iff $U_{k+1}\cap (U_1\cup\dots\cup U_k)=\emptyset$ by our base case.  Combining this with our inductive hypothesis, we have
+\begin{equation*}
+|U_1\cup\dots\cup U_{k + 1}| = |U_1| + \dots + |U_k| + |U_{k+1}|
+\end{equation*}
+iff $U_1,\dots,U_{k+1}$ are pairwise disjoint, and the statement is true for $n = k+1$.
+\par By the principal of mathematical induction, the statement is true for all $n\in\Z_{\geq 2}$.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION F            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Duality}
+
+% Problem 1
+\begin{problem}{1}
+Explain why every linear functional is either surjective or the zero map.
+\end{problem}
+\begin{proof}
+Since $\dim\F=1$, the only subspaces of $\F$ are $\F$ itself and $\{0\}$.  Let $V$ be a vector space (not necessarily finite-dimensional) and suppose $\varphi\in V'$.  Since $\Range\varphi$ is a subspace of $\F$, it must be either $\F$ itself (in which case $\varphi$ is surjective) or $\{0\}$ (in which case $\varphi$ is the zero map).  
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$ such that $U\neq V$.  Prove that there exists $\varphi\in V'$ such that $\varphi(u)=0$ for every $u\in U$ but $\varphi\neq 0$.
+\end{problem}
+\begin{proof}
+Suppose $\dim U = m$ and $\dim V = n$ for some $m,n\in\Z^+$ such that $m < n$.  Let $u_1,\dots,u_m$ be a basis of $U$.  Expand this to a basis $u_1,\dots, u_m,u_{m+1},\dots,u_n$ of $V$, and let $\varphi_1,\dots,\varphi_n$ be the corresponding dual basis of $V'$.  For any $u\in U$, there exist $\alpha_1,\dots,\alpha_m$ such that $u=\alpha_1u_1+\dots+\alpha_mu_m$.  Now notice
+\begin{align*}
+\varphi_{m+1}(u) &= \varphi_{m+1}(\alpha_1u_1+\dots+\alpha_mu_m)\\
+&= \alpha_1\varphi_{m+1}(u_1) + \dots + \alpha_m\varphi_{m+1}(u_m)\\
+&= 0,
+\end{align*}
+but $\varphi_{m+1}(u_{m+1}) = 1$.  Thus $\varphi_{m+1}(u)=0$ for every $u\in U$ but $\varphi_{m+1}\neq 0$, as desired.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $V_1,\dots,V_m$ are vector spaces.  Prove that $(V_1\times\dots\times V_m)'$ and $V_1'\times\dots\times V_m'$ are isomorphic vector spaces.
+\end{problem}
+\begin{proof}
+For $i = 1,\dots, m$, let
+\begin{align*}
+\xi_i:V_i&\to V_1\times\dots \times V_m\\
+v_i &\mapsto (0, \dots, v_i, \dots, 0).
+\end{align*}
+Now define
+\begin{align*}
+T: (V_1\times\dots\times V_m)' &\to V_1'\times\dots\times V_m'\\
+\varphi &\mapsto \left(\varphi\circ\xi_1, \dots, \varphi\circ\xi_m\right).
+\end{align*}
+We claim $T$ is an isomorphism.  We must show three things: $(1)$ that $T$ is a linear map; $(2)$ that $T$ is injective; and $(3)$ that $T$ is surjective.\\
+\indent To see that $T$ is a linear map, first suppose $\varphi_1,\varphi_2\in (V_1\times\dots\times V_m)'$.  It follows
+\begin{align*}
+T(\varphi_1 + \varphi_2) &=  \left((\varphi_1 + \varphi_2)\circ\xi_1, \dots, (\varphi_1+\varphi_2)\circ\xi_m\right)\\
+&= \left(\varphi_1\circ\xi_1 + \varphi_2\circ\xi_1, \dots, \varphi_1\circ\xi_m + \varphi_2\circ\xi_m\right)\\
+&=(\varphi_1\circ\xi_1,\dots,\varphi_1\circ\xi_m) + (\varphi_2\circ\xi_1,\dots,\varphi_2\circ\xi_m)\\
+&=T(\varphi_1) + T(\varphi_2),
+\end{align*}
+thus $T$ is additive.  To see that it is also homogeneous, suppose $\lambda\in\F$ and $\varphi\in(V_1\times\dots\times V_m)'$.  We have
+\begin{align*}
+T(\lambda\varphi) &= \left((\lambda\varphi)\circ\xi_1, \dots, (\lambda\varphi)\circ\xi_m\right)\\
+&= \left(\lambda(\varphi\circ\xi_1), \dots, \lambda(\varphi\circ\xi_m)\right)\\
+&= \lambda\left(\varphi\circ\xi_1, \dots, \varphi\circ\xi_m\right)\\
+&= \lambda T(\varphi),
+\end{align*}
+and thus $T$ is homogeneous as well and therefore it is a linear map.\\
+\indent To see that $T$ is injective, suppose $\varphi,\psi\in (V_1\times\dots\times V_m)'$ but $\varphi \neq \psi$.  Then there exists some $(v_1,\dots,v_m)\in V_1\times\dots\times V_m$ such that $\varphi(v_1,\dots,v_m)\neq \psi(v_1,\dots,v_m)$.  Since $\varphi$ and $\psi$ are linear, this means that there exists some index $k\in\{1,\dots,m\}$ such that $\varphi(0,\dots,v_k,\dots, 0)\neq\psi(0,\dots,v_k,\dots,0)$.  But then $\varphi\circ\xi_k\neq \psi\circ\xi_k$, and hence $T(\varphi)\neq T(\psi)$, so that $T$ is injective.\\
+\indent To see that $T$ is surjective, suppose $(\varphi_1,\dots,\varphi_m)\in V_1'\times\dots\times V_m'$ and define
+\begin{align*}
+\theta: V_1\times\dots\times V_m &\to \F\\
+(v_1,\dots,v_m)&\mapsto \sum_{k=1}^m\varphi_k(v_k).
+\end{align*}
+We claim $T(\theta)=(\varphi_1,\dots,\varphi_m)$.  To see this, let $k\in\{1,\dots,m\}$.  We will show that the map in the $k$-th component of $T(\theta)$ is equal to $\varphi_k$.  Given $v_k\in V_k$, we have
+\begin{align*}
+T(\theta)_k(v_k) &= (\theta\circ\xi_k)(v_k)\\
+&=\theta(\xi_k(v_k))\\
+&=\theta(0,\dots, v_k, \dots, 0)\\
+&= \varphi_1(0) + \dots + \varphi_k(v_k) + \dots + \varphi_m(0)\\
+&=\varphi_k(v_k),
+\end{align*}
+as desired.  Thus $T(\theta) = (\varphi_1,\dots,\varphi_m)$, and $T$ is indeed surjective.  Since $T$ is both injective and surjective, it's an isomorphism.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $m$ is a positive integer.  Show that the dual basis of the basis $1,\dots, x^m$ of $\poly_m(\R)$ is $\varphi_0,\varphi_1,\dots,\varphi_m$, where $\varphi_j(p)=\frac{p^{(j)}(0)}{j!}$.  Here $p^{(j)}$ denotes the $j^{\text{th}}$ derivative of $p$, with the understanding that the $0^\text{th}$ derivative of $p$ is $p$.
+\end{problem}
+\begin{proof}
+For $j=0,\dots,m$, we have by direct computation of the $j$-th derivative
+\begin{align*}
+\varphi_j\left(x^k\right) = \begin{cases}1 &\text{if }j = k\\0 &\text{otherwise,}\end{cases}
+\end{align*}
+so that $\varphi_0,\varphi_1,\dots,\varphi_m$ is indeed the dual basis of $1,\dots, x^m$.  Note the uniqueness of the dual basis follows by uniqueness of a linear map (including the linear functionals in the dual basis) whose values on a basis are specified.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $v_1,\dots, v_n$ is a basis of $V$ and $\varphi_1,\dots,\varphi_n$ is the corresponding dual basis of $V'$.  Suppose $\psi\in V'$.  Prove that 
+\begin{equation*}
+\psi = \psi(v_1)\varphi_1 + \dots + \psi(v_n)\varphi_n.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Let $\alpha_1,\dots,\alpha_n\in\F$ be such that
+\begin{equation*}
+\psi = \alpha_1\varphi_1 + \dots + \alpha_n\varphi_n.
+\end{equation*}
+For $k = 1,\dots, n$, we have
+\begin{align*}
+\psi(v_k) &= \alpha_1\varphi_1(v_k) + \dots + \alpha_k\varphi_k(v_k) + \dots + \alpha_n\varphi_n(v_k)\\
+&= \alpha_1\cdot 0 + \dots + \alpha_k\cdot 1 + \dots + \alpha_n\cdot 0\\
+&= \alpha_k.
+\end{align*}
+Thus we have
+\begin{equation*}
+\psi = \psi(v_1)\varphi_1 + \dots + \psi(v_n)\varphi_n,
+\end{equation*}
+as desired
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $A$ is an $m$-by-$n$ matrix with $A\neq 0$.  Prove that the rank of $A$ is $1$ if and only if there exist $(c_1,\dots,c_m)\in\F^m$ and $(d_1,\dots,d_n)\in\F^n$ such that $A_{j,k}=c_jd_k$ for every $j=1,\dots,m$ and every $k=1,\dots,n$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose the rank of $A$ is $1$.  By the assumption that $A\neq 0$, there exists a nonzero entry $A_{i.,j}$ for some $i\in\{1,\dots,m\}$ and $j\in\{1,\dots,n\}$.  Thus $\Span\{A_{\cdot, 1},\dots, A_{\cdot, n}\}= \Span\{A_{\cdot, j}\}$, and hence there exist $\alpha_1,\dots, \alpha_n\in\F$ such that $A_{\cdot, c} = \alpha_cA_{\cdot, j}$ for $c = 1,\dots, n$.  Expanding out each out these columns, we have
+\begin{align}\label{cols}
+A_{r,c} = \alpha_c A_{r, j}
+\end{align}
+for $r = 1,\dots,m$.  Similarly for the rows, we have $\Span\{A_{1, \cdot},\dots, A_{m, \cdot}\}= \Span\{A_{i, \cdot}\}$, and hence there exist $\beta_1,\dots, \beta_m\in\F$ such that $A_{r',\cdot} = \beta_r A_{i,\cdot}$ for $r' = 1,\dots,m$.  Expanding out each of these rows, we have
+\begin{align}\label{rows}
+A_{r', c'} &= \beta_{r'} A_{i, c'}
+\end{align}
+for $c' = 1,\dots, n$.  Now by replacing the $A_{r, j}$ term in \eqref{cols} according to \eqref{rows}, we have $A_{r,j} =  \beta_rA_{i,j}$, and hence \eqref{cols} may be rewritten
+\begin{align*}
+A_{r,c} = \alpha_c\beta_r A_{i,j},
+\end{align*}
+and the result follows by defining $c_r = \beta_rA_{i,j}$ and $d_c = \alpha_c$ for $r=  1,\dots, m$ and $c = 1,\dots, n$.\\
+\indent $(\Leftarrow)$ Suppose there exist $(c_1,\dots,c_m)\in\F^m$ and $(d_1,\dots,d_n)\in\F^n$ such that $A_{j,k}=c_jd_k$ for every $j=1,\dots,m$ and every $k=1,\dots,n$.  Then each of the columns is a scalar multiple of $(d_1,\dots,d_n)^t\in\F^{n,1}$ and the column rank is $1$.  Since the rank of a matrix equals its column rank, the rank of $A$ is $1$ as well.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Define $T:\R^3\to\R^2$ by $T(x,y,z) = (4x + 5y + 6z, 7x + 8y + 9z)$.  Suppose $\varphi_1,\varphi_2$ denotes the dual basis of the standard basis of $\R^2$ and $\psi_1,\psi_2,\psi_3$ denotes the dual basis of the standard basis of $\R^3$.  
+\begin{enumerate}[(a)]
+\item Describe the linear functionals $T'(\varphi_1)$ and $T'(\varphi_2)$.
+\item Write $T'(\varphi_1)$ and $T'(\varphi_2)$ as a linear combination of $\psi_1,\psi_2,\psi_3$.  
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Endowing $\R^3$ and $\R^2$ with their respective standard basis, we have
+\begin{align*}
+(T'(\varphi_1))(x, y, z) &= (\varphi_1\circ T)(x, y, z)\\
+&= \varphi_1(T(x, y, z))\\
+&= \varphi_1(4x + 5y + 6z, 7x + 8y + 9z)\\
+&= 4x + 5y + 6z
+\end{align*}
+and similarly
+\begin{align*}
+(T'(\varphi_2))(x, y, z) &= \varphi_2(4x + 5y + 6z, 7x + 8y + 9z)\\
+&= 7x + 8y + 9z.
+\end{align*}
+\item Notice
+\begin{align*}
+(4\psi_1 + 5\psi_2 + 6\psi_3)(x, y, z) &= 4\psi_1(x,y,z) + 5\psi_2(x,y,z) + 6\psi_3(x,y,z) \\
+&= 4x + 5y + 6z\\
+&= T'(\varphi_1)(x, y, z)
+\end{align*}
+and 
+\begin{align*}
+(7\psi_1 + 8\psi_2 + 9\psi_3)(x, y, z) &= 7\psi_1(x,y,z) + 8\psi_2(x,y,z) + 9\psi_3(x,y,z) \\
+&= 7x + 8y + 9z\\
+&= T'(\varphi_2)(x, y, z).
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Suppose $W$ is finite-dimensional and $T\in\Hom(V,W)$.  Prove that $T' = 0$ if and only if $T = 0$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $T' = 0$.  Let $\varphi\in W'$ and $v\in V$ be arbitrary.  We have
+\begin{align*}
+0 = (T'(\varphi))(v) = \varphi(Tv).
+\end{align*}
+Since $\varphi$ is arbitrary, we must have $Tv = 0$.  But now since $v$ is arbitrary, this implies $T = 0$ as well.\\
+\indent $(\Leftarrow)$ Suppose $T = 0$.  Again let $\varphi\in W'$ and $v\in V$ be arbitrary.  We have
+\begin{align*}
+(T'(\varphi))(v) = \varphi(Tv) = \varphi(0) = 0,
+\end{align*}
+and hence $T' = 0$ as well.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Suppose $U\subseteq V$.  Explain why $U^0=\{\varphi\in V'\mid U\subseteq \Null\varphi\}$.  
+\end{problem}
+\begin{proof}
+It suffices to show that, for arbitrary $\varphi\in V'$, we have $U\subseteq \Null\varphi$ if and only if $\varphi(u)=0$ for all $u \in U$.  So suppose $U \subseteq\Null\varphi$.  Then for all $u\in U$, we have $\varphi(u) = 0$ (simply by definition of $\Null\varphi$).  Conversely, suppose $\varphi(u)=0$ for all $u\in U$.  Then if $u'\in U$, we must have $u'\in\Null\varphi$.  That is, $U\subseteq\Null\varphi$, completing the proof.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$.  Show that $U = V$ if and only if $U^0=\{0\}$. 
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $U=V$.  Then 
+\begin{align*}
+U^0 &= \{\varphi \in V'\mid U\subseteq \Null\varphi\}\\
+&=  \{\varphi \in V'\mid V\subseteq \Null\varphi\}\\
+&= \{0\},
+\end{align*}
+since only the zero functional can have all of $V$ in its null space.\\
+\indent $(\Leftarrow)$ Suppose $U^0 = \{0\}$.  It follows
+\begin{align*}
+\dim V &= \dim U + \dim U^0\\
+           &= \dim U + 0\\
+           &= \dim U.
+\end{align*}
+Since the only subspace of $V$ with dimension $\dim V$ is $V$ itself, we have $U = V$, as desired.
+\end{proof}
+
+% Problem 20
+\begin{problem}{20}
+Suppose $U$ and $W$ are subsets of $V$ with $U\subseteq W$.  Prove that $W^0\subseteq U^0$.  
+\end{problem}
+\begin{proof}
+Suppose $\varphi\in W^0$.  Then $\varphi(w) = 0$ for all $w\in W$.  If $\varphi\not\in U^0$, then there exists some $u\in U$ such that $\varphi(u)\neq 0$.  But since $U\subseteq W$, $u \in W$.  This is absurd, hence we must have $\varphi\in U^0$.  Thus $W^0\subseteq U^0$, as desired.  
+\end{proof}
+
+% Problem 21
+\begin{problem}{21}
+Suppose $V$ is finite-dimensional and $U$ and $W$ are subspaces of $V$ with $W^0\subseteq U^0$.  Prove that $U\subseteq W$.  
+\end{problem}
+\begin{proof}
+Suppose not.  Then there exists a nonzero vector $u\in U$ such that $u\not\in W$.  There exists some basis of $U$ containing $u$.  Define $\varphi\in V'$ such that, for any vector $v$ in this basis, we have
+\begin{align*}
+\varphi(v) = \begin{cases}1 &\text{if }v = u\\ 0 &\text{otherwise.}\end{cases}
+\end{align*}
+By construction, $\varphi\in W^0$, and hence $\varphi \in U^0$.  But this implies $\varphi(u) =0$, a contradiction.
+\end{proof}
+
+% Problem 22
+\begin{problem}{22}
+Suppose $U,W$ are subspaces of $V$.  Show that $(U + W)^0=U^0\cap W^0$.  
+\end{problem}
+\begin{proof}
+Since $U\subseteq U+W$ and $W\subseteq U + W$, Problem 20 tells us that $(U + W)^0\subseteq U^0$ and $(U+W)^0\subseteq W^0$.  Thus  $(U+W)^0\subseteq U^0\cap W^0$.  Conversely, suppose $\varphi\in U^0\cap W^0$.  Let $x \in U + W$.  Then there exist $u\in U$ and $w\in W$ such that $x = U + W$.  Then 
+\begin{align*}
+\varphi(x) &= \varphi(u + w)\\
+&= \varphi(u) + \varphi(w)\\
+&= 0,
+\end{align*}  
+where the second equality follows since $\varphi\in U^0$ and $\varphi\in W^0$ by assumption.  Hence $\varphi \in (U+W)^0$ and we have $U^0 + W^0 \subseteq (U+W)^0$.  Thus $(U + W)^0=U^0\cap W^0$, as desired.
+\end{proof}
+
+% Problem 23
+\begin{problem}{23}
+Suppose $V$ is finite-dimensional and $U$ and $W$ are subspaces of $V$.  Prove that $(U\cap W)^0 = U^0 + W^0$.  
+\end{problem}
+\begin{proof}
+Since $U\cap W\subseteq U$ and $U\cap W \subseteq W$, Problem 20 tells us that $U^0\subseteq (U\cap W)^0$ and $W^0\subseteq (U\cap W)^0$.  Thus $U^0 + W^0\subseteq (U\cap W)^0$.  Now, notice (using Problem 22 to deduce the second equality)
+\begin{align*}
+\dim(U^0 + W^0) &= \dim(U^0) + \dim(W^0) - \dim(U^0\cap W^0)\\
+&= \dim(U^0) + \dim(W^0) - \dim((U+W)^0)\\
+&= (\dim V - \dim U) + (\dim V - \dim W) - [\dim V - \dim(U + W)]\\
+&= \dim V - \dim U - \dim W + \dim(U + W)\\
+&= \dim V - [\dim U + \dim W - \dim(U+W)]\\
+&= \dim V - \dim (U\cap W)\\
+&= \dim((U\cap W)^0).
+\end{align*}
+Hence we must have $U^0 + W^0 = (U\cap W)^0$, as desired.
+\end{proof}
+
+% Problem 25
+\begin{problem}{25}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$.  Show that
+\begin{equation*}
+U = \{v\in V\mid \varphi(v) = 0\text{ for every }\varphi\in U^0\}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Let $A = \{v\in V\mid \varphi(v) = 0\text{ for every }\varphi\in U^0\}$.  Suppose $u\in U$.  Then $\varphi(u) = 0$ for all $\varphi\in U^0$, and hence $u\in A$, showing $U \subseteq A$.\\
+\indent Conversely, suppose $v \in A$ but $v \not\in U$.  Since $0\in U$, we must have $v \neq 0$. Thus there exists a basis $u_1,\dots,u_m, v, v_1,\dots, v_n$ of $V$ such that $u_1,\dots, u_m$ is a basis of $U$.  Let $\psi_1,\dots,\psi_m, \varphi, \varphi_1,\dots, \varphi_n$ be the dual basis of $V'$, and consider for a moment the functional $\varphi$.  Clearly we have both $\varphi\in U^0$ and $\varphi(v) = 1$ by construction, but this is a contradiction, since we assumed $v\in A$.  Thus $A\subseteq U$, and we conclude $U = A$, as was to be shown. 
+\end{proof}
+
+% Problem 27
+\begin{problem}{27}
+Suppose $T\in\Hom(\poly_5(\R), \poly_5(\R))$ and $\Null T'=\Span(\varphi)$, where $\varphi$ is the linear functional on $\poly_5(\R)$ defined by $\varphi(p) = p(8)$.  Prove that $\Range T=\{p\in\poly_5(\R)\mid p(8) = 0\}$.  
+\end{problem}
+\begin{proof}
+By Theorem 3.107, we know $\Null T'=(\Range T)^0$, and hence $(\Range T)^0 = \{\alpha \varphi\mid \alpha\in\R\}$.  It follows by Problem 25
+\begin{align*}
+\Range T &= \{p\in \poly_5(\R)\mid \psi(p) =0\text{ for all }\psi\in (\Range T)^0\}\\
+&= \{p\in \poly_5(\R)\mid (\alpha\varphi)(p) = 0 \text{ for all }\alpha\in\R\}\\
+&= \{p\in \poly_5(\R)\mid \varphi(p) = 0 \}\\
+&= \{p\in \poly_5(\R)\mid p(8) =0\},
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 29
+\begin{problem}{29}
+Suppose $V$ and $W$ are finite-dimensional, $T\in\Hom(V,W)$, and there exists $\varphi\in V'$ such that $\Range T' = \Span(\varphi)$.  Prove that $\Null T = \Null \varphi$.  
+\end{problem}
+\begin{proof}
+By Theorem 3.107, we know $\Range T'=(\Null T)^0$, and hence $(\Null T)^0 = \{\alpha \varphi\mid \alpha\in\R\}$.  It follows by Problem 25
+\begin{align*}
+\Null T &= \{v\in V\mid \psi(v) = 0\text{ for all }\psi\in(\Null T)^0\}\\
+&= \{v\in V\mid \alpha\varphi(v) = 0 \text{ for all }\alpha\in \F\}\\
+&= \{v \in V\mid \varphi(v) =0\}\\
+&= \Null\varphi,
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 31
+\begin{problem}{31}
+Suppose $V$ is finite-dimensional and $\varphi_1,\dots, \varphi_n$ is a basis of $V'$.  Show that there exists a basis of $V$ whose dual basis is $\varphi_1,\dots,\varphi_n$.  
+\end{problem}
+\begin{proof}
+To prove this, we will first show $V\cong V''$.  We will then take an existing basis of $V'$, map it to its dual basis in $V''$, and then use the inverse of the isomorphism to take this basis of $V''$ to a basis in $V$.  This basis of $V$ will have the known basis of $V'$ as its dual.\\
+\indent So, for any $v\in V$, define $E_v\in V''$ by $E_v(\varphi) = \varphi(v)$.  We claim the map $\hat{\cdot}: V\to V''$ given by $\hat{v} = E_v$ is an isomorphism.  To do so, it suffices to show it to be both linear and injective, since $\dim(V'') = \dim((V')') = \dim(V') = \dim(V)$.\\
+\indent We first show  $\hat{\cdot}$ is linear.  So suppose $u,v\in V$.  Then for any $\varphi\in V'$, we have
+\begin{align*}
+(\widehat{u + v})(\varphi) &= E_{u+v}(\varphi)\\
+&= \varphi(u + v)\\
+&= \varphi(u) + \varphi(v)\\
+&= E_u(\varphi)  + E_v(\varphi)\\
+&= \hat{u}(\varphi) + \hat{v}(\varphi)
+\end{align*}
+so that $\hat{\cdot}$ is indeed linear.  Next we show it to be homogeneous.  So suppose $\lambda\in\F$, and again let $v\in V$.  Then for any $\varphi\in V'$, we have
+\begin{align*}
+(\widehat{\lambda v})(\varphi) &= E_{\lambda v}(\varphi)\\
+&= \varphi(\lambda v)\\
+&= \lambda\varphi(v)\\
+&= \lambda E_v(\varphi)\\
+&= \lambda \hat{v},
+\end{align*}
+so that $\hat{\cdot}$ is homogenous as well.  Being both linear and homogenous, it is a linear map.\\
+\indent Next we show $\hat{\cdot}$ is injective.  So suppose $\hat{v} = 0$ for some $v\in V$.  We want to show $v = 0$.  Let $v_1,\dots,v_n$ be a basis of $V$.  Then there exist $\alpha_1,\dots,\alpha_n\in\F$ such that $v = \alpha_1v_1+\dots+\alpha_nv_n$.  Then, for all $\varphi\in V'$, we have
+\begin{align*}
+\hat{v} = 0 &\implies (\alpha_1v_1+\dots+\alpha_nv_n)^\wedge = 0\\
+ &\implies \alpha_1\widehat{v_1} + \dots + \alpha_n\widehat{v_n} = 0\\
+ &\implies (\alpha_1\widehat{v_1} + \dots + \alpha_n\widehat{v_n})(\varphi) = 0\\
+ &\implies \alpha_1\widehat{v_1}(\varphi) + \dots + \alpha_n\widehat{v_n}(\varphi) = 0\\
+ &\implies \alpha_1\varphi(v_1) + \dots + \alpha_n\varphi_n(v_n) = 0. 
+\end{align*}
+Since this last equation holds for all $\varphi\in V'$, it holds in particular for each element of the dual basis $\varphi_1,\dots, \varphi_n$.  That is, for $k= 1,\dots,n$, we have
+\begin{align*}
+\alpha_1\varphi_k(v_1) + \dots + \alpha_k\varphi_k(v_k) + \dots + \alpha_n\varphi_k(v_n) = 0 &\implies \alpha_k = 0,
+\end{align*}
+and therefore $v= 0\cdot v_1+\dots + 0\cdot v_n = 0$, as desired.  Thus $\hat{\cdot}$ is indeed an isomorphism.\\
+\indent We now prove the main result.  Suppose $\varphi_1,\dots, \varphi_n$ is a basis of $V'$, and let $\Phi_1,\dots,\Phi_n$ be the dual basis in $V''$.  For each $\Phi_k$, let $v_k$ be the inverse of $\Phi_k$ under the isomorphism $\hat{\cdot}$.  Since the inverse of an isomorphism is an isomorphism, and isomorphisms take bases to bases, $v_1,\dots, v_n$ is a basis of $V$.  Let us now check that its dual basis is $\varphi_1,\dots,\varphi_n$.  For $j,k = 1,\dots, n$, we have
+\begin{align*}
+\varphi_j(v_k) &= \widehat{v_k}(\varphi_j)\\
+&= \Phi_k(\varphi_j)\\
+&=\begin{cases}1 &\text{if }k = j\\ 0&\text{otherwise,}\end{cases}
+\end{align*}
+so indeed there exists a basis of $V$ whose dual basis is $\varphi_1,\dots, \varphi_n$, as was to be shown.
+\end{proof}
+
+% Problem 32
+\begin{problem}{32}
+Suppose $T\in\Hom(V)$ and $u_1,\dots,u_n$ and $v_1,\dots,v_n$ are bases of $V$.  Prove that the following are equivalent:
+\begin{enumerate}[(a)]
+\item $T$ is invertible.
+\item The columns of $\mat(T)$ are linearly independent in $\F^{n,1}$.  
+\item The columns of $\mat(T)$ span $\F^{n,1}$.
+\item The rows of $\mat(T)$ are linearly independent in $\F^{1,n}$.
+\item The rows of $\mat(T)$ span $F^{1,n}$.
+\end{enumerate}
+Here $\mat(T)$ means $\mat(T,(u_1,\dots,u_n),(v_1,\dots,v_n))$.
+\end{problem}
+\begin{proof}
+We prove the following: $(a)\iff (b) \iff (c)\iff (e)\iff (d)$.\\
+\indent $(a)\iff (b)$.  Suppose $T$ is invertible.  That is, for any $w\in V$, there exists a unique $x\in V$ such that $w = Tx$.  It follows
+\begin{align*}
+\mat(w) &= \mat(Tx)\\
+&= \mat(T)\mat(x)\\
+&= \mat(x)_1\mat(T)_{\cdot, 1} + \dots + \mat(x)_n\mat(T)_{\cdot, n}.
+\end{align*}
+That is, every vector in $\F^{1,n}$ can be exhibited as a unique linear combination of the columns of $\mat(T)$.  This is true if and only if the columns of $\mat(T)$ are linearly independent.\\
+\indent $(b)\iff (c)$.  Suppose the columns of $\mat(T)$ are linearly independent in $\F^{n,1}$.  Since they form a linearly independent list of length $\dim(\F^{n,1})$, they are a basis.  But this is true if and only if they span $\F^{n,1}$ as well.\\
+\indent $(c)\iff (e)$.  Suppose the columns of $\mat(T)$ span $\F^{n,1}$, so that the column rank is $n$.  Since the row rank equals the column rank, so too must the rows of $\mat(T)$ span $\F^{1,n}$.\\
+\indent $(e)\iff (d)$.  Suppose the rows of $\mat(T)$ span $\F^{1,n}$.  Since they form a spanning list of length $\dim(\F^{1,n})$, they are a basis. But this is true if and only if they are linearly independent in $\F^{1,n}$ as well.
+\end{proof}
+
+% Problem 33
+\begin{problem}{33}
+Suppose $m$ and $n$ are positive integers.  Prove that the function that takes $A$ to $A^t$ is a linear map from $F^{m,n}$ to $\F^{n,m}$.  Furthermore, prove that this linear map is invertible.
+\end{problem}
+\begin{proof}
+We first show taking the transpose is linear.  So suppose $A,B\in\F^{m,n}$ and let $j = 1,\dots,n$ and $k = 1,\dots,m$.  It follows
+\begin{align*}
+(A+ B)^t_{j,k} &= (A + B)_{k, j}\\
+&= A_{k, j} + B_{k ,j}\\
+&= A^t_{j,k} + B^t_{j,k},
+\end{align*}
+so that taking the transpose is additive.  Next, let $\lambda\in\F$.  It follows
+\begin{align*}
+(\lambda A)^t_{j,k} &= (\lambda A)_{k, j}\\
+&= \lambda A_{k,j}\\
+&= \lambda A_{j,k}^t,
+\end{align*}
+so that taking the transpose is homogenous.  Since it is both additive and homogeneous, it is a linear map.  To see that taking the transpose is invertible, note that $(A^t)^t = A$, so that the inverse of the transpose is the transpose itself.
+\end{proof}
+
+% Problem 34
+\begin{problem}{34}
+The \textbf{\textit{double dual space}} of $V$, denoted $V''$, is defined to be the dual space of $V'$.  In other words, $V'' = (V')'$.  Define $\Lambda:V\to V''$ by
+\begin{align*}
+(\Lambda v)(\varphi)=\varphi(v)
+\end{align*}
+for $v\in V$ and $\varphi\in V'$.  
+\begin{enumerate}[(a)]
+\item Show that $\Lambda$ is a linear map from $V$ to $V''$.
+\item Show that if $T\in\Hom(V)$, then $T''\circ\Lambda = \Lambda\circ T$, where $T'' = (T')'$.
+\item Show that if $V$ is finite-dimensional, then $\Lambda$ is an isomorphism from $V$ onto $V''$.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+We proved $(a)$ and $(c)$ in Problem 31 (where we defined $\hat{\cdot}$ in precisely the same way as $\Lambda$).  So it only remains to prove $(b)$.  So suppose $v\in V$ and $\varphi\in V'$ are arbitrary.  Evaluating $T''\circ\Lambda$, notice
+\begin{align*}
+((T''\circ\Lambda)(v))(\varphi) &= (T''(\Lambda v))(\varphi)\\
+&= (\Lambda v)(T'\varphi)\\
+&= (T'\varphi)(v)\\
+&= \varphi(Tv),
+\end{align*}
+where the second and fourth equalities follow by definition of the dual map, and the third equality follows by definition of $\Lambda$.  And evaluating $\Lambda\circ T$, we have
+\begin{align*}
+((\Lambda\circ T)(v))(\varphi) &= (\Lambda(Tv))(\varphi)\\
+&= \varphi(Tv),
+\end{align*}
+so that the two expressions evaluate to the same thing.  Since the choice of both $v$ and $\varphi$ was arbitrary, we have $T''\circ\Lambda = \Lambda\circ T$, as desired.
+\end{proof}
+
+% Problem 35
+\begin{problem}{35}
+Show that $(\poly(\R))'$ and $\R^\infty$ are isomorphic.
+\end{problem}
+\begin{proof}
+For any sequence $\alpha = (\alpha_0,\alpha_1,\dots)\in\R^\infty$, let $\varphi_\alpha$ be the unique linear functional in $(\poly(\R))'$ such that $\varphi_\alpha(X^k) = \alpha_k$ for all $k\in\Z^+$ (note that since the list $1,X,X^2,\dots$ is a basis of $\poly(\R)$, this description of $\varphi_\alpha$ is sufficient).  We claim
+\begin{align*}
+\Phi: \R^\infty &\to (\poly(\R))'\\
+\alpha &\mapsto \varphi_\alpha
+\end{align*}
+is an isomorphism.  There are three things to show: that $\Phi$ is a linear map, that it's injective, and that it's surjective.\\
+\indent We first show $\Phi$ is linear.  Suppose $\alpha,\beta\in \R^\infty$.  For any $k\in\Z^+$, it follows
+\begin{align*}
+(\Phi(\alpha + \beta))(X^k) &= \varphi_{\alpha+\beta}(X^k)\\
+&= (\alpha + \beta)_k\\
+&= \alpha_k + \beta_k\\
+&= \varphi_\alpha(X^k) + \varphi_\beta(X^k)\\
+&= (\Phi(\alpha))(X^k) + (\Phi(\beta))(X^k),
+\end{align*}
+so that $\Phi$ is additive.  Next suppose $\lambda\in\R$.  Then we have
+\begin{align*}
+\Phi(\lambda\alpha)(X^k) &= \varphi_{\lambda\alpha}(X^k)\\
+&= (\lambda\alpha)_k\\
+&= \lambda\alpha_k\\
+&= \lambda\Phi(\alpha),
+\end{align*}
+so that $\Phi$ is homogenous.  Being both additive and homogeneous, $\Phi$ is indeed linear.\\
+\indent Next, to see that $\Phi$ is injective, suppose $\Phi(\alpha)= 0$ for some $\alpha\in\R^\infty$.  Then $\varphi_\alpha(X^k) = \alpha_k = 0$ for all $k\in\Z^+$, and hence $\alpha = 0$.  Thus $\Phi$ is injective.\\
+\indent Lastly, to see that $\Phi$ is surjective, suppose $\varphi\in (\poly(\R))'$.  Define $\alpha_k=\varphi(X^k)$ for all $k\in\Z^+$ and let $\alpha=(\alpha_0,\alpha_1,\dots)$.  By construction, we have $(\Phi(\alpha))(X^k) = \alpha_k$ for all $k\in\Z^+$, and hence $\Phi(\alpha) = \varphi_\alpha$.  Thus $\Phi$ is surjective.\\
+\indent Since $\Phi$ is linear, injective, and surjective, it's an isomorphism, as desired.
+\end{proof}
+
+\begin{problem}{37}
+Suppose $U$ is a subspace of $V$.  Let $\pi:V\to V/U$ be the usual quotient map.  Thus $\pi'\in\Hom((V/U)', V')$.
+\begin{enumerate}[(a)]
+\item Show that $\pi'$ is injective.
+\item Show that $\Range\pi' = U^0$.
+\item Conclude that $\pi'$ is an isomorphism from $(V/U)'$ onto $U^0$.  
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Let $\varphi\in (V/U)'$, and suppose $\pi'(\varphi) = 0$.  Then $(\varphi\circ\pi)(v) = \varphi(v + U) = 0$ for all $v\in V$.  This is true only if $\varphi = 0$, and hence $\pi'$ is indeed injective.
+\item First, suppose $\varphi\in\Range\pi'$.  Then there exists $\psi\in(V/U)'$ such that $\pi'(\psi)=\varphi$.  So for all $u\in U$, we have
+\begin{align*}
+\varphi(u) &= (\pi'(\psi))(u)\\
+&= \psi(\pi(u))\\
+&=\psi(u + U)\\
+&=\psi(0 + U)\\
+&= 0,
+\end{align*}
+and thus $\varphi\in U^0$, showing $\Range\pi'\subseteq U^0$.  Conversely, suppose $\varphi\in U^0$, so that $\varphi(u) = 0$ for all $u\in U$.  Define $\psi\in (V/U)'$ by $\psi(v + U) = \varphi(v)$ for all $v\in V$.  Then $(\pi'(\psi))(v) = \psi(\pi(v))=\psi(v + U) = \varphi(v)$, and so indeed $\varphi\in\Range \pi'$, showing $U^0\subseteq\Range\pi'$.  Therefore, we have $\Range\pi'= U^0$, as desired.
+\item Notice that $(b)$ may be interpreted as saying $\pi':(V/U)'\to U^0$ is surjective.  Since $\pi'$ was shown to be injective in $(a)$, we conclude $\pi'$ is an isomorphism from $(V/U)'$ onto $U^0$, as desired.
+\end{enumerate}
+\end{proof}
+\end{document}

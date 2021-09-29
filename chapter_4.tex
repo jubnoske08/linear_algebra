@@ -1,0 +1,215 @@
+\documentclass[11pt]{extarticle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{extsizes}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{microtype} 
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[varg]{txfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM ENVIRONMENT         																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand\widebar[1]{\mathop{\overline{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NUMBERING																				           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\thesection{\Alph{section}:}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START              																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-2em}Chapter 4: Polynomials}
+\author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+
+\begin{document}
+\maketitle
+
+
+% Problem 1
+\begin{problem}{1}
+Verify all the assertions in $4.5$ except the last one.
+\end{problem}
+\begin{proof}
+Suppose $w,z \in\C$, and let $a,b,c,d\in\R$ be such that $w = a+bi$ and $z = c + di$.
+\begin{itemize}
+\item Notice $z + \bar{z} = (c + di) + (c - di) = 2c = 2\Re(z)$.
+\item We have $z - \bar{z} = (c + di) - (c - di) = 2di = 2\Im(z)i$.  
+\item Notice $z\bar{z} = (c + di)(c - di) = c^2 + d^2 = \left(\sqrt{c^2 + d^2}\right)^2 = \left |z\right |^2$.
+\item We have $\widebar{w + z} = \widebar{(a + c) + (b + d)i} = (a - bi) + (c - di) = \bar{w} + \bar{z}$.  Also, $\widebar{wz} = \widebar{(ac - bd) + (ad + bc)i} = (ac - bd) - (ad + bc)i$ and $\bar{w}\bar{z} = (a-bi)(c-di) = (ac - bd)-(ad + bc)i$, so that $\widebar{wz} = \bar{w}\bar{z}$.
+\item Notice $\bar{\bar{z}} = \widebar{c - di} = c + di = z$.
+\item We have $\left|\Re(z)\right| = \left|c\right| = \sqrt{c^2}\leq \sqrt{c^2 + d^2} = \left|z\right|$, and similarly $\left|\Im{z}\right| = \left|d\right| = \sqrt{d^2}\leq \sqrt{c^2 + d^2} = \left|z\right|$.
+\item Notice $\left|\bar{z}\right| = \left|c - di\right| = \sqrt{c^2 + (-d)^2} = \sqrt{c^2 + d^2} = \left|z\right|$.
+\item We have 
+\begin{align*}
+\left|wz\right| &= \left|(ac - bd) + (ad + bc)i\right|\\
+&= \sqrt{(ac - bd)^2 + (ad + bc)^2}\\
+&= \sqrt{a^2c^2 + a^2d^2 +b^2c^2 + b^2d^2}\\
+&= \sqrt{(a^2 + b^2)(c^2 + d^2)}\\
+&= \sqrt{a^2 + b^2}\sqrt{c^2 + d^2}\\
+&= \left|w\right|\left| z\right|,
+\end{align*}
+as desired.
+\end{itemize}
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Is the set
+\begin{equation*}
+\{0\} \cup \{p\in\poly(\F)\mid \deg p\text{ is even}\}
+\end{equation*}
+a subspace of $\poly(\F)$?
+\end{problem}
+\begin{proof}
+Let $E = \{0\} \cup \{p\in\poly(\F)\mid \deg p\text{ is even}\}$.  Then $E$ is not a subspace of $\poly(\F)$.  To see this, notice $p(x) = x^2 + x\in E$ and $q(x) = -x^2 + x\in E$, but $p + q = 2x\not\in E$, so that $E$ is not closed under addition.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $m$ is a nonnegative integer, $z_1,\dots, z_{m+1}$ are distinct elements of $\F$, and $w_1,\dots, w_{m+1}\in\F$.  Prove that there exists a unique polynomial $p\in\poly_m(\F)$ such that 
+\begin{equation*}
+p(z_j) = w_j
+\end{equation*}
+for $j = 1,\dots,m+1$.  
+\end{problem}
+\begin{proof}
+Define 
+\begin{align*}
+T:\poly_m(\F)&\to \F^{m + 1}\\
+    p &\mapsto (p(z_1), \dots, p(z_{m+1})).
+\end{align*}
+It suffices to show that $T$ is an isomorphism, since injectivity implies uniqueness of such a $p\in\poly_m(\F)$, and surjectivity implies its existence.  So we first show that $T$ is a linear map.  Suppose $p,q\in\poly_m(\F)$.  Then
+\begin{align*}
+T(p + q) &= ((p + q)(z_1), \dots, (p + q)(z_{m+1})\\
+&= (p(z_1) + q(z_1), \dots, p(z_{m+1}) + q(z_{m+1}))\\
+&= (p(z_1), \dots, p(z_{m+1}) + (q(z_1), \dots, q(z_{m+1})\\
+&= Tp + Tq,
+\end{align*}
+so that $T$ is additive.  Next suppose $\lambda\in\F$.  Then
+\begin{align*}
+T(\lambda p) &= ((\lambda p)(z_1), \dots, (\lambda p)(z_{m+1})\\
+&= (\lambda p(z_1), \dots, \lambda p(z_{m+1})\\
+&= \lambda (p(z_1), \dots, p(z_{m+1})\\
+&= \lambda (Tp),
+\end{align*}
+so that $T$ is also homogenous.  Hence $T$ and hence a linear map.  To see that $T$ is an isomorphism, it's enough to show $T$ is injective.  So suppose $Tp = 0$ for some $p\in\poly_m(\F)$.  Then
+\begin{equation*}
+Tp = (p(z_1), \dots, p(z_{m+1})) = (0, \dots, 0),
+\end{equation*}
+and hence $p$ has $m + 1$ zeros.  Since it has degree at most $m$, $p$ must therefore be the zero polynomial, completing the proof.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Prove that every polynomial of odd degree with real coefficients has a real zero.
+\end{problem}
+\begin{proof}
+Suppose not.  Then there exists some $p\in\poly(\R)$ of odd degree with no real zeros.  By Theorem 4.17, $p$ must be of the form
+\begin{equation*}
+p(x) = c(x^2 + b_1x + c_1)\cdots(x^2 + b_Mx + c_M),
+\end{equation*}
+where $c,b_1,\dots,b_M,c_1,\dots,c_M\in\R$ and $M\in\Z^+$.  But then $p$ has even degree, a contradiction.  Thus every polynomial of odd degree with real coefficients must indeed have a real zero.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $p\in\poly(\C)$.  Define $q:\C\to\C$ by
+\begin{equation*}
+q(z) = p(z)\widebar{p(\overline{z})}.
+\end{equation*}
+Prove that $q$ is a polynomial with real coefficients.
+\end{problem}
+\begin{proof}
+Suppose $p$ has degree $n$.  Then there exist $c,\lambda_1,\dots,\lambda_n\in\C$ such that 
+\begin{equation*}
+p(z) = c(z_1 - \lambda_1)\cdots(z_n-\lambda_n).
+\end{equation*}
+Thus we have
+\begin{align*}
+q(z) &= c(z_1 - \lambda_1)\cdots(z_n-\lambda_n)\widebar{c\left(\overline{z_1} - \lambda_1\right)\cdots\left(\overline{z_n}-\lambda_n\right)}\\
+&= c\overline{c}(z_1 - \lambda_1)\left(z_1 - \overline{\lambda_1}\right)\cdots(z_n-\lambda_n)\left(z_n - \overline{\lambda_n}\right)\\
+&= 2|c|^2\left(z^2 -2\Re(\lambda_1)z + |\lambda_1|^2\right)\cdots\left(z^2 -2\Re(\lambda_n)z + |\lambda_n|^2\right),
+\end{align*}
+so that $q(z)$ is the product of polynomials with real coefficients.  Thus $q$ is itself a polynomial with real coefficients, as was to be shown.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $p\in\poly(\F)$ with $p\neq 0$.  Let $U=\{pq\mid q\in\poly(\F)\}$.
+\begin{enumerate}[(a)]
+\item Show that $\dim\poly(\F)/U = \deg p$
+\item Find a basis of $\poly(\F)/U$.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+Suppose $\dim p=n$ for some $n\in\Z^+$.
+\begin{enumerate}[(a)]
+\item Consider the map
+\begin{align*}
+T:\poly(\F) &\mapsto \poly_{n-1}(\F)\\
+f &\mapsto r(f),
+\end{align*}
+where $r(f)$ is the unique remainder when $f$ is divided by $p$.  We will show that $T$ is linear, $\Null T = U$, and $\Range T = \poly_{n - 1}(\F)$, so that $V/U\cong \poly_{n - 1}$.  Since $\poly_{n-1}(\F)\cong \F^n$ and $\deg\F^n = n = \deg p$, this gives the desired result.
+\indent First we show $T$ is a linear map.  To see this, first suppose $f,g\in\poly(F)$.  Then there exist unique $q_1,q_2\in\poly(F)$ such that $f = q_1p + r(f)$ and $g = q_2p + r(g)$.  But then $f + g = (q_1 + q_2)p + r(f) + r(g)$, and hence $r(f+g) = r(f)+r(g)$.  Thus
+\begin{equation*}
+T(f + g) = r(f) + r(g) = T(f) + T(g),
+\end{equation*}
+and so $T$ is additive.  To see that $T$ is also homogenous, suppose $\lambda\in\F$.  Then $\lambda f = (\lambda q_1)p + \lambda r(f)$, and since both the quotient and remainder are unique, we must have $\lambda r(f) = r(\lambda f)$.  Therefore
+\begin{equation*}
+T(\lambda f) = \lambda r(f) = \lambda Tf,
+\end{equation*}
+and so $T$ is homogeneous.  Thus $T$ is a linear map, as claimed.\\
+\indent Next we show $\Null T= U$.  Suppose $f\in \Null T$.  Then $Tf = 0$, and hence $r(f) = 0$.  That is, there exists $q_1\in \poly(\F)$ such that $f = pq_1$, and thus $f\in U$.  Conversely, if $g\in U$, then there exists $q_2\in\poly(\F)$ such that $g = pq_2$.  But then $r(g)=0$, and hence $Tg =0$ and $g\in\Null T$.\\
+\indent Lastly we show $\Range T = \poly_{n-1}$.  Of course $\Range T\subseteq \poly_{n-1}$.  So suppose $r \in \poly_{n-1}$.  Then $r = 0p + r$ (where $0$ denotes the zero polynomial), and hence $Tr = r$.  Thus $\Range T = U$.
+\item We claim $1+U, x+U,\dots, x^{n-1}+U$ is a basis of $\poly(\F)/U$.  Notice none of these vectors is the zero vector since all elements of $U$ have degree at least $n$.  Clearly the list is linearly independent.  Since it has the right length, it's indeed a basis.  
+\end{enumerate}
+\end{proof}
+\end{document}

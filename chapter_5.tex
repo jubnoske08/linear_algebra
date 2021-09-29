@@ -1,0 +1,608 @@
+\documentclass[11pt]{extarticle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{extsizes}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{microtype} 
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[varg]{txfonts}
+\usepackage{commath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM ENVIRONMENT         																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\restr}[1]{|_{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NUMBERING																				           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\thesection{\Alph{section}:}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START              																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-2em}Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces}
+\author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+
+\begin{document}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION A            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invariant Subspaces}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $T\in\Hom(V)$ and $U$ is a subspace of $V$.
+\begin{enumerate}[(a)]
+\item Prove that if $U\subseteq \Null T$, then $U$ is invariant under $T$.
+\item Prove that if $\Range T\subseteq U$, then $U$ is invariant under $T$.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Suppose $u\in U$.  Since $U\subseteq\Null T$, we must have $Tu = 0$. And since $0\in U$, this implies $Tu\in U$, and so $U$ is indeed invariant under $T$.
+\item Suppose $u\in U$.  Since $Tu\in \Range T$ (by definition of $\Range T$) and $\Range T\subseteq U$, we have $Tu\in U$.  Thus $U$ is invariant under $T$.  
+\end{enumerate}
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $S,T\in\Hom(V)$ are such that $ST = TS$.  Prove that $\Range S$ is invariant under $T$.
+\end{problem}
+\begin{proof}
+Suppose $w\in\Range S$.  Then there exists $v\in V$ such that
+\begin{equation*}
+Sv = w.
+\end{equation*}
+It follows
+\begin{equation*}
+Tw = TSv = STv,
+\end{equation*}
+and thus $w\in \Range S$, so that $\Range S$ is indeed invariant under $T$.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $T\in\Hom(V)$.  Prove that the intersection of every collection of subspaces of $V$ invariant under $T$ is invariant under $T$.
+\end{problem}
+\begin{proof}
+Let $\mathfrak{U}$ be a collection of subspaces of $V$ invariant under $T$, and let 
+\begin{equation*}
+W = \bigcap_{U\in\mathfrak{U}} U.
+\end{equation*}
+By Problem 11 of Section 1.C, $W$ is a subspace of $V$.  Assume $u\in W$.  Then $u \in U$ for every $U\in\mathfrak{U}$.  Since each such $U$ is invariant under $T$, we have $Tu\in U$ for all $U\in\mathfrak{U}$ as well.  This implies $Tu\in W$, and hence $W$ is invariant under $T$ also, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $T\in\Hom(\R^2)$ is defined by $T(x,y)=(-3y,x)$.  Find the eigenvalues of $T$.
+\end{problem}
+\begin{proof}
+Suppose $T(x,y) = \lambda(x,y)$, where $(x, y) \in\R^2$ is nonzero and $\lambda\in\F$.  Then
+\begin{align}
+-3y &= \lambda x \label{eq1}\\
+x &= \lambda y. \label{eq2}
+\end{align}
+Substituting the value for $x$ given by the Equation \ref{eq2} into Equation \ref{eq1} gives
+\begin{equation*}
+-3y = \lambda^2y.
+\end{equation*}
+Now, $y$ cannot be $0$, for otherwise $x=0$ (by Equation \ref{eq2}), contrary to our assumption that $(x,y)$ is nonzero.  Hence $-3 = \lambda ^2$.  Thus, if $\F = \C$, $T$ two eigenvalues: $\lambda = \pm \sqrt{3}i$.  If $\F = \R$, $T$ has no eigenvalues.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Define $T\in\Hom\left(\F^3\right)$ by
+\begin{equation*}
+T(z_1, z_2, z_3) = (2z_2, 0, 5z_3).
+\end{equation*}
+\end{problem}
+\begin{proof}
+Suppose $T(z_1, z_2, z_3) = \lambda(z_1,z_2,z_3)$, where $(z_1,z_2, z_3)\in\F^3$ is nonzero and $\lambda\in\F$.  Then
+\begin{align}
+2z_2 &= \lambda z_1\label{eq3} \\
+0 &= \lambda z_2 \label{eq4} \\
+5z_3 &= \lambda z_3. \label{eq5} 
+\end{align}
+First notice that $\lambda = 0$ satisfies the above equations if either $z_1$ or $z_3$ is nonzero, and thus $0$ is an eigenvalue with corresponding eigenvectors 
+\begin{equation*}
+\{(s, 0, t)\mid s,t\in\F, s\text{ and }t\text{ are not both }0\}.
+\end{equation*}  
+If $\lambda\neq 0$, then we must have $z_2 = 0$ by Equation \ref{eq4}, and hence $z_1 = 0$ by Equation \ref{eq3}.  Since $(z_1,z_2, z_3)\neq (0, 0, 0)$, we conclude $z_3$ must be nonzero.  Thus Equation \ref{eq5} implies $\lambda = 5$ is the only other eigenvalue with corresponding eigenvectors
+\begin{equation*} 
+\{(0, 0, t)\mid t\in\F-\{0\}\},
+\end{equation*}
+and we're done.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Define $T:\poly(\R)\to\poly(\R)$ by $Tp = p'$.  Find all eigenvalues and eigenvectors of $T$.
+\end{problem}
+\begin{proof}
+Let $p\in\poly(\R)$ be nonzero and suppose $Tp = \lambda p$ for some $\lambda\in\R$.  Note that $\deg p$ must be $0$, for otherwise, since $\deg p = \deg(Tp) = \deg p'$, we have a contradiction.  Thus the only eigenvalue of $T$ is $\lambda = 0$, and the corresponding eigenvectors are the constant, nonzero polynomials in $\poly(\R)$.  
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $V$ is finite-dimensional, $T\in\Hom(V)$, and $\lambda\in\F$.  Prove that there exists $\alpha\in\F$ such that $\left|\alpha-\lambda\right| < \frac{1}{1000}$ and $T-\alpha I$ is invertible.
+\end{problem}
+\begin{proof}
+Suppose not.  Then for any $\alpha\in\F$ such that $\left|\alpha-\lambda\right| < \frac{1}{1000}$, $T - \alpha I$ is not invertible.  But then, by Theorem 5.6, $\alpha$ is an eigenvalue of $T$.  This is a contradiction, since there are infinitely many such $\alpha$, but $T$ can have at most $\dim V$ eigenvalues by Theorem 5.13. 
+\end{proof} 
+
+% Problem 15
+\begin{problem}{15}
+Suppose $T\in\Hom(V)$.  Suppose $S\in \Hom(V)$ is invertible.
+\begin{enumerate}[(a)]
+\item Prove that $T$ and $S^{-1}TS$ have the same eigenvalues.
+\item What is the relationship between the eigenvectors of $T$ and the eigenvectors of $S^{-1}TS$?
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Suppose $\lambda\in\F$ is an eigenvalue of $S^{-1}TS$.  Then there exists a nonzero $v\in V$ such that $(S^{-1}TS)v = \lambda v$.  This equation is true if and only if $TSv = \lambda(Sv)$, which is in turn true if and only if $Tw = \lambda w$, where $w = Sv$.  Note that since $S$ is invertible, $w\neq 0$.  Thus $T$ and $S^{-1}TS$ indeed have the same eigenvalues.
+
+\item As shown in the proof of (a), $v\in V$ is an eigenvector of $S^{-1}TS$ if and only if $Sv$ is an eigenvector of $T$.
+\end{enumerate}
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Give an example of an operator $T\in\Hom(\R^4)$ such that $T$ has no (real) eigenvalues.
+\end{problem}
+\begin{proof}
+Consider the following operator
+\begin{align*}
+T:\R^4&\to \R^4\\
+(x_1,x_2,x_3,x_4) &\mapsto (-x_4, x_1, x_2, x_3).
+\end{align*}
+We claim $T$ has no real eigenvalues.  To see this, suppose $T(x_1,x_2,x_3,x_4) = \lambda (x_1, x_2,x_3, x_4)$ for some $\lambda\in\R$ and nonzero $(x_1,x_2,x_3,x_4)\in\R^4$.  It follows 
+\begin{align*}
+ (-x_4, x_1, x_2, x_3) = \lambda (x_1, x_2,x_3, x_4),
+\end{align*}
+and hence 
+\begin{align}
+-x_4 &= \lambda x_1 \label{eq6}\\
+x_1 &= \lambda x_2 \label{eq7}\\
+x_2 &= \lambda x_3 \label{eq8}\\
+x_3 &= \lambda x_4. \label{eq9}
+\end{align}
+This implies $-x_4 = \lambda^4x_4$.  Notice $\lambda$ cannot be $0$, for otherwise $(x_1,x_2,x_3,x_4)$ is the zero vector, a contradiction.  Hence we must have $x_4 = 0$.  But then Equation \ref{eq6} implies $x_1 = 0$, which in turn implies $x_2 = 0$ by Equation \ref{eq7}, and which thus implies $x_3 = 0$ by Equation \ref{eq8}.  But now we have that $(x_1, x_2, x_3, x_4)$ is the zero vector, another contradiction.  So we conclude $T$ indeed has no real eigenvalues, as claimed.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $n$ is a positive integer and $T\in\Hom(\F^n)$ is defined by 
+\begin{equation*}
+T(x_1,\dots, x_n) = (x_1 + \dots + x_n, \dots, x_1 + \dots + x_n);
+\end{equation*}
+in other words, $T$ is the operator whose matrix (with respect to the standard basis) consists of all $1$'s.  Find all eigenvalues and eigenvectors of $T$.  
+\end{problem}
+\begin{proof}
+Suppose $T(x_1,\dots,x_n) = \lambda(x_1,\dots, x_n)$ for some $\lambda\in\F$ and some nonzero $(x_1,\dots, x_n)\in\F^n$.  Then
+\begin{align*}
+(x_1 + \dots + x_n, \dots, x_1 + \dots + x_n) = \lambda(x_1,\dots, x_n).
+\end{align*}
+It follows 
+\begin{align*}
+x_1 + \dots + x_n &= \lambda x_1\\
+&\vdots \\
+x_1 + \dots + x_n &= \lambda x_n.
+\end{align*}
+Thus, our first eigenvalue is $\lambda = 0$ with corresponding eigenvectors 
+\begin{equation*}
+\{(x_1,\dots,x_n)\in\F^n-\{0\}\mid x_1+\dots + x_n = 0\}.  
+\end{equation*}
+Next, if $\lambda\neq 0$, notice the equations above imply $\lambda x_1 = \dots = \lambda x_n$, and thus $x_1 = \dots = x_n$.  Denote the common value of the $x_k$'s by $y$.  Then any of the above equations is now equivalent to $ny = \lambda y$.  Thus our second eigenvalue is $\lambda = n$ with corresponding eigenvectors 
+\begin{equation*}
+\{(x_1,\dots, x_n)\in\F^n-\{0\}\mid x_1=\dots=x_n\},
+\end{equation*}
+and we're done.
+\end{proof}
+
+% Problem 21
+\begin{problem}{21}
+Suppose $T\in\Hom(V)$ is invertible.
+\begin{enumerate}[(a)]
+\item Suppose $\lambda\in\F$ with $\lambda\neq0$.  Prove that $\lambda$ is an eigenvalue of $T$ if and only if $\frac{1}{\lambda}$ is an eigenvalue of $T^{-1}$.
+\item Prove that $T$ and $T^{-1}$ have the same eigenvectors.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item By definition, $\lambda\neq 0$ is an eigenvalue of $T$ if and only if there exists $v\in V-\{0\}$ such that $Tv = \lambda v$.  Since $T$ is invertible, this is true if and only if $v = T^{-1}(\lambda v)$, which is itself true if and only if (after simplification) $\left(\frac{1}{\lambda}\right)v = T^{-1}v$.  Thus $\lambda$ is an eigenvalue of $T$ if and only if $\frac{1}{\lambda}$ is an eigenvalue of $T^{-1}$, as was to be shown.
+\item First notice that $\lambda = 0$ cannot be an eigenvalue of $T$ or $T^{-1}$ since they are both injective.  Now, suppose $v$ is an eigenvector of $T$ corresponding to $\lambda\neq 0$.  By the proof of (a), $v$ is an eigenvector of $T^{-1}$ corresponding to $\frac{1}{\lambda}$.  Thus all eigenvectors of $T$ are eigenvectors of $T^{-1}$.  Now, reversing the roles of $T$ and $T^{-1}$ and applying the same argument yields the reverse inclusion, completing the proof.
+\end{enumerate}
+\end{proof}
+
+% Problem 23
+\begin{problem}{23}
+Suppose $V$ is finite-dimensional and $S,T\in\Hom(V)$.  Prove that $ST$ and $TS$ have the same eigenvalues.
+\end{problem}
+\begin{proof}
+Let $\lambda\in\F$ be an eigenvalue of $ST$ and $v\in V-\{0\}$ be a corresponding eigenvector, so that $STv = \lambda v$.  First, if $Tv\neq 0$, it follows
+\begin{align*}
+TS(Tv) &= T(STv)\\
+            &= T(\lambda v)\\
+            &= \lambda(Tv),
+\end{align*}
+so that $\lambda$ is an eigenvalue of $TS$.  Next, if $Tv = 0$, then we must have $\lambda = 0$ (since $STv = \lambda v$).  Moreover, $T$ is not invertible (since $v\neq 0$).  Thus $TS$ is not invertible (by Problem 9 of Chapter 3.D).  Since $TS$ is not invertible, there exists a nonzero $w\in V$ such that $TSw = 0$, and hence $\lambda= 0$ is an eigenvalue of $TS$ as well.\\
+\indent Since $\lambda$ is an eigenvalue of $TS$ in both cases, we conclude that every eigenvalue of $ST$ is also an eigenvalue of $TS$.  Reversing the roles of $S$ and $T$ and applying the same argument yields the reverse inclusion, completing the proof.
+\end{proof}
+
+% Problem 25
+\begin{problem}{25}
+Suppose $T\in\Hom(V)$ and $u,v$ are eigenvectors of $T$ such that $u+v$ is also an eigenvector of $T$.  Prove that $u$ and $v$ are eigenvectors of $T$ corresponding to the same eigenvalue.
+\end{problem}
+\begin{proof}
+Suppose $\lambda_1$ is the eigenvalue associated to $u$, $\lambda_2$ is the eigenvalue associated to $v$, and $\lambda_3$ is the eigenvalue associated to $u+v$, so that
+\begin{align}
+Tu &= \lambda_1 u \label{eq10}\\
+Tv &= \lambda_2 v \label{eq11}\\
+T(u+v) &= \lambda_3(u+v). \label{eq12}
+\end{align}
+It follows that
+\begin{equation*}
+Tu + Tv = \lambda_1 u + \lambda_2 v,
+\end{equation*}
+and hence, by Equation \ref{eq12}, we have
+\begin{equation*}
+\lambda_3 u + \lambda_3 v = \lambda_1 u + \lambda_2 v.
+\end{equation*}
+Thus 
+\begin{equation*}
+(\lambda_1 - \lambda_3)u + (\lambda_2 - \lambda_3)v = 0.
+\end{equation*}
+Since $u$ and $v$ are both eigenvectors of $T$, they are linearly independent.  Thus $\lambda_1 = \lambda_3$ and $\lambda_2 = \lambda_3$, and hence $\lambda_1 = \lambda_2 = \lambda_3$, showing that $u$ and $v$ indeed correspond to the same eigenvalue.
+\end{proof}
+
+% Problem 26
+\begin{problem}{26}
+Suppose $T\in\Hom(V)$ is such that every nonzero vector in $V$ is an eigenvector of $T$.  Prove that $T$ is a scalar multiple of the identity operator.
+\end{problem}
+\begin{proof}
+By hypothesis, for all $v\in V$ there exists $\lambda_v\in\F$ such that $Tv = \lambda_v v$ (where $\lambda_0$ can be any nonzero element of $\F$, since $T0 = 0$).  We claim $\lambda_v$ is independent of the choice of $v$ for $v\in V-\{0\}$, hence $Tv = \lambda v$ for all $v\in V$ (including $v = 0$) and some $\lambda \in \F$, and thus $T = \lambda I$.\\
+\indent So suppose $w,z\in V-\{0\}$ are arbitrary.  We want to show $\lambda_w = \lambda_z$.  If $w$ and $z$ are linearly dependent, then there exists $\alpha\in\F$ such that $w=\alpha z$.  It follows
+\begin{align*}
+\lambda_w w &= Tw\\
+&= T(\alpha z)\\
+&= \alpha Tz \\
+&= \alpha \lambda_z z\\
+&= \lambda_z (\alpha z)\\
+&= \lambda_z w.
+\end{align*}
+Since $w\neq 0$, this implies $\lambda_w = \lambda_z$.  Next suppose $w$ and $z$ are linearly independent.  Then we have
+\begin{align*}
+\lambda_{w + z} (w + z)&= T(w + z)\\
+&= Tw + Tz\\
+&= \lambda_w w + \lambda_z z,
+\end{align*}
+and hence
+\begin{align*}
+(\lambda_{w + z} - \lambda_w)w + (\lambda_{w + z} - \lambda_z)z = 0.
+\end{align*}
+Since $w$ and $z$ are assumed to be linearly independent, we have $\lambda_{w + z} = \lambda_w$ and $\lambda_{w + z} = \lambda_z$, and hence again we have $\lambda_w = \lambda_z$, completing the proof.
+\end{proof}
+
+% Problem 27
+\begin{problem}{27}
+Suppose $V$ is finite-dimensional and $T\in\Hom(V)$ is such that every subspace of $V$ with dimension $\dim V - 1$ is invariant under $T$.  Prove that $T$ is a scalar multiple of the identity operator.
+\end{problem}
+\begin{proof}
+Suppose not.  Then by the contrapositive of Problem 26, there exists some nonzero $v\in V$ which is not an eigenvector of $T$.  Thus the list $v, Tv$ is linearly independent, and, assuming $\dim V = n$, we may extend it to some basis $v, Tv, u_1, \dots, u_{n-2}$ of $V$.  Let $U = \Span(v, u_1,\dots, u_{n-2})$.  Since $\dim U = \dim V - 1$, $U$ must be invariant under $T$.  But this is a contradiction, since $Tv \not\in U$.  Thus $T$ must be a scalar multiple of the identity operator, as desired.
+\end{proof}
+
+% Problem 29
+\begin{problem}{29}
+Suppose $T\in\Hom(V)$ and $\dim\Range T = k$.  Prove that $T$ has at most $k + 1$ distinct eigenvalues.
+\end{problem}
+\begin{proof}
+Suppose $\lambda_1,\dots, \lambda_m$ are distinct eigenvalues of $T$, and let $v_1,\dots, v_m$ be corresponding eigenvectors.  For $k\in\{1,\dots,m\}$, if $\lambda_k\neq 0$, then 
+\begin{equation*}
+T\left(\frac{1}{\lambda_k} v_k\right) = v_k.
+\end{equation*}
+Since at most one of the $\lambda_1,\dots, \lambda_m$ can be $0$, at least $m-1$ of our eigenvectors are in $\Range T$.  Thus, since lists of distinct eigenvectors are linearly independent by Theorem 5.10, we have
+\begin{equation*}
+m-1\leq \dim\Range T = k,
+\end{equation*}
+which implies $m\leq k+1$, as desired.
+\end{proof}
+
+% Problem 31
+\begin{problem}{31}
+Suppose $V$ is finite-dimensional and $v_1,\dots,v_m$ is a list of vectors in $V$.  Prove that $v_1,\dots,v_m$ is linearly independent if and only if there exists $T\in\Hom(V)$ such that $v_1,\dots,v_m$ are eigenvectors of $T$ corresponding to distinct eigenvalues.
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$ If $T\in \Hom(V)$ is such that $v_1,\dots,v_m$ are eigenvectors of $T$ corresponding to distinct eigenvalues, then $v_1,\dots,v_m$ is linearly independent by Theorem 5.10.\\
+\indent $(\Rightarrow)$ Suppose $v_1,\dots,v_m$ is a linearly independent list of vectors in $V$.  Define $T\in\Hom(V)$ by $Tv_k = kv_k$ for $k = 1,\dots, m$.  The existence (and uniqueness) of $T$ is guaranteed by Theorem 3.5, and clearly $v_1,\dots, v_m$ are eigenvectors of $T$ corresponding to distinct eigenvalues.  
+\end{proof}
+
+% Problem 33
+\begin{problem}{33}
+Suppose $T\in\Hom(V)$.  Prove that $T/(\Range T) = 0$ 
+\end{problem}
+\begin{proof}
+Let $v + \Range T\in V/(\Range T)$.  Then
+\begin{align*}
+(T/(\Range T))(v + \Range T) &= Tv + \Range T\\
+&= 0 + \Range T.
+\end{align*}
+Thus $T/(\Range T)$ is indeed the zero map, as was to be shown.
+\end{proof}
+
+% Problem 35
+\begin{problem}{35}
+Suppose $V$ is finite-dimensional, $T\in\Hom(V)$, and $U$ is invariant under $T$.  Prove that each eigenvalue of $T/U$ is an eigenvalue of $T$.
+\end{problem}
+\begin{proof}
+Suppose $\lambda\in\F$ is an eigenvalue of $T/U$.  Then there exists some nonzero $v + U\in V/U$ such that 
+\begin{equation*}
+(T/U)(v + U) = \lambda(v + U),
+\end{equation*} 
+which implies
+\begin{align*}
+Tv + U &= \lambda v + U,
+\end{align*}
+and hence $Tv - \lambda v \in U$.  If $\lambda$ is an eigenvalue of $T\restr{U}$, we're done.  So suppose not.  Then, since $V$ is finite-dimensional, Theorem 5.6 tells us $T\restr{U}-\lambda I: U\to U$ is invertible.  Hence there exists some $u\in U$ such that $(T\restr{U}-\lambda I)(u) = Tv - \lambda v$, and thus
+\begin{equation*}
+Tu - \lambda u = Tv - \lambda v.
+\end{equation*}
+Simplifying, we have $T(u - v) = \lambda(u - v)$.  Since $v\not\in U$ by assumption, this implies $u - v\neq 0$ and hence $\lambda$ is an eigenvalue of $T$, completing the proof. 
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION B            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Eigenvectors and Upper-Triangular Matrices}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $T\in\Hom(V)$ and there exists a positive integer $n$ such that $T^n=0$.
+\begin{enumerate}[(a)]
+\item Prove that $I-T$ is invertible and that 
+\begin{equation*}
+(I - T)^{-1} = I + T + \dots + T^{n-1}.
+\end{equation*}
+\item Explain how you would guess the formula above.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We will show that $S\defeq I + T + \dots + T^{n-1}$ is both a left and right inverse of $I - T$.  Suppose $v\in V$.  We have
+\begin{align*}
+(I - T)Sv &= (I- T)\left(v + Tv + \dots + T^{n-1}v\right)\\
+&= \left(v + Tv + \dots + T^{n-1}v\right) - T\left(v + Tv + \dots + T^{n-1}v\right)\\
+&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}\right) +  T^nv\\
+&= v 
+\end{align*}
+and
+\begin{align*}
+S(I - T)v &= \left(v + Tv + \dots + T^{n-1}v\right)(I - T)\\
+&= \left(v + Tv + \dots + T^{n-1}v\right) - \left(Tv + T^2v + \dots + T^nv\right)\\
+&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}\right) +  T^nv\\
+&= v.
+\end{align*}
+Thus $I - T$ is indeed invertible, and $S$ is its inverse.
+\item Recall the power series expansion for $(1 - x)^{-1}$ when $\abs{x} < 1$:
+\begin{equation*}
+(1 - x)^{-1}= \sum_{k = 0}^\infty x^k.
+\end{equation*}
+Substituting $T$ for $x$ and supposing $T^k = 0$ for $k\geq n$, we have the formula from (a).
+\end{enumerate}
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $T\in\Hom(V)$ and $T^2 = I$ and $-1$ is not an eigenvalue of $T$.  Prove that $T = I$.  
+\end{problem}
+\begin{proof}
+Since $-1$ is not an eigenvalue of $T$, Theorem 5.6 implies $T + I$ is invertible.  Hence for all $w\in V$, there exists $v\in V$ such that $(T+I)v = w$.  Thus 
+\begin{equation}
+Tv + v = w. \label{eq13}
+\end{equation}
+Since $T^2 = I$, applying $T$ to both sides yields
+\begin{equation}
+v + Tv = Tw. \label{eq14}
+\end{equation}  
+Combining Equations \ref{eq13} and \ref{eq14}, we see $Tw = w$.  Therefore it must be that $T= I$, as was to be shown.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $S,T\in\Hom(V)$ and $S$ is invertible.  Suppose $p\in\poly(\F)$ is a polynomial.  Prove that 
+\begin{equation*}
+p\left(STS^{-1}\right) = Sp(T)S^{-1}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+For $k\in\Z^+$, notice
+\begin{align*}
+(STS^{-1})^k = ST^kS^{-1}.
+\end{align*}
+Since $p\in\poly(\F)$, there exist $n\in\Z^+$ and $\alpha_0,\dots,\alpha_n\in\F$ such that 
+\begin{equation*}
+p(z) = \alpha_0 + \alpha_1z + \dots + \alpha_n z^n. 
+\end{equation*}
+It follows
+\begin{equation*}
+p(T) = \alpha_0 I  + \alpha_1T + \dots + \alpha_nT^n,
+\end{equation*}
+and hence
+\begin{equation*}
+Sp(T) = \alpha_0 S + \alpha_1ST + \dots + \alpha_n ST^n,
+\end{equation*}
+and thus we have
+\begin{equation*}
+Sp(T)S^{-1} = \alpha_0 I + \alpha_1 STS^{-1} + \dots + \alpha_n ST^nS^{-1} = p(STS^{-1}),
+\end{equation*}
+as was to be shown.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $T\in\Hom(V)$.  Prove that $9$ is an eigenvalue of $T^2$ if and only if $3$ or $-3$ is an eigenvalue of $T$.
+\end{problem}
+\begin{proof}
+$(\Leftarrow)$ Suppose $3$ or $-3$ is an eigenvalue of $T$.  Then there exists a nonzero $v\in V$ such that either 
+\begin{equation*}
+Tv = 3v ~~~\text{or}~~~ Tv = -3v.
+\end{equation*}
+In the former case, we have $T^2v = 3Tv = 9v$, and in the latter we have $T^2 = -3Tv = 9v$.  In both cases, $9$ is an eigenvalue of $T^2$.\\
+\indent $(\Rightarrow)$ If $9$ is an eigenvalue of $T^2$, then there exists a nonzero $w\in V$ such that $T^2w = 9w$.  Hence $T^2 - 9I$ is not invertible, whereby $(T - 3I)(T + 3I)$ is not invertible.  Thus, by Problem 9 of Section 3.D, either $T-3I$ or $T+3I$ is not invertible.  This implies either $3$ or $-3$ is an eigenvalue of $T$, as desired.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $V$ is finite-dimensional, $T\in\Hom(V)$, and $v\in V$ with $v\neq 0$.  Let $p$ be a nonzero polynomial of smallest degree such that $p(T)v = 0$.  Prove that every zero of $p$ is an eigenvalue of $T$.
+\end{problem}
+\begin{proof}
+Suppose $\lambda\in\F$ is a zero of $p$.  Then there exists $q\in\poly(\F)$ with $\deg q = \deg p - 1$ such that 
+\begin{equation*}
+p(X) = (X - \lambda)q(X).
+\end{equation*}
+Then, since $p(T)v = 0$ by hypothesis, we have
+\begin{equation*}
+(T - \lambda I)q(T)v = 0.
+\end{equation*}
+Since $\deg q < \deg p$, $q(T)v\neq 0$, and hence $\lambda$ is indeed an eigenvalue of $T$.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $\F=\C$, $T\in\Hom(V)$, $p\in\poly(\C)$ is a nonconstant polynomial, and $\alpha\in\C$.  Prove that $\alpha$ is an eigenvalue of $p(T)$ if and only if $\alpha=p(\lambda)$ for some eigenvalue $\lambda$ of $T$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $\alpha$ is an eigenvalue of $p(T)$.  Then $p(T) - \alpha I$ is not injective.  By the Fundamental Theorem of Algebra, there exist $c, \lambda_1,\dots, \lambda_m\in\C$ such that
+\begin{equation*}
+p(z) - \alpha = c(z - \lambda_1)\dots (z - \lambda_m).  
+\end{equation*}
+If $c = 0$, then $p(z) = \alpha$ and $p$ is constant, a contradiction.  So we must have $c\neq 0$.  By the above equation, we have
+\begin{equation*}
+p(T) - \alpha I = c(T - \lambda_1 I)\dots (T - \lambda_m I).
+\end{equation*}
+Since $p(T) - \alpha I$ is not injective, there exists $j\in\{1,\dots,m\}$ such that $T-\lambda_j I$ is not injective.  In other words, $\lambda_j$ is an eigenvalue of $T$.  Moreover, notice $p(\lambda_j) - \alpha = 0$, and hence $\alpha = p(\lambda_j)$, as desired.\\
+\indent $(\Leftarrow)$ Suppose $\alpha = p(\lambda)$ for some eigenvalue $\lambda$ of $T$.  Let $v\in V-\{0\}$ be a corresponding eigenvector, and let $\alpha_0,\dots,\alpha_n\in\C$ be such that
+\begin{equation*}
+p(z) = \alpha_0 + \alpha_1z + \dots + \alpha_nz^n.
+\end{equation*}
+Notice $T^kv = \lambda^kv$ for any $k\in\Z^+$.  It follows
+\begin{align*}
+\alpha_0 + \alpha_1\lambda + \dots + \alpha_n \lambda^n = \alpha,
+\end{align*}
+and hence
+\begin{align*}
+p(T)v &= \alpha_0v + \alpha_1 Tv + \dots + \alpha_n T^n v\\
+&= \alpha_0v + \alpha_1\lambda v + \dots + \alpha_n \lambda^n v\\
+&= \left(\alpha_0 + \alpha_1\lambda + \dots + \alpha_n \lambda^n \right)v\\
+&= \alpha v.
+\end{align*}
+Thus $\alpha$ is an eigenvalue of $p(T)$, completing the proof.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $W$ is a complex vector space and $T\in\Hom(W)$ has no eigenvalues.  Prove that every subspace of $W$ invariant under $T$ is either $\{0\}$ or infinite-dimensional.
+\end{problem}
+\begin{proof}
+Suppose $U\subseteq W$ is invariant under $T$.  If $U=\{0\}$ the result holds, so suppose otherwise.  Now, if $U$ were finite-dimensional, then $T\restr{U}$ would have an eigenvalue by Theorem 5.21.  Thus $T$ would have an eigenvalue as well, a contradiction.  So $U$ must be infinite-dimensional.
+\end{proof}
+
+% Problem 14
+\begin{problem}{14}
+Give an example of an operator whose matrix with respect to some basis contains only $0$'s on the diagonal, but the operator is invertible.
+\end{problem}
+\begin{proof}
+Consider the operator 
+\begin{align*}
+T: \R^2 &\to \R^2 \\
+    (x,y) &\mapsto (y,x).
+\end{align*}
+With respect to the standard basis, we have 
+\begin{align*}
+\mat(T) = \begin{bmatrix} 0 & 1\\ 1 & 0\end{bmatrix}.
+\end{align*}
+Clearly $T$ is invertible (it's its own inverse), but its matrix with respect to the standard basis has only $0$'s on the diagonal.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Give an example of an operator whose matrix with respect to some basis contains only nonzero numbers on the diagonal, but the operator is not invertible.
+\end{problem}
+\begin{proof}
+Consider the operator
+\begin{align*}
+T: \R^2 &\to \R^2\\
+(x,y) &\mapsto (x + y, x + y).
+\end{align*}
+With respect to the standard basis, we have
+\begin{align*}
+\mat(T) = \begin{bmatrix} 1 & 1\\ 1 & 1\end{bmatrix}.
+\end{align*}
+Notice that $T$ is not invertible, since $T(0, 0) = (0, 0) = T(-1, 1)$, and yet its matrix with respect to the standard basis has only nonzero numbers on the diagonal.  Combining this result with Problem 14, we see that Theorem 5.30 fails without the hypothesis that an upper-triangular matrix is under consideration.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Rewrite the proof of 5.21 using the linear map that sends $p\in\poly_{n^2}(\C)$ to $p(T)\in\Hom(V)$ (and use 3.23).
+\end{problem}
+\begin{proof}
+We will show that every operator on a finite-dimensional, nonzero, complex vector space has an eigenvalue.  Suppose $V$ is a complex vector space with dimension $n > 0$ and $T\in\Hom(V)$.  Consider the linear map
+\begin{align*}
+M: \poly_{n^2}(\C) &\to \Hom(V)\\
+         p &\mapsto p(T).
+\end{align*}
+Since $\dim\left(\poly_{n^2}(\C)\right)=n^2 +1$ but $\dim\left(\Hom(V)\right) = n^2$, $M$ is not injective by Theorem 3.23.  Thus there exists a nonzero $p\in\poly_{n^2}(\C)$ such that $Mp = p(T) = 0$.  Choose $v\in V-\{0\}$.  Then $p(T)v = 0$, and hence
+\end{proof}
+\end{document}
