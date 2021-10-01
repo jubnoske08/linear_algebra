@@ -603,6 +603,41 @@ We will show that every operator on a finite-dimensional, nonzero, complex vecto
 M: \poly_{n^2}(\C) &\to \Hom(V)\\
          p &\mapsto p(T).
 \end{align*}
-Since $\dim\left(\poly_{n^2}(\C)\right)=n^2 +1$ but $\dim\left(\Hom(V)\right) = n^2$, $M$ is not injective by Theorem 3.23.  Thus there exists a nonzero $p\in\poly_{n^2}(\C)$ such that $Mp = p(T) = 0$.  Choose $v\in V-\{0\}$.  Then $p(T)v = 0$, and hence
+Since $\dim\left(\poly_{n^2}(\C)\right)=n^2 +1$ but $\dim\left(\Hom(V)\right) = n^2$, $M$ is not injective by Theorem 3.23.  Thus there exists a nonzero $p\in\poly_{n^2}(\C)$ such that $Mp = p(T) = 0$.  By the Fundamental Theorem of Algebra, $p$ has a factorization
+\begin{equation*}
+p(z) = c(z - \lambda_1)\dots (z - \lambda_m),
+\end{equation*}  
+where $c$ is a nonzero complex number, each $\lambda_j$ is in $\C$, and the equation holds for all $z\in\C$.  Now choose any $v\in V-\{0\}$.  It follows
+\begin{align*}
+0 &= p(T)v\\
+&= c(T - \lambda_1 I)\dots (T - \lambda_m I)v.
+\end{align*}
+Since $v\neq 0$, $T-\lambda_j$ is not injective for at least one $j$.  In other words, $T$ has an eigenvalue.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $V$ is finite-dimensional with $\dim V> 1$ and $T\in\Hom(V)$.  Prove that
+\begin{equation*}
+\{p(T) \mid p\in\poly(\F)\}\neq \Hom(V).
+\end{equation*}
+\end{problem}
+\begin{proof}
+Let $\mathcal{U} = \{p(T) \mid p\in\poly(\F)\}$, and suppose by way of contradiction that $\mathcal{U} = \Hom(V)$.  Let $p \in \poly(\F)$, and let $\alpha_0,\dots,\alpha_n\in\F$ be such that $p(z) = \alpha_0 + \alpha_1z \dots + \alpha_nz^n$ for all $z\in\F$.  Notice
+\begin{align*}
+Tp(T) &= T\left(\alpha_0 I + \alpha_1 T + \dots + \alpha_n T^n\right)\\
+&= \alpha_0T + \alpha_1T^2 + \dots + \alpha_nT^{n+1}\\
+&= \left(\alpha_0 I + \alpha_1 T + \dots + \alpha_n T^n\right)T\\
+&= p(T) T,
+\end{align*}
+so that $T$ commutes with all elements of $U$.  By Problem 16 of Chapter 3.D, this implies $T= \lambda I$ for some $\lambda\in \F$.  It follows
+\begin{align*}
+\mathcal{U} &= \{p(T) \mid p\in\poly(\F)\}\\
+ &= \{p(\lambda I)\mid p\in\poly(\F)\}\\
+ &=\{\alpha_0I + \alpha_1(\lambda I) + \dots +\alpha_1(\lambda I)^n\mid \alpha_0,\alpha_1,\dots,\alpha_n\in\F\text{ and }n\in\Z^+\}\\
+ &=\{p(\lambda)I\mid p\in\poly(\F)\}\\
+ &=\{\alpha I \mid \alpha\in\F\},
+\end{align*}
+and thus $\dim\mathcal{U} = 1$.  Since $\dim\Hom(V) = (\dim V)^2$ and $\dim V > 1$ by hypothesis, we have $\dim\Hom(V) > 1$, a contradiction.  Thus our assumption that $\mathcal{U} = \Hom(V)$ must be false, as was to be shown.
 \end{proof}
 \end{document}

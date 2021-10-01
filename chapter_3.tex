@@ -1045,6 +1045,39 @@ Tx &= \mat(Tx)\\
 as desired.
 \end{proof}
 
+% Problem 16
+\begin{problem}{16}
+Suppose $V$ is finite-dimensional and $T\in\Hom(V)$.  Prove that $T$ is a scalar multiple of the identity if and only if $ST = TS$ for every $S\in\Hom(V)$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $T = \lambda I$ for some $\lambda\in\F$, and let $S\in\Hom(V)$ be arbitrary.  For any $v\in V$, we have $STv=S(\lambda I)v =\lambda Sv$ and $TSv = (\lambda I)Sv = \lambda Sv$, and hence $ST = TS$.  Since $S$ was arbitrary, we have the desired result.\\
+\indent $(\Leftarrow)$ Suppose $ST = TS$ for every $S\in\Hom(V)$, and let $v\in V$ be arbitrary.  Consider the list $v, Tv$.  We claim it is linearly dependent.  To see this, suppose not.  Then $v, Tv$ can be extended to a basis $v, Tv, u_1,\dots,u_n$ of $V$.  Define $S\in\Hom(V)$ by
+\begin{equation*}
+S(\alpha v + \beta Tv + \gamma_1u_1 + \dots + \gamma_nu_n) = \beta v,
+\end{equation*}
+where $\alpha, \beta,\gamma_1,\dots,\gamma_n$ are the unique coefficients of our basis for the given input vector.  In particular, notice $S(Tv) = v$ and $Sv = 0$.  Thus $STv = TSv$ implies $v = T(0) = 0$, contradicting our assumption that $v, TV$ is linearly independent.  So $v, Tv$ must be linearly dependent, and so for for all $v\in V$ there exists $\lambda_v\in\F$ such that $Tv = \lambda_v v$ (where $\lambda_0$ can be any nonzero element of $\F$, since $T0 = 0$).  We claim $\lambda_v$ is independent of the choice of $v$ for $v\in V-\{0\}$, hence $Tv = \lambda v$ for all $v\in V$ (including $v = 0$) and some $\lambda \in \F$, and thus $T = \lambda I$.\\
+\indent So suppose $w,z\in V-\{0\}$ are arbitrary.  We want to show $\lambda_w = \lambda_z$.  If $w$ and $z$ are linearly dependent, then there exists $\alpha\in\F$ such that $w=\alpha z$.  It follows
+\begin{align*}
+\lambda_w w &= Tw\\
+&= T(\alpha z)\\
+&= \alpha Tz \\
+&= \alpha \lambda_z z\\
+&= \lambda_z (\alpha z)\\
+&= \lambda_z w.
+\end{align*}
+Since $w\neq 0$, this implies $\lambda_w = \lambda_z$.  Next suppose $w$ and $z$ are linearly independent.  Then we have
+\begin{align*}
+\lambda_{w + z} (w + z)&= T(w + z)\\
+&= Tw + Tz\\
+&= \lambda_w w + \lambda_z z,
+\end{align*}
+and hence
+\begin{align*}
+(\lambda_{w + z} - \lambda_w)w + (\lambda_{w + z} - \lambda_z)z = 0.
+\end{align*}
+Since $w$ and $z$ are assumed to be linearly independent, we have $\lambda_{w + z} = \lambda_w$ and $\lambda_{w + z} = \lambda_z$, and hence again we have $\lambda_w = \lambda_z$, completing the proof.
+\end{proof}
+
 % Problem 17
 \begin{problem}{17}
 Suppose $V$ is finite-dimensional and $\mathcal{E}$ is a subspace of $\Hom(V)$ such that $ST\in\mathcal{E}$ and $TS \in\mathcal{E}$ for all $S\in\Hom(V)$ and all $T\in\mathcal{E}$.  Prove that $\mathcal{E}=\{0\}$ or $\mathcal{E}=\Hom(V)$.  
