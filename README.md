@@ -23,7 +23,7 @@ ___
 
 For some reason, Axler's approach to linear algebra is polarizing, with many praising the book's more abstract approach and others criticizing it for his decision to defer use of the determinant until the end of the book. 
 
-I happen to enjoy this style, and I think it really streamlines the presentation of linear algebra pedagogically.  But I also understand the perspective of critics, and two good alternatives are the excellent books by Hoffman/Kunze and Friedberg et al. (both entitled *Linear Algebra*).
+I happen to enjoy this style, and I think it really streamlines the presentation of linear algebra pedagogically.  But I also understand the perspective of critics, and two good alternatives are the excellent books by [Hoffman & Kunze](https://www.pearson.com/us/higher-education/program/Hoffman-Linear-Algebra-2nd-Edition/PGM52361.html) and [Friedberg et al](https://www.pearson.com/us/higher-education/program/Friedberg-Linear-Algebra-5th-Edition/PGM1939358.html). 
 
 It probably goes without saying, but this is not an appropriate book for a first encounter with linear algebra.  The material won't stick unless you've studied the subject from the perspective of, e.g., Gilbert Strang's book (which approaches linear algebra from a more applied point-of-view).
 ___
