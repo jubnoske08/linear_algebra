@@ -584,6 +584,21 @@ and hence
 Thus $U\cap W$ has a basis of length at least two, and thus there exist two vectors in $U\cap W$ such that neither is a scalar multiple of the other (namely, two vectors in the basis).
 \end{proof}
 
+% Problem 14
+\begin{problem}{14}
+Suppose $U_1,\dots,U_m$ are finite-dimensional subspace of $V$.  Prove that $U_1 + \dots + U_m$ is finite-dimensional and 
+\begin{equation*}
+\dim\left(U_1  + \dots + U_m\right)\leq \dim U_1 + \dots + \dim U_m.
+\end{equation*}
+\end{problem}
+\begin{proof}
+For each $j = 1,\dots,m$, choose a basis for $U_j$.  Combine these bases to form a single list of vectors in $V$.  Clearly this list spans $U_1 + \dots + U_m$ by construction.  Hence $U_1 + \dots + U_m$ is finite-dimensional with dimension less than or equal to the number of vectors in this list, which is equal to $\dim U_1 + \dots + \dim U_m$.  That is,
+\begin{equation*}
+\dim\left(U_1 + \dots + U_m\right)\leq \dim U_1 + \dots + \dim U_m,
+\end{equation*} 
+as desired.
+\end{proof}
+
 % Problem 15
 \begin{problem}{15}
 Suppose $V$ is finite-dimensional, with $\dim V= n\geq 1$.  Prove that there exist $1$-dimensional subspaces $U_1,\dots, U_n$ of $V$ such that 
@@ -601,6 +616,25 @@ so it remains to show this sum is direct.  If $u \in U_1 + \dots + U_n$, there e
 u = a_1v_1 + \dots + a_nv_n.
 \end{equation*}
 But since $v_1,\dots, v_n$ is a basis, this representation of $u$ as a linear combination of $v_1,\dots,v_n$ is unique, and thus the sum is direct, as desired.
+\end{proof}
+
+% Problem 16
+\begin{problem}{16}
+Suppose $U_1,\dots, U_m$ are finite-dimensional subspaces of $V$ such that $U_1 + \dots + U_m$ is a direct sum.  Prove that $U_1\oplus\dots\oplus U_m$ is finite-dimensional and 
+\begin{equation*}
+\dim U_1\oplus \dots \oplus U_m = \dim U_1 + \dots + \dim U_m.
+\end{equation*}
+\end{problem}
+\begin{proof}
+For each $j = 1,\dots,m$, choose a basis for $U_j$.  Combine these bases to form a single list of vectors in $V$.  Clearly this list spans $U_1 + \dots + U_m$ by construction, so that $U_1 + \dots + U_m$ is finite-dimensional.  We claim this list must be linearly independent, hence it will be a basis of length $\dim U_1 + \dots + \dim U_m$, and thus
+\begin{equation*}
+\dim U_1\oplus \dots \oplus U_m = \dim U_1 + \dots + \dim U_m.
+\end{equation*}
+So suppose some linear combination of the vectors in this list equals $0$.  For $k=1,\dots,m$, denote by $u_k$ the sum of all terms in that linear combination which are formed from our chosen basis of $U_k$.  Then we have
+\begin{equation*}
+u_1 + \dots + u_m = 0.
+\end{equation*}
+Since $U_1 + \dots + U_m = U_1\oplus\dots\oplus U_m$, each $u_k$ must equal $0$.  But then, since $u_k$ is a linear combination of a basis of $U_k$, each of the coefficients in that linear combination must equal $0$.  Thus all coefficients in our original linear combination must be $0$.  That is, our basis is linearly independent, justifying our claim and completing the proof.
 \end{proof}
 
 % Problem 17

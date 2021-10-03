@@ -469,7 +469,7 @@ p\left(STS^{-1}\right) = Sp(T)S^{-1}.
 \begin{proof}
 For $k\in\Z^+$, notice
 \begin{align*}
-(STS^{-1})^k = ST^kS^{-1}.
+\left(STS^{-1}\right)^k = ST^kS^{-1}.
 \end{align*}
 Since $p\in\poly(\F)$, there exist $n\in\Z^+$ and $\alpha_0,\dots,\alpha_n\in\F$ such that 
 \begin{equation*}
@@ -485,7 +485,7 @@ Sp(T) = \alpha_0 S + \alpha_1ST + \dots + \alpha_n ST^n,
 \end{equation*}
 and thus we have
 \begin{equation*}
-Sp(T)S^{-1} = \alpha_0 I + \alpha_1 STS^{-1} + \dots + \alpha_n ST^nS^{-1} = p(STS^{-1}),
+Sp(T)S^{-1} = \alpha_0 I + \alpha_1 STS^{-1} + \dots + \alpha_n ST^nS^{-1} = p\left(STS^{-1}\right),
 \end{equation*}
 as was to be shown.
 \end{proof}
@@ -634,7 +634,7 @@ so that $T$ commutes with all elements of $U$.  By Problem 16 of Chapter 3.D, th
 \begin{align*}
 \mathcal{U} &= \{p(T) \mid p\in\poly(\F)\}\\
  &= \{p(\lambda I)\mid p\in\poly(\F)\}\\
- &=\{\alpha_0I + \alpha_1(\lambda I) + \dots +\alpha_1(\lambda I)^n\mid \alpha_0,\alpha_1,\dots,\alpha_n\in\F\text{ and }n\in\Z^+\}\\
+ &=\left\{\alpha_0I + \alpha_1(\lambda I) + \dots +\alpha_1(\lambda I)^n\mid \alpha_0,\alpha_1,\dots,\alpha_n\in\F\text{ and }n\in\Z^+\right\}\\
  &=\{p(\lambda)I\mid p\in\poly(\F)\}\\
  &=\{\alpha I \mid \alpha\in\F\},
 \end{align*}
