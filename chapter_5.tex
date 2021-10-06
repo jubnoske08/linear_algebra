@@ -654,19 +654,19 @@ and thus $\dim\mathcal{U} = 1$.  Since $\dim\Hom(V) = (\dim V)^2$ and $\dim V > 
 Suppose $T\in\Hom(V)$ is diagonalizable.  Prove that $V = \Null T\oplus\Range T$.
 \end{problem}
 \begin{proof}
-By Theorem 5.41, there exists a basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\F$ be corresponding eigenvalues.   Let $m\in\{0,\dots, n\}$ denote the number of eigenvalues $\lambda_j$ such that $\lambda_j = 0$.  After relabeling, we may assume $\lambda_j = 0$ for $j=1,\dots, m$ and $\lambda_j \neq 0$ for $j = m+1,\dots,n$.  It follows
+By Theorem 5.41, there exists a basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\F$ be corresponding eigenvalues.   Let $m$ denote the number of eigenvalues $\lambda_j$ such that $\lambda_j = 0$.  After relabeling, we may assume $\lambda_j = 0$ for $j=1,\dots, m$ and $\lambda_j \neq 0$ for $j = m+1,\dots,n$.  It follows
 \begin{align*}
-V = \Span\{v_1,\dots, v_m\}\oplus \Span\{v_{m+1},\dots,v_n\}.
+V = \Span(v_1,\dots, v_m)\oplus \Span(v_{m+1},\dots,v_n).
 \end{align*}
-We claim $\Null T =  \Span\{v_1,\dots, v_m\}$ and $\Range T = \Span\{v_{m+1},\dots,v_n\}$, which provides the desired result.\\
-\indent First we prove $\Null T = \Span\{v_1,\dots, v_m\}$.  Since each of $v_1,\dots,v_m$ is an eigenvector corresponding to $0$, we have $v_1,\dots,v_m\in E(0,T)$, and hence $\Span\{v_1,\dots,v_m\}\subseteq E(0, T)=\Null T$.  Next suppose $v\in \Null T$.  Let $\alpha_1,\dots,\alpha_n\in\F$ be such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
+Note that if $m = 0$, the left hand term in the direct sum becomes the span of the empty list, which is defined to be $\{0\}$.  We claim $\Null T =  \Span(v_1,\dots, v_m)$ and $\Range T = \Span(v_{m+1},\dots,v_n)$, which provides the desired result.\\
+\indent First we prove $\Null T = \Span(v_1,\dots, v_m)$.  This result is trivially true if $m=0$ (i.e., $T$ has no nonzero eigenvalues), so suppose otherwise.  Since each of $v_1,\dots,v_m$ is an eigenvector corresponding to $0$, we have $v_1,\dots,v_m\in E(0,T)$, and hence $\Span(v_1,\dots,v_m)\subseteq E(0, T)=\Null T$.  Next suppose $v\in \Null T$.  Let $\alpha_1,\dots,\alpha_n\in\F$ be such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
 \begin{align*}
 0 &= Tv\\
 &= \alpha_1Tv_1 + \dots + \alpha_nTv_n\\
 &= \alpha_{m+1}Tv_{m+1} + \dots + \alpha_nTv_n\\
 &= (\alpha_{m+1}\lambda_{m+1})v_{m+1} + \dots + (\alpha_n\lambda_n) v_n.
 \end{align*}
-Since $\lambda_{m+1},\dots, \lambda_{n}$ are all nonzero, the linear independence of $v_{m+1},\dots, v_{n}$ implies $\alpha_{m+1} = \dots = \alpha_n = 0$.  Thus $v = \alpha_1v_1 + \dots + \alpha_mv_m$, and indeed $v\in\Span\{v_1,\dots,v_m\}$.  We conclude $\Null T = \Span\{v_1,\dots, v_m\}$.\\
-\indent Now we prove $\Range T = \Span\{v_{m+1},\dots, v_n\}$.  
+Since $\lambda_{m+1},\dots, \lambda_{n}$ are all nonzero, the linear independence of $v_{m+1},\dots, v_{n}$ implies $\alpha_{m+1} = \dots = \alpha_n = 0$.  Thus $v = \alpha_1v_1 + \dots + \alpha_mv_m$, and indeed $v\in\Span\{v_1,\dots,v_m\}$.  We conclude $\Null T = \Span(v_1,\dots, v_m)$.\\
+\indent Now we prove $\Range T = \Span(v_{m+1},\dots, v_n)$.  
 \end{proof}
 \end{document}
