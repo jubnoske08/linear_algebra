@@ -688,11 +688,11 @@ Suppose $V$ is finite-dimensional and $T\in\Hom(V)$.  Prove that the following a
 \begin{proof}
 Let $N = \Null T$ and $R = \Range T$.\\
 \indent $(a \Rightarrow b)$  If $V = N\oplus R$, then $V = N + R$ by the definition of direct sum.\\
-\indent $(b \Rightarrow c)$  Suppose $V = N + R$.  By Theorem 2.43, we have 
+\indent $(b \Rightarrow c)$  Suppose $V = N + R$.  By Theorem 2.43, we know 
 \begin{equation}
 \dim(N + R) = \dim N + \dim R - \dim ( N \cap R), \label{eq15}
 \end{equation}
-and hypothesis, the LHS of Equation \ref{eq15} equals $\dim V$.  Hence we have
+and by hypothesis, the LHS of Equation \ref{eq15} equals $\dim V$.  Hence we have
 \begin{equation}
 \dim V = \dim N + \dim R - \dim (N\cap R). \label{eq16}
 \end{equation}
@@ -700,7 +700,7 @@ Now, by the Fundamental Theorem of Linear Maps, we have
 \begin{equation}
 \dim V = \dim N + \dim R. \label{eq17}
 \end{equation}
-Combining Equations \ref{eq16} and \ref{eq17}, we have $\dim(N\cap R) = 0$, and hence $N\cap R =\{0\}$.\\
+Combining Equations \ref{eq16} and \ref{eq17} yields $\dim(N\cap R) = 0$, and hence $N\cap R =\{0\}$.\\
 \indent $(c\Rightarrow a)$ Suppose $N\cap R =\{0\}$.  Again by Theorem 2.43, we have 
 \begin{align*}
 \dim( N + R) = \dim N + \dim R- \dim (N\cap R).
@@ -709,10 +709,6 @@ By hypothesis, $\dim (N\cap R) = 0$.  Thus
 \begin{equation}
 \dim(N + R) = \dim N + \dim R.  \label{eq18}
 \end{equation}
-By another application of the Fundamental Theorem of Linear Maps, we have 
-\begin{equation}
-\dim N + \dim R = \dim V. \label{eq19}
-\end{equation}  
-Hence, combining Equations \ref{eq18} and \ref{eq19}, we conclude $\dim V = \dim(N + R)$, and hence $V = N + R$.  Since $N\cap R = \{0\}$ by hypothesis, this sum is direct.
+By another application of the Fundamental Theorem of Linear Maps, the RHS of Equation \ref{eq18} equals $\dim V$.  Hence we have $\dim V = \dim(N + R)$, and therefore $V = N + R$.  Since $N\cap R = \{0\}$ by hypothesis, this sum is direct.
 \end{proof}
 \end{document}
