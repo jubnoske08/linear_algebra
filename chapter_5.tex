@@ -654,12 +654,12 @@ and thus $\dim\mathcal{U} = 1$.  Since $\dim\Hom(V) = (\dim V)^2$ and $\dim V > 
 Suppose $T\in\Hom(V)$ is diagonalizable.  Prove that $V = \Null T\oplus\Range T$.
 \end{problem}
 \begin{proof}
-By Theorem 5.41, there exists a basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\F$ be corresponding eigenvalues.   Let $m$ denote the number of eigenvalues $\lambda_j$ such that $\lambda_j = 0$.  After relabeling, we may assume $\lambda_j = 0$ for $j=1,\dots, m$ and $\lambda_j \neq 0$ for $j = m+1,\dots,n$.  It follows
+By Theorem 5.41, there exists a basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\F$ be corresponding eigenvalues, respectively.   Let $m$ denote the number of eigenvalues $\lambda_j$ such that $\lambda_j = 0$.  After relabeling, we may assume $\lambda_j = 0$ for $j=1,\dots, m$ and $\lambda_j \neq 0$ for $j = m+1,\dots,n$.  It follows
 \begin{align*}
 V = \Span(v_1,\dots, v_m)\oplus \Span(v_{m+1},\dots,v_n).
 \end{align*}
 Note that if $m = 0$, the left hand term in the direct sum becomes the span of the empty list, which is defined to be $\{0\}$.  We claim $\Null T =  \Span(v_1,\dots, v_m)$ and $\Range T = \Span(v_{m+1},\dots,v_n)$, which provides the desired result.\\
-\indent First we prove $\Null T = \Span(v_1,\dots, v_m)$.  This result is trivially true if $m=0$ (i.e., $T$ has no nonzero eigenvalues), so suppose otherwise.  Since each of $v_1,\dots,v_m$ is an eigenvector corresponding to $0$, we have $v_1,\dots,v_m\in E(0,T)$, and hence $\Span(v_1,\dots,v_m)\subseteq E(0, T)=\Null T$.  Next suppose $v\in \Null T$.  Let $\alpha_1,\dots,\alpha_n\in\F$ be such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
+\indent First we prove $\Null T = \Span(v_1,\dots, v_m)$.  This result is trivially true if $m=0$, so suppose otherwise.  Since each of $v_1,\dots,v_m$ is an eigenvector corresponding to $0$, we have $v_1,\dots,v_m\in E(0,T)$, and hence $\Span(v_1,\dots,v_m)\subseteq E(0, T)=\Null T$.  For the reverse inclusion, suppose $v\in \Null T$.  Let $\alpha_1,\dots,\alpha_n\in\F$ be such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
 \begin{align*}
 0 &= Tv\\
 &= \alpha_1Tv_1 + \dots + \alpha_nTv_n\\
@@ -667,6 +667,52 @@ Note that if $m = 0$, the left hand term in the direct sum becomes the span of t
 &= (\alpha_{m+1}\lambda_{m+1})v_{m+1} + \dots + (\alpha_n\lambda_n) v_n.
 \end{align*}
 Since $\lambda_{m+1},\dots, \lambda_{n}$ are all nonzero, the linear independence of $v_{m+1},\dots, v_{n}$ implies $\alpha_{m+1} = \dots = \alpha_n = 0$.  Thus $v = \alpha_1v_1 + \dots + \alpha_mv_m$, and indeed $v\in\Span\{v_1,\dots,v_m\}$.  We conclude $\Null T = \Span(v_1,\dots, v_m)$.\\
-\indent Now we prove $\Range T = \Span(v_{m+1},\dots, v_n)$.  
+\indent Now we prove $\Range T = \Span(v_{m+1},\dots, v_n)$.  Clearly $v_{m+1},\dots,v_n\in\Range T$, since $T(v_k/\lambda_k) = v_k$ for $k = m+1,\dots, n$, and hence $\Span(v_{m+1},\dots, v_n)\subseteq \Range T$.  For the reverse inclusion, suppose $w\in \Range T$.  Then there exists $z\in V$ such that $Tz = w$.  Let $\beta_1,\dots,\beta_n\in\F$ be such that $z = \beta_1v_1 + \dots + \beta_nv_n$.  It follows
+\begin{align*}
+w &= Tz\\
+&= \beta_1Tv_1 + \dots + \beta_nTv_n\\
+&= (\beta_{m+1}\lambda_{m+1})v_{m+1} + \dots + (\beta_n\lambda_n)v_n.
+\end{align*}
+Thus $w\in \Span(v_{m+1},\dots,v_n)$, and we conclude $\Range T = \Span(v_{m+1},\dots,v_n)$, completing the proof of our claim.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $V$ is finite-dimensional and $T\in\Hom(V)$.  Prove that the following are equivalent:
+\begin{enumerate}[(a)]
+\item $V = \Null T\oplus \Range T$.
+\item $V = \Null T + \Range T$.
+\item $\Null T\cap \Range T = \{0\}$.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+Let $N = \Null T$ and $R = \Range T$.\\
+\indent $(a \Rightarrow b)$  If $V = N\oplus R$, then $V = N + R$ by the definition of direct sum.\\
+\indent $(b \Rightarrow c)$  Suppose $V = N + R$.  By Theorem 2.43, we have 
+\begin{equation}
+\dim(N + R) = \dim N + \dim R - \dim ( N \cap R), \label{eq15}
+\end{equation}
+and hypothesis, the LHS of Equation \ref{eq15} equals $\dim V$.  Hence we have
+\begin{equation}
+\dim V = \dim N + \dim R - \dim (N\cap R). \label{eq16}
+\end{equation}
+Now, by the Fundamental Theorem of Linear Maps, we have
+\begin{equation}
+\dim V = \dim N + \dim R. \label{eq17}
+\end{equation}
+Combining Equations \ref{eq16} and \ref{eq17}, we have $\dim(N\cap R) = 0$, and hence $N\cap R =\{0\}$.\\
+\indent $(c\Rightarrow a)$ Suppose $N\cap R =\{0\}$.  Again by Theorem 2.43, we have 
+\begin{align*}
+\dim( N + R) = \dim N + \dim R- \dim (N\cap R).
+\end{align*}
+By hypothesis, $\dim (N\cap R) = 0$.  Thus 
+\begin{equation}
+\dim(N + R) = \dim N + \dim R.  \label{eq18}
+\end{equation}
+By another application of the Fundamental Theorem of Linear Maps, we have 
+\begin{equation}
+\dim N + \dim R = \dim V. \label{eq19}
+\end{equation}  
+Hence, combining Equations \ref{eq18} and \ref{eq19}, we conclude $\dim V = \dim(N + R)$, and hence $V = N + R$.  Since $N\cap R = \{0\}$ by hypothesis, this sum is direct.
 \end{proof}
 \end{document}
