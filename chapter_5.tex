@@ -711,4 +711,41 @@ By hypothesis, $\dim (N\cap R) = 0$.  Thus
 \end{equation}
 By another application of the Fundamental Theorem of Linear Maps, the RHS of Equation \ref{eq18} equals $\dim V$.  Hence we have $\dim V = \dim(N + R)$, and therefore $V = N + R$.  Since $N\cap R = \{0\}$ by hypothesis, this sum is direct.
 \end{proof}
+
+\begin{problem}{5}
+Suppose $V$ is a finite-dimensional complex vector space and $T\in\Hom(V)$.  Prove that $T$ is diagonalizable if and only if
+\begin{equation*}
+V = \Null(T - \lambda I)\oplus \Range(T - \lambda I)
+\end{equation*}
+for every $\lambda\in\C$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$  Suppose $T$ is diagonalizable.  Then there exists a basis such that $\mat(T)$ is diagonal.  Letting $\lambda\in\C$, it follows
+\begin{align*}
+\mat(T - \lambda I) &= \mat(T) -\lambda\mat(I)\\
+&= \mat(T) - \lambda I,
+\end{align*}
+where we abuse notation and use $I$ to denote both the identity operator on $V$ and the identity matrix in $\F^{\dim V,\dim V}$.  Since $\lambda I$ is diagonal, so too is $\mat(T) - \lambda I$, and hence $T - \lambda I$ is diagonalizable.  The desired result now follows by Problem 1.\\
+\indent $(\Leftarrow)$ Conversely, suppose 
+\begin{equation*}
+V = \Null(T - \lambda I)\oplus \Range(T - \lambda I)
+\end{equation*}
+for every $\lambda\in\C$.  We induct on $n = \dim V$.  If $n = 1$, the result clearly holds, since every matrix in $\F^{1,1}$ is diagonal.  Now assume $n\in\Z^+$ and that the assertion holds for all vector spaces of dimension $k < n$.  Let $\lambda_1\in \C$ be an eigenvalue of $T$ (such an eigenvalue must exist by Theorem 5.21).  By hypothesis, we have
+\begin{equation}
+V = E(\lambda_1, T)\oplus \Range(T-\lambda_1 I).  \label{eq19}
+\end{equation}
+Let $R = \Range(T-\lambda_1 I)$.  We claim
+\begin{align*}
+R = \Null(T\restr{R} - \lambda I) \oplus \Range(T\restr{R}-\lambda I)
+\end{align*}
+for all $\lambda\in \C$.  By Problem 3c, it suffices to show  $\Null(T\restr{R} - \lambda I) \cap  \Range(T\restr{R} - \lambda I) =\{0\}$.  Notice
+\begin{align*}
+\Null(T\restr{R} - \lambda I)\subseteq \Null(T - \lambda I)~~~~\text{and}~~~~\Range(T\restr{R} - \lambda I)\subseteq\Range(T - \lambda I).
+\end{align*}
+It follows
+\begin{equation*}
+\Null(T\restr{R} - \lambda I) \cap  \Range(T\restr{R} - \lambda I) \subseteq \Null(T - \lambda I) \cap  \Range(T - \lambda I) =\{0\},
+\end{equation*}
+proving our claim.  Now, let $v_1,\dots, v_k$ be a basis of $E(\lambda_1, T)$ (necessarily eigenvectors).  Since $T\restr{R}$ is diagonalizable, it has a basis of eigenvectors by Theorem 5.41.  Call them $v_{k+1},\dots, v_n$.  By Equation \ref{eq19}, the list $v_1,\dots, v_n$ is a basis of $V$ consisting of eigenvectors of $T$.  By another application of Theorem 5.41, this implies $T$ is diagonalizable, as desired.
+\end{proof}
 \end{document}
