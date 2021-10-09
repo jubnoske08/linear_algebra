@@ -712,6 +712,7 @@ By hypothesis, $\dim (N\cap R) = 0$.  Thus
 By another application of the Fundamental Theorem of Linear Maps, the RHS of Equation \ref{eq18} equals $\dim V$.  Hence we have $\dim V = \dim(N + R)$, and therefore $V = N + R$.  Since $N\cap R = \{0\}$ by hypothesis, this sum is direct.
 \end{proof}
 
+% Problem 5
 \begin{problem}{5}
 Suppose $V$ is a finite-dimensional complex vector space and $T\in\Hom(V)$.  Prove that $T$ is diagonalizable if and only if
 \begin{equation*}
@@ -746,6 +747,25 @@ It follows
 \begin{equation*}
 \Null(T\restr{R} - \lambda I) \cap  \Range(T\restr{R} - \lambda I) \subseteq \Null(T - \lambda I) \cap  \Range(T - \lambda I) =\{0\},
 \end{equation*}
-proving our claim.  Now, let $v_1,\dots, v_k$ be a basis of $E(\lambda_1, T)$ (necessarily eigenvectors).  Since $T\restr{R}$ is diagonalizable, it has a basis of eigenvectors by Theorem 5.41.  Call them $v_{k+1},\dots, v_n$.  By Equation \ref{eq19}, the list $v_1,\dots, v_n$ is a basis of $V$ consisting of eigenvectors of $T$.  By another application of Theorem 5.41, this implies $T$ is diagonalizable, as desired.
+proving our claim.  Now, let $v_1,\dots, v_k$ be a basis of $E(\lambda_1, T)$.  Since $T\restr{R}$ is diagonalizable, $R$ has a basis of eigenvectors by Theorem 5.41.  Call them $v_{k+1},\dots, v_n$.  By Equation \ref{eq19}, the list $v_1,\dots, v_n$ is a basis of $V$ consisting of eigenvectors of $T$.  By another application of Theorem 5.41, this implies $T$ is diagonalizable, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $T\in\Hom(V)$ has a diagonal matrix $A$ with respect to some basis of $V$ and that $\lambda\in\F$.  Prove that $\lambda$ appears on the diagonal of $A$ precisely $\dim E(\lambda,T)$ times.
+\end{problem}
+\begin{proof}
+Let $\lambda_1,\dots, \lambda_m\in\F$ be the distinct eigenvalues of $T$, let $v_1,\dots, v_n$ be a basis consisting of eigenvectors of $T$ (such a basis is guaranteed by Theorem 5.41), and let $A = \mat(T)$ with respect to this basis.  Denote by $s_k$ the number of our basis vectors contained in $E(\lambda_k, T)$ for $k\in\{1,\dots,m\}$, so that the eigenvalue $\lambda_k$ appears on the diagonal of $A$ exactly $s_k$ times.  We will show $s_k = \dim E(\lambda_k, T)$.\\
+\indent Since any subset of the basis contained in $E(\lambda_k, T)$ is of course linearly independent, we first note $s_k\leq \dim E(\lambda_k, T)$.  So we have
+\begin{align*}
+s_1 + \dots + s_m &\leq \dim E(\lambda_1, T) + \dots + \dim(\lambda_m, T)\\
+&= n.
+\end{align*}
+Since $E(\lambda_i, T)\cap E(\lambda_j, T) = \{0\}$ for $i\neq j$, each element of our basis is contained in at most one $E(\lambda_k, T)$.  Hence the LHS of the equation above equals $n$ as well, and the inequality is in fact an equality.  This implies
+\begin{equation*}
+s_1 -\dim(E_1, T) = (\dim E(\lambda_2, T) - s_2) + \dots + (\dim E(\lambda_m, T) - s_m).
+\end{equation*}
+Each term in parentheses on the RHS is nonnegative, and hence $s_1 - \dim(E_1, T) \geq 0$, which implies $s_1 \geq \dim(E_1, T)$.  Since we've already shown $s_1\leq \dim(E_1, T)$, we conclude $s_1 = \dim(E_1, T)$.  An analogous argument shows $s_\ell = E(\lambda_\ell, T)$ for all $\ell\in\{2,\dots,m\}$.\\
+\indent Therefore, if $\lambda\in\C$ is an eigenvalue of $T$, then $\lambda$ indeed appears on the diagonal of $A$ precisely $E(\lambda, T)$ times.  And if $\lambda$ is not an eigenvalue of $T$, then it appears on the diagonal zero times, which also equals $E(\lambda, T)$.  In both cases, the desired result holds, completing the proof.
 \end{proof}
 \end{document}
