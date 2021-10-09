@@ -201,7 +201,7 @@ Suppose $\dim p=n$ for some $n\in\Z^+$.
 T:\poly(\F) &\mapsto \poly_{n-1}(\F)\\
 f &\mapsto r(f),
 \end{align*}
-where $r(f)$ is the unique remainder when $f$ is divided by $p$.  We will show that $T$ is linear, $\Null T = U$, and $\Range T = \poly_{n - 1}(\F)$, so that $V/U\cong \poly_{n - 1}$.  Since $\poly_{n-1}(\F)\cong \F^n$ and $\deg\F^n = n = \deg p$, this gives the desired result.
+where $r(f)$ is the unique remainder when $f$ is divided by $p$.  We will show that $T$ is linear, $\Null T = U$, and $\Range T = \poly_{n - 1}(\F)$, so that $V/U\cong \poly_{n - 1}$.  Since $\poly_{n-1}(\F)\cong \F^n$ and $\dim\F^n = n = \deg p$, this gives the desired result.
 \indent First we show $T$ is a linear map.  To see this, first suppose $f,g\in\poly(F)$.  Then there exist unique $q_1,q_2\in\poly(F)$ such that $f = q_1p + r(f)$ and $g = q_2p + r(g)$.  But then $f + g = (q_1 + q_2)p + r(f) + r(g)$, and hence $r(f+g) = r(f)+r(g)$.  Thus
 \begin{equation*}
 T(f + g) = r(f) + r(g) = T(f) + T(g),
