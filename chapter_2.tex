@@ -11,8 +11,8 @@
 \usepackage{microtype} 
 \usepackage{amsmath}
 \usepackage{mathtools}
-
 \usepackage[varg]{txfonts}
+\usepackage{commath}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PROBLEM ENVIRONMENT         																			           %
@@ -32,9 +32,10 @@
 \newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THEOREMS/LEMMAS/ETC.         																			           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
 \newtheorem{lemma}[thm]{Lemma}
 \newtheorem{corollary}[thm]{Corollary}
 
@@ -47,7 +48,14 @@
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\bigO}{\mathcal{O}}
 \newcommand{\Real}{\mathcal{Re}}
-\newcommand{\Span}{\mathrm{span}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\restr}[1]{|_{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,6 +70,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\vspace{-2em}Chapter 2: Finite-Dimensional Vector Spaces}
 \author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+\date{}
 
 \begin{document}
 \maketitle
@@ -127,8 +136,9 @@ and hence the vectors are not linearly independent since one of the vectors can 
 \item Show that if we think of $\C$ as a vector space over $\C$, then the list $(1+ i, 1- i)$ is linearly dependent.
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-Suppose 
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Suppose 
 \begin{align*}
 a(1 + i) + b(1 - i) = 0
 \end{align*}
@@ -137,13 +147,12 @@ for some $a,b\in\R$.  Then
 (a + b) + (a - b)i = 0.
 \end{align*}
 Comparing imaginary parts, this implies $a-b = 0$ and hence $a=b$.  But now substituting for $b$ and comparing real parts, this implies $2a = 0$, and hence $a=b=0$.  Thus the vectors are linearly independent over $\R$.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-Note that 
+\item Note that 
 \begin{align*}
 -i(1+ i) = 1 - i,
 \end{align*}
-so that $1-i$ is a scalar multiple of $1+i$ and hence the vectors are linearly dependent over $\C$.
+so that $1-i$ is a scalar multiple of $1+i$ and hence the vectors are linearly dependent over $\C$. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 7
@@ -275,8 +284,9 @@ Find a basis of $U$.
 \item Find a subspace $W$ of $\R^5$ such that $\R^5=U\oplus W$.
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-We claim the list of vectors
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We claim the list of vectors
 \begin{equation*}
 (3, 1, 0, 0, 0), ~ (0, 0, 7, 1, 0), ~ (0, 0, 0, 0, 1)
 \end{equation*}
@@ -301,9 +311,7 @@ Then we have
 (3a_1, a_1, 0, 0, 0) + (0, 0, 7a_2, a_2, 0) + (0, 0, 0, 0, a_3) = 0
 \end{align*}
 which clearly implies $a_1=a_2=a_3 =0$.  Thus they are also linearly independent, and hence a basis.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We claim the list 
+\item We claim the list 
 \begin{align*}
 v_1 = \begin{pmatrix}3\\1\\0\\0\\0\end{pmatrix}, ~ v_2 = \begin{pmatrix}0\\0\\7\\1\\0\end{pmatrix}, ~ v_3 = \begin{pmatrix}0\\0\\0\\0\\1\end{pmatrix}, v_4 = \begin{pmatrix}1\\0\\0\\0\\0\end{pmatrix}, ~v_5 = \begin{pmatrix}0\\0\\1\\0\\0\end{pmatrix}
 \end{align*}
@@ -330,9 +338,7 @@ a_2 &= 0\\
 a_3 &= 0,
 \end{align*}
 which clearly implies each of the $a_k$ are $0$.  Hence $v_1,\dots,v_5$ are linearly independent as well, and thus a basis.
-\end{proof}
-\begin{proof}[Proof of $(c)$]
-Let $W = \Span(v_4, v_5)$, where $v_4$ and $v_5$ are defined as in $(b)$.  We claim $\R^5 = U\oplus W$.  To see $\R^5 = U + W$, let $v\in\R^5$.  Then, because we've already shown $v_1,\dots, v_5$ span $\R^5$, there exist $a_1,\dots, a_5\in\R$ such that 
+\item Let $W = \Span(v_4, v_5)$, where $v_4$ and $v_5$ are defined as in $(b)$.  We claim $\R^5 = U\oplus W$.  To see $\R^5 = U + W$, let $v\in\R^5$.  Then, because we've already shown $v_1,\dots, v_5$ span $\R^5$, there exist $a_1,\dots, a_5\in\R$ such that 
 \begin{equation*}
 u = (a_1v_1 + a_2v_2 + a_3v_3) + (a_4v_4 + a_5v_5).
 \end{equation*}
@@ -345,7 +351,8 @@ Thus
 \begin{equation*}
 a_1v_1 + a_2v_2 + a_3v_3 - b_1v_4 - b_2v_5 = 0.
 \end{equation*}
-Since $v_1,\dots,v_5$ are linearly independent, this implies each of the $a$'s and $b$'s are $0$, and so indeed $U\cap W = \{0\}$.  Therefore the sum is direct, proving our claim that $\R^5 = U\oplus W$.
+Since $v_1,\dots,v_5$ are linearly independent, this implies each of the $a$'s and $b$'s are $0$, and so indeed $U\cap W = \{0\}$.  Therefore the sum is direct, proving our claim that $\R^5 = U\oplus W$. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 5.
@@ -448,22 +455,19 @@ a_1p_1 + \dots + a_np_n = 0.
 Without explicitly expanding the LHS, we see that it must have an $X^{d_n}$ term with a nonzero coefficient (since each polynomial is assumed to have unique degree).  Since the RHS is identically $0$, this implies $a_n=0$.  But now by repeating this same argument $n-1$ times, we see that in fact each of $a_1,\dots,a_{n-1}$ must be zero as well, and hence the list is indeed linearly independent.
 \end{proof}
 
-\begin{proof}[Proof of $(a)$]
-We claim the list of polynomials
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We claim the list of polynomials
 \begin{equation*}
 (X - 6), (X - 6)^2, (X - 6)^3, (X-6)^4
 \end{equation*}
 is a basis of $U$.  By Lemma 1, since each polynomial in the list has unique degree, the list is linearly independent.  Thus $\dim U$ must be at least $4$, since we've demonstrated a linearly independent list of length $4$.  Since $U$ is a subspace of $\mathcal{P}_4(\F)$, which has dimension $5$, this implies $\dim U\in\{4,5\}$.  But notice $U$ is a \emph{proper} subset of $\mathcal{P}_4(\F)$ since, in particular, it excludes the monomial $X$.  Thus $\dim U$ cannot be $5$, and we conclude $\dim U = 4$.  Since our list is linearly independent and of length equal to $\dim U$, it must be a basis.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We claim 
+\item We claim 
 \begin{equation*}
 1, (X - 6), (X - 6)^2, (X - 6)^3, (X-6)^4
 \end{equation*}
 is an extension of our basis of $U$ to $\mathcal{P}_4(\F)$.  Since this list is of length equal to $\dim\mathcal{P}_4(\F)$, it suffices to show it is linearly independent.  But this follows immediate by Lemma 1, since each polynomial in the list has unique degree.
-\end{proof}
-\begin{proof}[Proof of $(c)$]
-Let $W = \F$.  We claim $\mathcal{P}_4(\F)=U\oplus W$.  Label our basis from $(b)$ as
+\item Let $W = \F$.  We claim $\mathcal{P}_4(\F)=U\oplus W$.  Label our basis from $(b)$ as
 \begin{equation*}
 p_0=1, p_1=(X - 6), p_2=(X - 6)^2, p_3=(X - 6)^3, p_4=(X-6)^4.
 \end{equation*}
@@ -471,7 +475,8 @@ In this notation, we have $W = \Span(p_0)$ and $U=\Span(p_1,\dots,p_4)$.  Clearl
 \begin{equation*}
 a_0(X-6) + a_1(X-6)^2 + a_2(X-6)^3 + a_3(X-6)^4 \neq 0
 \end{equation*}
-for all $X\in\F$.  But this is absurd, since the LHS evaluates to $0$ for $X=6$.  Thus $q$ cannot be nonzero, and the sum is indeed direct. 
+for all $X\in\F$.  But this is absurd, since the LHS evaluates to $0$ for $X=6$.  Thus $q$ cannot be nonzero, and the sum is indeed direct. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 7
@@ -482,27 +487,27 @@ for all $X\in\F$.  But this is absurd, since the LHS evaluates to $0$ for $X=6$.
 \item Find a subspace $W$ of $\mathcal{P}_4(\F)$ such that $\mathcal{P}_4(\F)=U\oplus W$.
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-We claim the list of polynomials
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We claim the list of polynomials
 \begin{equation}\tag{$\dagger$}
 1, (X - 2)(X-5)(X-6), (X-2)(X-5)(X-6)^2
 \end{equation}
-is a basis of $U$.  Linear independence follows from Lemma 1, and so $\dim U$ must be at least $3$.  We will exhibit a proper subspace $V$ of $\mathcal{P}_4(\F)$ of dimension $4$ such that $U$ is a proper subspace of $V$.  This will in turn imply that $3\leq \dim U < 4$.  Since all dimensions are of course integers, this will imply $\dim U=3$.  Since our list of polynomials is a linearly independent list of length equal to $\dim U$, this will prove it to be a basis.
-\par So consider the subspace $V = \{p\in\mathcal{P}_4(\F)\mid p(2)=p(5)\}$ of $\mathcal{P}_4(\F)$.  Clearly $U$ is a subspace of $V$, and moreover it is a proper subspace since $(X-2)(X-5)$ is in $V$ but not in $U$.  So it only remains to show $\dim V = 4$.  Note that the list of polynomials
+is a basis of $U$.  Linear independence follows from Lemma 1, and so $\dim U$ must be at least $3$.  We will exhibit a proper subspace $V$ of $\mathcal{P}_4(\F)$ of dimension $4$ such that $U$ is a proper subspace of $V$.  This will in turn imply that $3\leq \dim U < 4$.  Since all dimensions are of course integers, this will imply $\dim U=3$.  Since our list of polynomials is a linearly independent list of length equal to $\dim U$, this will prove it to be a basis.  So consider the subspace 
+\begin{equation*}
+V = \{p\in\mathcal{P}_4(\F)\mid p(2)=p(5)\}
+\end{equation*}
+of $\mathcal{P}_4(\F)$.  Clearly $U$ is a subspace of $V$, and moreover it is a proper subspace since $(X-2)(X-5)$ is in $V$ but not in $U$.  So it only remains to show $\dim V = 4$.  Note that the list of polynomials
 \begin{equation*}
 1, (X-2)(X-5), (X-2)^2(X-5), (X-2)^2(X-5)^2
 \end{equation*}
 is linearly independent in $V$ (again by Lemma 1).   Note also that $V$ a proper subspace of $\mathcal{P}_4(\F)$ since it does not contain the monomial $X$.  Since this implies $4\leq \dim V < 5$, we must have $\dim V = 4$, completing the proof that $(\dagger)$ is indeed a basis of $U$.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We claim 
+\item We claim 
 \begin{equation*}
 1, X, X^2, (X - 2)(X-5)(X-6), (X-2)(X-5)(X-6)^2
 \end{equation*}
 is an extension of our basis of $U$ to $\mathcal{P}_4(\F)$.  Since this list is of length equal to $\dim\mathcal{P}_4(\F)$, it suffices to show it is linearly independent.  But this follows immediately from Lemma 1.
-\end{proof}
-\begin{proof}[Proof of $(c)$]
-Label our basis from $(b)$ as
+\item Label our basis from $(b)$ as
 \begin{align*}
 p_0 &= 1, \\ p_1 &= X,\\ p_2 &= X^2,\\ p_3 &= (X - 2)(X-5)(X-6), \\ p_4 &= (X-2)(X-5)(X-6)^2
 \end{align*}
@@ -514,7 +519,8 @@ But then
 \begin{equation*}
 a_0p_1 + a_1 p_2 - b_0p_0 - b_1 p_3 - b_2 p_4 = 0,
 \end{equation*}
-and since the $p_0,\dots,p_4$ are linearly independent, this implies each of the $a$'s and $b$'s are zero.  Thus $q=0$ and the sum is indeed direct.
+and since the $p_0,\dots,p_4$ are linearly independent, this implies each of the $a$'s and $b$'s are zero.  Thus $q=0$ and the sum is indeed direct. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 9

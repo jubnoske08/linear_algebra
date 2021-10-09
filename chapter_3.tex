@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage[varg]{txfonts}
+\usepackage{commath}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PROBLEM ENVIRONMENT         																			           %
@@ -54,6 +55,7 @@
 \DeclareMathOperator{\Null}{null}
 \DeclareMathOperator{\Range}{range}
 \newcommand{\defeq}{\vcentcolon=}
+\newcommand{\restr}[1]{|_{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,6 +70,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\vspace{-2em}Chapter 3: Linear Maps}
 \author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+\date{}
 
 \begin{document}
 \maketitle
@@ -374,15 +377,14 @@ T(z_1,\dots, z_m) = z_1v_1 + \dots + z_m v_m.
 \item What property of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent?
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-We claim surjectivity of $T$ corresponds to $v_1,\dots, v_m$ spanning $V$.  To see this, suppose $T$ is surjective, and let $w\in V$.  Then there exists $z\in \F^m$ such that $Tz = w$.  This yields 
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We claim surjectivity of $T$ corresponds to $v_1,\dots, v_m$ spanning $V$.  To see this, suppose $T$ is surjective, and let $w\in V$.  Then there exists $z\in \F^m$ such that $Tz = w$.  This yields 
 \begin{equation*}
 z_1v_1 + \dots + z_m v_m = w,
 \end{equation*}
 and hence every $w\in V$ can be expressed as a linear combination of $v_1,\dots, v_n$.  That is, $\Span(v_1,\dots,v_n)= V$.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We claim injectivity of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent.  To see this, suppose $T$ is injective, and let $a_1,\dots, a_n\in\F$ such that 
+\item We claim injectivity of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent.  To see this, suppose $T$ is injective, and let $a_1,\dots, a_n\in\F$ such that 
 \begin{equation*}
 a_1v_1 + \dots + a_nv_n = 0.
 \end{equation*}
@@ -390,7 +392,8 @@ Then
 \begin{equation*}
 T(a) = T(a_1,\dots, a_n) = a_1v_1 + \dots + a_nv_n = 0
 \end{equation*}
-which is true iff $a = 0$ since $T$ is injective.  That is, $a_1=\dots = a_n=0$ and hence $v_1,\dots, v_n$ is linearly independent. 
+which is true iff $a = 0$ since $T$ is injective.  That is, $a_1=\dots = a_n=0$ and hence $v_1,\dots, v_n$ is linearly independent. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 5
@@ -969,8 +972,9 @@ E = \{T\in \Hom(V,W)\mid Tv = 0\}.
 \item Suppose $v\neq 0$.  What is $\dim E$?
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-First note that the zero map is clearly an element of $E$, and hence $E$ contains the additive identity of $\Hom(V,W)$.  Now suppose $T_1,T_2\in E$.  Then 
+\begin{proof}
+\begin{enumerate}[(a)]
+\item First note that the zero map is clearly an element of $E$, and hence $E$ contains the additive identity of $\Hom(V,W)$.  Now suppose $T_1,T_2\in E$.  Then 
 \begin{align*}
 (T_1 + T_2)(v) = T_1v + T_2v = 0
 \end{align*}
@@ -979,9 +983,7 @@ and hence $T_1 + T_2\in E$, so that $E$ is closed under addition.  Finally, supp
 (\lambda T)(v) = \lambda Tv = \lambda 0 = 0,
 \end{equation*}
 and so $E$ is closed under scalar multiplication as well.  Thus $E$ is indeed a subspace of $\Hom(V,W)$.  
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-Suppose $v\neq 0$, and let $\dim V = m$ and $\dim W = n$.   Extend $v$ to a basis $v, v_2, \dots, v_m$ of $V$, and endow $W$ with any basis.  Let $\mathcal{E}$ denote the subspace of $\F^{m,n}$ of matrices whose first column is all zero.  
+\item Suppose $v\neq 0$, and let $\dim V = m$ and $\dim W = n$.   Extend $v$ to a basis $v, v_2, \dots, v_m$ of $V$, and endow $W$ with any basis.  Let $\mathcal{E}$ denote the subspace of $\F^{m,n}$ of matrices whose first column is all zero.  
 \par We claim $T\in E$ if and only if $\mat(T)\in \mathcal{E}$, so that $\mat: E\to \mathcal{E}$ is an isomorphism.  Clearly if $T\in E$ (so that $Tv = 0$), then $\mat(T)_{\cdot, 1}$ is all zero, and hence $T\in\mathcal{E}$.  Conversely, suppose $\mat(T)\in \mathcal{E}$.  It follows
 \begin{align*}
 \mat(Tv) &= \mat(T)\mat(v)\\ 
@@ -995,7 +997,8 @@ Suppose $v\neq 0$, and let $\dim V = m$ and $\dim W = n$.   Extend $v$ to a basi
 &= \begin{pmatrix}0\\ 0\\ \vdots\\ 0\end{pmatrix},
 \end{align*}
 and thus we must have $Tv = 0$ so that $T\in E$, proving our claim.  So indeed $E\cong \mathcal{E}$.  
-\par Now note that $\mathcal{E}$ has as a basis the set of all matrices with a single $1$ in a column besides the first, and zeros everywhere else.  There are $mn - n$ such matrices, and hence $\dim \mathcal{E} = mn - n$.  Thus we have $\dim E = mn - n$ as well, as desired.  
+\par Now note that $\mathcal{E}$ has as a basis the set of all matrices with a single $1$ in a column besides the first, and zeros everywhere else.  There are $mn - n$ such matrices, and hence $\dim \mathcal{E} = mn - n$.  Thus we have $\dim E = mn - n$ as well, as desired.  \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 9
@@ -1107,14 +1110,14 @@ Suppose $T\in\Hom(\poly(\R))$ is such that $T$ is injective and $\deg Tp\leq \de
 \item Prove that $\deg Tp = \deg p$ for every nonzero $p\in\poly(\R)$.  
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-Let $q\in\poly(\R)$, and suppose $\deg q = n$.  Let $T_n = T\mid_{\poly_n(\R)}$, so that $T_n$ is the restriction of $T$ to a linear operator on $\poly_n(\R)$.  Since $T$ is injective, so is $T_n$.  And since $T_n$ is an injective linear operator over a finite-dimensional vector space, $T_n$ is surjective as well.  Thus there exists $r\in\poly_n(\R)$ such that $T_nr = q$, and so we have $Tr = q$ as well.  Therefore $T$ is surjective.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We induct on the degree of the restriction maps $T_n\in\Hom(\poly_n(\R))$, each of which is bijective by $(a)$.  Let $P(k)$ be the statement: $\deg T_k p = k$ for every nonzero $p\in\poly_k(\R)$.\\
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Let $q\in\poly(\R)$, and suppose $\deg q = n$.  Let $T_n = T\mid_{\poly_n(\R)}$, so that $T_n$ is the restriction of $T$ to a linear operator on $\poly_n(\R)$.  Since $T$ is injective, so is $T_n$.  And since $T_n$ is an injective linear operator over a finite-dimensional vector space, $T_n$ is surjective as well.  Thus there exists $r\in\poly_n(\R)$ such that $T_nr = q$, and so we have $Tr = q$ as well.  Therefore $T$ is surjective.
+\item We induct on the degree of the restriction maps $T_n\in\Hom(\poly_n(\R))$, each of which is bijective by $(a)$.  Let $P(k)$ be the statement: $\deg T_k p = k$ for every nonzero $p\in\poly_k(\R)$.\\
 \textbf{Base case:} Suppose $p\in\poly_0(\R)$ is nonzero.  Since $T_0$ is a bijective , $T_0p = 0$ iff $p = 0$ (the zero polynomial), which is the only polynomial with degree $< 0$.  Since $p$ is nonzero by hypothesis, we must have $\deg T_0p = 0$.  Hence $P(0)$ is true.\\
 \textbf{Inductive step:} Let $n\in\Z^+$, and suppose $P(k)$ is true for all $0\leq k < n$.  Let $p\in\poly_{n}(\R)$ be nonzero.  If $\deg T_{n}p < n$, then for some $k < n$ there exists $q\in\poly_k(R)$ and $T_k\in\poly(\R)$ such that $T_kq = p$ (since $T_k$ is surjective).  Hence $Tq = Tp$, a contradiction since $\deg p\neq \deg q$ and $T$ is injective.  Thus we must have $\deg T_{n}p = n$, and $P(n)$ is true.
-\par By the principle of mathematical induction, $P(k)$ is true for all $k\in\Z_{\geq 0}$.  Hence $\deg Tp = \deg p$ for all nonzero $p\in\poly(\R)$, since $Tp = T_k p$ for $k = \deg p$.
+\par By the principle of mathematical induction, $P(k)$ is true for all $k\in\Z_{\geq 0}$.  Hence $\deg Tp = \deg p$ for all nonzero $p\in\poly(\R)$, since $Tp = T_k p$ for $k = \deg p$. \qedhere
+\end{enumerate}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1320,8 +1323,9 @@ A = \{\lambda_1 v_1 + \dots + \lambda_m v_m\mid \lambda_1,\dots,\lambda_m\in\F\t
 \item Prove that $A = v + U$ for some $v\in V$ and some subspace $U$ of $V$ with $\dim U\leq m - 1$.
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-Let $v,w\in A$, so that there exist $\alpha_1,\dots, \alpha_m\in\F$ and $\beta_1,\dots, \beta_m\in\F$ such that
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Let $v,w\in A$, so that there exist $\alpha_1,\dots, \alpha_m\in\F$ and $\beta_1,\dots, \beta_m\in\F$ such that
 \begin{align*}
 v &= \alpha_1v_1 + \dots + \alpha_mv_m\\
 w &= \beta_1v_1 + \dots + \beta_mv_m,
@@ -1336,9 +1340,7 @@ But notice
 \sum_{k = 1}^m\left[\lambda \alpha_k + (1 - \lambda)\beta_k\right] &= \lambda + (1 - \lambda) = 1,
 \end{align*}
 and hence $\lambda v + (1 - \lambda)w \in A$ by the way we defined $A$.  By Problem 8, this implies that $A$ is an affine subset of $V$, as was to be shown.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-We induct on $m$.\\
+\item We induct on $m$.\\
 \textbf{Base case:} When $m = 1$, the statement is trivially true, since $A = \{v_1\}$, and hence any affine subset of $V$ that contains $v_1$ of course contains $A$.\\
 \textbf{Inductive step:} Let $k\in\Z^+$, and suppose the statement is true for $m = k$.  Suppose $A'$ is an affine subset of $V$ that contains $v_1,\dots, v_{k + 1}$, and let $x\in A$.  Then there exist $\lambda_1,\dots, \lambda_{k + 1}\in\F$ such that $\sum_{j}\lambda_j = 1$ and
 \begin{align*}
@@ -1362,9 +1364,7 @@ But after simplifying, this tells us
 \end{align*}
 Hence $A\subseteq A'$, and the statement is true for $m = k + 1$.
 \par By the principal of mathematical induction, the statement is true for all $m\in\Z^+$.  Thus any affine subset of $V$ that contains $v_1,\dots, v_m$ also contains $A$, as was to be shown.
-\end{proof}
-\begin{proof}[Proof of $(c)$]
-Define $U \defeq \Span(v_2 - v_1, \dots, v_m - v_1)$.  Let $x\in A$, so that there exist $\lambda_1,\dots, \lambda_m\in\F$ with $\sum_k\lambda_k = 1$ such that
+\item Define $U \defeq \Span(v_2 - v_1, \dots, v_m - v_1)$.  Let $x\in A$, so that there exist $\lambda_1,\dots, \lambda_m\in\F$ with $\sum_k\lambda_k = 1$ such that
 \begin{equation*}
 x = \lambda_1v_1 + \dots + \lambda_mv_m.
 \end{equation*}
@@ -1386,7 +1386,8 @@ But since
 \begin{equation*}
 \left(1 - \sum_{k = 1}^{m-1}\alpha_k\right)+ \sum_{k=1}^{m-1}\alpha_k = 1,
 \end{equation*}
-this implies $y \in A$, and hence $v_1 + U\subseteq A$.  Therefore $A = v_1 + U$, and since $\dim U \leq m - 1$, we have the desired result.
+this implies $y \in A$, and hence $v_1 + U\subseteq A$.  Therefore $A = v_1 + U$, and since $\dim U \leq m - 1$, we have the desired result. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 13
@@ -1655,8 +1656,9 @@ and
 \begin{align*}
 (7\psi_1 + 8\psi_2 + 9\psi_3)(x, y, z) &= 7\psi_1(x,y,z) + 8\psi_2(x,y,z) + 9\psi_3(x,y,z) \\
 &= 7x + 8y + 9z\\
-&= T'(\varphi_2)(x, y, z).
+&= T'(\varphi_2)(x, y, z),
 \end{align*}
+as desired. \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -1973,7 +1975,7 @@ Suppose $U$ is a subspace of $V$.  Let $\pi:V\to V/U$ be the usual quotient map.
 &= 0,
 \end{align*}
 and thus $\varphi\in U^0$, showing $\Range\pi'\subseteq U^0$.  Conversely, suppose $\varphi\in U^0$, so that $\varphi(u) = 0$ for all $u\in U$.  Define $\psi\in (V/U)'$ by $\psi(v + U) = \varphi(v)$ for all $v\in V$.  Then $(\pi'(\psi))(v) = \psi(\pi(v))=\psi(v + U) = \varphi(v)$, and so indeed $\varphi\in\Range \pi'$, showing $U^0\subseteq\Range\pi'$.  Therefore, we have $\Range\pi'= U^0$, as desired.
-\item Notice that $(b)$ may be interpreted as saying $\pi':(V/U)'\to U^0$ is surjective.  Since $\pi'$ was shown to be injective in $(a)$, we conclude $\pi'$ is an isomorphism from $(V/U)'$ onto $U^0$, as desired.
+\item Notice that $(b)$ may be interpreted as saying $\pi':(V/U)'\to U^0$ is surjective.  Since $\pi'$ was shown to be injective in $(a)$, we conclude $\pi'$ is an isomorphism from $(V/U)'$ onto $U^0$, as desired. \qedhere
 \end{enumerate}
 \end{proof}
 \end{document}

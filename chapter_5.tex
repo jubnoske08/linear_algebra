@@ -70,6 +70,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\vspace{-2em}Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces}
 \author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+\date{}
 
 \begin{document}
 \maketitle
@@ -92,7 +93,7 @@ Suppose $T\in\Hom(V)$ and $U$ is a subspace of $V$.
 \begin{proof}
 \begin{enumerate}[(a)]
 \item Suppose $u\in U$.  Since $U\subseteq\Null T$, we must have $Tu = 0$. And since $0\in U$, this implies $Tu\in U$, and so $U$ is indeed invariant under $T$.
-\item Suppose $u\in U$.  Since $Tu\in \Range T$ (by definition of $\Range T$) and $\Range T\subseteq U$, we have $Tu\in U$.  Thus $U$ is invariant under $T$.  
+\item Suppose $u\in U$.  Since $Tu\in \Range T$ (by definition of $\Range T$) and $\Range T\subseteq U$, we have $Tu\in U$.  Thus $U$ is invariant under $T$.  \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -195,7 +196,7 @@ Suppose $T\in\Hom(V)$.  Suppose $S\in \Hom(V)$ is invertible.
 \begin{enumerate}[(a)]
 \item Suppose $\lambda\in\F$ is an eigenvalue of $S^{-1}TS$.  Then there exists a nonzero $v\in V$ such that $(S^{-1}TS)v = \lambda v$.  This equation is true if and only if $TSv = \lambda(Sv)$, which is in turn true if and only if $Tw = \lambda w$, where $w = Sv$.  Note that since $S$ is invertible, $w\neq 0$.  Thus $T$ and $S^{-1}TS$ indeed have the same eigenvalues.
 
-\item As shown in the proof of (a), $v\in V$ is an eigenvector of $S^{-1}TS$ if and only if $Sv$ is an eigenvector of $T$.
+\item As shown in the proof of (a), $v\in V$ is an eigenvector of $S^{-1}TS$ if and only if $Sv$ is an eigenvector of $T$. \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -264,7 +265,7 @@ Suppose $T\in\Hom(V)$ is invertible.
 \begin{proof}
 \begin{enumerate}[(a)]
 \item By definition, $\lambda\neq 0$ is an eigenvalue of $T$ if and only if there exists $v\in V-\{0\}$ such that $Tv = \lambda v$.  Since $T$ is invertible, this is true if and only if $v = T^{-1}(\lambda v)$, which is itself true if and only if (after simplification) $\left(\frac{1}{\lambda}\right)v = T^{-1}v$.  Thus $\lambda$ is an eigenvalue of $T$ if and only if $\frac{1}{\lambda}$ is an eigenvalue of $T^{-1}$, as was to be shown.
-\item First notice that $\lambda = 0$ cannot be an eigenvalue of $T$ or $T^{-1}$ since they are both injective.  Now, suppose $v$ is an eigenvector of $T$ corresponding to $\lambda\neq 0$.  By the proof of (a), $v$ is an eigenvector of $T^{-1}$ corresponding to $\frac{1}{\lambda}$.  Thus all eigenvectors of $T$ are eigenvectors of $T^{-1}$.  Now, reversing the roles of $T$ and $T^{-1}$ and applying the same argument yields the reverse inclusion, completing the proof.
+\item First notice that $\lambda = 0$ cannot be an eigenvalue of $T$ or $T^{-1}$ since they are both injective.  Now, suppose $v$ is an eigenvector of $T$ corresponding to $\lambda\neq 0$.  By the proof of (a), $v$ is an eigenvector of $T^{-1}$ corresponding to $\frac{1}{\lambda}$.  Thus all eigenvectors of $T$ are eigenvectors of $T^{-1}$.  Now, reversing the roles of $T$ and $T^{-1}$ and applying the same argument yields the reverse inclusion, completing the proof. \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -372,7 +373,7 @@ $(\Leftarrow)$ If $T\in \Hom(V)$ is such that $v_1,\dots,v_m$ are eigenvectors o
 
 % Problem 33
 \begin{problem}{33}
-Suppose $T\in\Hom(V)$.  Prove that $T/(\Range T) = 0$ 
+Suppose $T\in\Hom(V)$.  Prove that $T/(\Range T) = 0$. 
 \end{problem}
 \begin{proof}
 Let $v + \Range T\in V/(\Range T)$.  Then
@@ -441,7 +442,7 @@ Thus $I - T$ is indeed invertible, and $S$ is its inverse.
 \begin{equation*}
 (1 - x)^{-1}= \sum_{k = 0}^\infty x^k.
 \end{equation*}
-Substituting $T$ for $x$ and supposing $T^k = 0$ for $k\geq n$, we have the formula from (a).
+Substituting $T$ for $x$ and supposing $T^k = 0$ for $k\geq n$, we have the formula from (a). \qedhere
 \end{enumerate}
 \end{proof}
 

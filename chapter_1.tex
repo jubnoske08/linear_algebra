@@ -2,7 +2,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PACKAGES            																						  %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[11pt]{extsizes}
 \usepackage{amsfonts}
 \usepackage{amsthm}
@@ -11,12 +11,12 @@
 \usepackage{microtype} 
 \usepackage{amsmath}
 \usepackage{mathtools}
-
 \usepackage[varg]{txfonts}
+\usepackage{commath}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PROBLEM ENVIRONMENT         																			           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tcolorbox}
 \tcbuselibrary{theorems, breakable, skins}
 \newtcbtheorem{prob}% environment name
@@ -31,16 +31,31 @@
   {} 
 \newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MY COMMANDS   																						  %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\bigO}{\mathcal{O}}
 \newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\restr}[1]{|_{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,6 +70,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\vspace{-2em}Chapter 1: Vector Spaces}
 \author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+\date{}
 
 \begin{document}
 \maketitle
@@ -297,15 +313,16 @@ and hence every element has an additive inverse, as desired.
 % Problem 1
 \begin{problem}{1}
 For each of the following subsets of $\F^3$, determine whether it is a subspace of $\F^3$:
-\begin{enumerate}[(a)]
+\begin{enumerate}
 \item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 +2x_2 +3x_3 = 0\}$
 \item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 +2x_2 +3x_3 = 4\}$
 \item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1x_2x_3 = 0\}$
 \item $\{(x_1, x_2, x_3)\in\F^3 \mid x_1 = 5x_3\}$ 
 \end{enumerate}
 \end{problem}
-\begin{proof}[Proof of $(a)$]
-Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
 \begin{align*}
 x_1 +2x_2 +3x_3 = 0 ~~~ \text{and} ~~~ y_1 + 2y_2 + 3y_3 = 0,
 \end{align*}
@@ -319,15 +336,9 @@ and so $x+y\in S$ and $S$ is closed under addition.  Now letting $a\in\F$, we ha
 a(x_1 + 2x_2 + 3x_3) = ax_1 + 2(ax_2) + 3(ax_3) = 0, 
 \end{align*}
 and hence $ax\in S$ as well, and so $S$ is closed under scalar multiplication, thus proving $S$ is a subspace, as claimed.
-\end{proof}
-\begin{proof}[Proof of $(b)$]
-Let $S$ denote the specified subset.  Then $S$ is not a subspace, for $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $S$ does not contain the additive identity.
-\end{proof}
-\begin{proof}[Proof of $(c)$]
-Let $S$ denote the specified subset.  We claim $S$ is not a subspace since it is not closed under addition.  To see this, let $x = (1, 0, 0)$ and $y = (0, 1, 1)$.  Then $x,y\in S$, but $x + y = (1, 1, 1)\not\in S$ since $(x_1 + y_1)(x_2 + y_2)(x_3 + y_3) = 1 \cdot 1 \cdot 1 \neq  0$.
-\end{proof}
-\begin{proof}[Proof of $(d)$]
-Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 = 5\cdot 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
+\item Let $S$ denote the specified subset.  Then $S$ is not a subspace, for $0 + 2\cdot 0 + 3\cdot 0 = 0$, and hence $S$ does not contain the additive identity.
+\item Let $S$ denote the specified subset.  We claim $S$ is not a subspace since it is not closed under addition.  To see this, let $x = (1, 0, 0)$ and $y = (0, 1, 1)$.  Then $x,y\in S$, but $x + y = (1, 1, 1)\not\in S$ since $(x_1 + y_1)(x_2 + y_2)(x_3 + y_3) = 1 \cdot 1 \cdot 1 \neq  0$.
+\item Let $S$ denote the specified subset.  We claim $S$ is a subspace.  To see this, note that $0 = 5\cdot 0$, and hence $0\in S$.  Now suppose $x = (x_1, x_2, x_3)\in S$ and $y=(y_1,y_2,y_3)\in S$.  Then
 \begin{align*}
 x_1 = 5x_3 ~~~ \text{ and } ~~~ y_1 = 5y_3,
 \end{align*}
@@ -343,7 +354,8 @@ and thus
 \begin{align*}
 (ax_1) = 5(ax_3),
 \end{align*}
-showing $ax\in S$ as well.   Therefore $S$ is closed under scalar multiplication as well, proving $S$ is a subspace, as claimed.
+showing $ax\in S$ as well.   Therefore $S$ is closed under scalar multiplication as well, proving $S$ is a subspace, as claimed. \qedhere
+\end{enumerate}
 \end{proof}
 
 % Problem 3
