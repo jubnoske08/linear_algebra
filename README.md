@@ -12,11 +12,11 @@ ___
 
 ## Table of Contents
 
-* [Chapter 1: Vector Spaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_1.tex&command=pdflatex)
-* [Chapter 2: Finite-Dimensional Vector Spaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_2.tex&command=pdflatex)
-* [Chapter 3: Linear Maps](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_3.tex&command=pdflatex)
-* [Chapter 4: Polynomials](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_4.tex&command=pdflatex)
-* [Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_5.tex&command=pdflatex)
+* [Chapter 1: Vector Spaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_1.tex&command=pdflatex&force=true)
+* [Chapter 2: Finite-Dimensional Vector Spaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_2.tex&command=pdflatex&force=true)
+* [Chapter 3: Linear Maps](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_3.tex&command=pdflatex&force=true)
+* [Chapter 4: Polynomials](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_4.tex&command=pdflatex&force=true)
+* [Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_5.tex&command=pdflatex&force=true)
 ___
 
 ## Thoughts on the Book
