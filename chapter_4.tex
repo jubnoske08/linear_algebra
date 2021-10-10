@@ -132,21 +132,21 @@ T:\poly_m(\F)&\to \F^{m + 1}\\
 \end{align*}
 It suffices to show that $T$ is an isomorphism, since injectivity implies uniqueness of such a $p\in\poly_m(\F)$, and surjectivity implies its existence.  So we first show that $T$ is a linear map.  Suppose $p,q\in\poly_m(\F)$.  Then
 \begin{align*}
-T(p + q) &= ((p + q)(z_1), \dots, (p + q)(z_{m+1}))\\
-&= (p(z_1) + q(z_1), \dots, p(z_{m+1}) + q(z_{m+1}))\\
-&= (p(z_1), \dots, p(z_{m+1}) + (q(z_1), \dots, q(z_{m+1})\\
+T(p + q) &= \left((p + q)(z_1), \dots, (p + q)(z_{m+1})\right)\\
+&= \left(p(z_1) + q(z_1), \dots, p(z_{m+1}) + q(z_{m+1})\right)\\
+&= \left(p(z_1), \dots, p(z_{m+1})\right) + \left(q(z_1), \dots, q(z_{m+1})\right)\\
 &= Tp + Tq,
 \end{align*}
 so that $T$ is additive.  Next suppose $\lambda\in\F$.  Then
 \begin{align*}
-T(\lambda p) &= ((\lambda p)(z_1), \dots, (\lambda p)(z_{m+1}))\\
-&= (\lambda p(z_1), \dots, \lambda p(z_{m+1}))\\
-&= \lambda (p(z_1), \dots, p(z_{m+1}))\\
+T(\lambda p) &= \left((\lambda p)(z_1), \dots, (\lambda p)(z_{m+1})\right)\\
+&= \left(\lambda p(z_1), \dots, \lambda p(z_{m+1})\right)\\
+&= \lambda \left(p(z_1), \dots, p(z_{m+1})\right)\\
 &= \lambda (Tp),
 \end{align*}
 so that $T$ is also homogenous.  Hence $T$ and hence a linear map.  To see that $T$ is an isomorphism, it's enough to show $T$ is injective.  So suppose $Tp = 0$ for some $p\in\poly_m(\F)$.  Then
 \begin{equation*}
-Tp = (p(z_1), \dots, p(z_{m+1})) = (0, \dots, 0),
+Tp = \left(p(z_1), \dots, p(z_{m+1})\right) = (0, \dots, 0),
 \end{equation*}
 and hence $p$ has $m + 1$ zeros.  Since it has degree at most $m$, $p$ must therefore be the zero polynomial, completing the proof.
 \end{proof}
