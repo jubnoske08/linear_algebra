@@ -201,8 +201,8 @@ Suppose $\dim p=n$ for some $n\in\Z^+$.
 T:\poly(\F) &\mapsto \poly_{n-1}(\F)\\
 f &\mapsto r(f),
 \end{align*}
-where $r(f)$ is the unique remainder when $f$ is divided by $p$.  We will show that $T$ is linear, $\Null T = U$, and $\Range T = \poly_{n - 1}(\F)$, so that $V/U\cong \poly_{n - 1}$.  Since $\poly_{n-1}(\F)\cong \F^n$ and $\dim\F^n = n = \deg p$, this gives the desired result.
-\indent First we show $T$ is a linear map.  To see this, first suppose $f,g\in\poly(F)$.  Then there exist unique $q_1,q_2\in\poly(F)$ such that $f = q_1p + r(f)$ and $g = q_2p + r(g)$.  But then $f + g = (q_1 + q_2)p + r(f) + r(g)$, and hence $r(f+g) = r(f)+r(g)$.  Thus
+where $r(f)$ is the unique remainder when $f$ is divided by $p$.  We will show that $T$ is linear, $\Null T = U$, and $\Range T = \poly_{n - 1}(\F)$, so that $V/U\cong \poly_{n - 1}$.  Since $\poly_{n-1}(\F)\cong \F^n$ and $\dim\F^n = n = \deg p$, this gives the desired result.\\
+\par First we show $T$ is a linear map.  To see this, suppose $f,g\in\poly(F)$.  Then there exist unique $q_1,q_2\in\poly(F)$ such that $f = q_1p + r(f)$ and $g = q_2p + r(g)$.  But then $f + g = (q_1 + q_2)p + r(f) + r(g)$, and hence $r(f+g) = r(f)+r(g)$.  Thus
 \begin{equation*}
 T(f + g) = r(f) + r(g) = T(f) + T(g),
 \end{equation*}
@@ -211,8 +211,8 @@ and so $T$ is additive.  To see that $T$ is also homogenous, suppose $\lambda\in
 T(\lambda f) = \lambda r(f) = \lambda Tf,
 \end{equation*}
 and so $T$ is homogeneous.  Thus $T$ is a linear map, as claimed.\\
-\indent Next we show $\Null T= U$.  Suppose $f\in \Null T$.  Then $Tf = 0$, and hence $r(f) = 0$.  That is, there exists $q_1\in \poly(\F)$ such that $f = pq_1$, and thus $f\in U$.  Conversely, if $g\in U$, then there exists $q_2\in\poly(\F)$ such that $g = pq_2$.  But then $r(g)=0$, and hence $Tg =0$ and $g\in\Null T$.\\
-\indent Lastly we show $\Range T = \poly_{n-1}$.  Of course $\Range T\subseteq \poly_{n-1}$.  So suppose $r \in \poly_{n-1}$.  Then $r = 0p + r$ (where $0$ denotes the zero polynomial), and hence $Tr = r$.  Thus $\Range T = U$.
+\par Next we show $\Null T= U$.  Suppose $f\in \Null T$.  Then $Tf = 0$, and hence $r(f) = 0$.  That is, there exists $q_1\in \poly(\F)$ such that $f = pq_1$, and thus $f\in U$.  Conversely, if $g\in U$, then there exists $q_2\in\poly(\F)$ such that $g = pq_2$.  But then $r(g)=0$, and hence $Tg =0$ and $g\in\Null T$.\\
+\par Lastly we show $\Range T = \poly_{n-1}$.  Of course $\Range T\subseteq \poly_{n-1}$.  So suppose $r \in \poly_{n-1}$.  Then $r = 0p + r$ (where $0$ denotes the zero polynomial), and hence $Tr = r$.  Thus $\Range T = U$.
 \item We claim $1+U, x+U,\dots, x^{n-1}+U$ is a basis of $\poly(\F)/U$.  Notice none of these vectors is the zero vector since all elements of $U$ have degree at least $n$.  Clearly the list is linearly independent.  Since it has the right length, it's indeed a basis.  \qedhere
 \end{enumerate}
 \end{proof}

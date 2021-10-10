@@ -769,4 +769,82 @@ s_1 -\dim(E_1, T) = (\dim E(\lambda_2, T) - s_2) + \dots + (\dim E(\lambda_m, T)
 Each term in parentheses on the RHS is nonnegative, and hence $s_1 - \dim(E_1, T) \geq 0$, which implies $s_1 \geq \dim(E_1, T)$.  Since we've already shown $s_1\leq \dim(E_1, T)$, we conclude $s_1 = \dim(E_1, T)$.  An analogous argument shows $s_\ell = E(\lambda_\ell, T)$ for all $\ell\in\{2,\dots,m\}$.\\
 \indent Therefore, if $\lambda\in\C$ is an eigenvalue of $T$, then $\lambda$ indeed appears on the diagonal of $A$ precisely $\dim E(\lambda, T)$ times.  And if $\lambda$ is not an eigenvalue of $T$, then it appears on the diagonal zero times, which also equals $\dim E(\lambda, T)$.  In both cases, the desired result holds, completing the proof.
 \end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $T\in\Hom(V)$ is invertible.  Prove that $E(\lambda, T) = E\left(\frac{1}{\lambda}, T^{-1}\right)$ for every $\lambda\in\F$ with $\lambda\neq 0$.  
+\end{problem}
+\begin{proof}
+Let $\lambda\in\F-\{0\}$, and suppose $v\in E(\lambda, T)$.  Then
+\begin{align*}
+Tv = \lambda v  &\implies v = T^{-1}(\lambda v)\\
+&\implies \frac{1}{\lambda}v = T^{-1}v\\
+&\implies v \in E\left(\frac{1}{\lambda}, T^{-1}\right),
+\end{align*}
+and thus $E(\lambda, T)\subseteq E\left(\frac{1}{\lambda}, T^{-1}\right)$.  Conversely, suppose $w\in E\left(\frac{1}{\lambda}, T^{-1}\right)$.  It follows
+\begin{align*}
+T^{-1}w = \frac{1}{\lambda}w &\implies w = T\left(\frac{1}{\lambda} w\right)\\
+&\implies \lambda w = Tw\\
+&\implies w\in E(\lambda, T),
+\end{align*}
+and so $E\left(\frac{1}{\lambda}, T^{-1}\right)\subseteq E(\lambda, T)$.  Therefore, we conclude $E(\lambda, T) = E\left(\frac{1}{\lambda}, T^{-1}\right)$, as was to be shown.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Verify the assertion in Example 5.40.
+\end{problem}
+\begin{proof}
+Define $T\in\Hom(\R^2)$ by
+\begin{equation*}
+T(x, y) = (41x + 7y, -20x + 74y).
+\end{equation*}
+Example 5.40 asserts that $T$ is diagonalizable, because the matrix of $T$ with respect to the basis $(1, 4), (7, 5)$ is
+\begin{equation*}
+\begin{bmatrix}69 & 0\\ 0 & 46\end{bmatrix}.
+\end{equation*}
+To see this, first notice
+\begin{align*}
+T(1, 4) &= (69, 276) \\
+&= 69\cdot (1, 4) + 0\cdot (7, 5),
+\end{align*}
+and so the first column of the matrix is correct.  Next notice
+\begin{align*}
+T(7, 5) &= (322, 230)\\
+&= 0\cdot (1, 4) + 46 \cdot (7, 5),
+\end{align*}
+and so the second column of the matrix is correct as well. 
+\end{proof}
+
+% Problem 12
+\begin{problem}{12}
+Suppose $R,T\in\Hom(\F^3)$ each have $2, 6, 7$ as eigenvalues.  Prove that there exists an invertible operator $S\in\Hom(\F^3)$ such that $R = S^{-1}TS$.
+\end{problem}
+\begin{proof}
+Since $R$ and $T$ each have $3$ eigenvalues and $\dim \F^3 = 3$, they are both diagonalizable by Theorem 5.44.  Letting $\lambda_1 = 2, \lambda_2 = 6$, and $\lambda_3 = 7$, there exist (again by Theorem 5.44) bases $v_1, v_2, v_3$ and $w_1, w_2, w_3$ of $\F^3$ such that 
+\begin{equation*}
+Rv_k = \lambda_k v_k ~~~~\text{and}~~~~ Tw_k = \lambda_k w_k
+\end{equation*}
+for $k = 1,2, 3$.  Define the operator $S\in\Hom(\F^3)$ by its behavior on the $v_k$:
+\begin{align*}
+Sv_k &= w_k.
+\end{align*}
+Since $S$ takes one basis to another basis, it's invertible.  Now notice
+\begin{align*}
+S^{-1}TSv_k &= S^{-1}Tw_k\\
+&= S^{-1}(\lambda_kw_k)\\
+&= \lambda_kS^{-1}w_k\\
+&= \lambda_kv_k\\
+&= Rv_k,
+\end{align*}
+and thus $R = S^{-1}TS$, as desired.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Find $R,T\in\Hom(\F^4)$ such that $R$ and $T$ each have $2, 6, 7$ as eigenvalues, $R$ and $T$ have no other eigenvalues, and there does not exist an invertible operator $S\in\Hom(\F^4)$ such that $R=S^{-1}TS$.
+\end{problem}
+\begin{proof}
+
+\end{proof}
 \end{document}
