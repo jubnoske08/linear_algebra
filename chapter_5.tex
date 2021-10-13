@@ -845,6 +845,52 @@ and thus $R = S^{-1}TS$, as desired.
 Find $R,T\in\Hom(\F^4)$ such that $R$ and $T$ each have $2, 6, 7$ as eigenvalues, $R$ and $T$ have no other eigenvalues, and there does not exist an invertible operator $S\in\Hom(\F^4)$ such that $R=S^{-1}TS$.
 \end{problem}
 \begin{proof}
+For $x = (x_1, x_2, x_3, x_4) \in \F^4$, define $R, T\in\Hom(\F^4)$ by
+\begin{align*}
+Rx = \begin{bmatrix}2 & 0 & 0 & 0\\ 0 & 2 & 0 & 0\\ 0 & 0 & 6 & 0\\0 & 0 & 0 & 7  \end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}
+\quad\text{and}\quad 
+Tx = \begin{bmatrix}2 & 1 & 1 & 1\\ 0 & 2 & 1 & 1\\ 0 & 0 & 6 & 1\\0 & 0 & 0 & 7  \end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}.
+\end{align*}
+By Theorem 5.32, $R$ and $T$ each have precisely $2, 6, 7$ as eigenvalues and no others.  We claim $T$ is diagonalizable, and we will use this fact to derive a contradiction from which the result will follow.  To see this, first notice that after row reduction, we have
+\begin{align*}
+T - 2 I &= \begin{bmatrix}0 & 1 & 1 & 1\\ 0 & 0 & 1 & 1\\ 0 & 0 & 4 & 1\\0 & 0 & 0 & 5  \end{bmatrix}.
+\end{align*}
+Since $T- 2I$ is in echelon form and has three pivots, $\dim\Range(T-2I) = 3$, and thus $\dim E(2,T) = \dim\Null(T - 2I) = 1$.  Similarly, we have
+\begin{align*}
+T - 6I &= \begin{bmatrix}-4 & 1 & 1 & 1\\ 0 & -4 & 1 & 1\\ 0 & 0 & 0 & 1\\0 & 0 & 0 & 1  \end{bmatrix}, 
+\end{align*}
+so that $T-6I$ has three pivots as well and hence $\dim E(6, T) = 1$.  Lastly, notice
+\begin{align*}
+T - 7I &= \begin{bmatrix}-5 & 1 & 1 & 1\\ 0 & -5 & 1 & 1\\ 0 & 0 & -1 & 1\\0 & 0 & 0 & 0  \end{bmatrix}, 
+\end{align*}
+and $T-6I$ also has three pivots and so $\dim E(7, T) = 1$.  Since $\dim E(2, T) + \dim E(6, T) + \dim E(7, T) < \dim \F^4$, $T$ is not diagonalizable by Theorem 5.41.\\
+\indent Now, by way of contradiction, suppose there exists an invertible $S\in\Hom(\F^4)$ such that $R=S^{-1}TS$.  Then the list $Se_1, \dots, Se_4$ is a basis of $\F^4$.  Notice
+\begin{align*}
+T(Se_1) &= S(Re_1)\\
+&= S(2e_1)\\
+&= 2Se_1,
+\end{align*}
+and similarly we have
+\begin{align*}
+T(Se_2) = 2Se_2, ~~~ T(Se_3) = 6Se_3, ~~~ \text{and} ~~~ T(Se_4) = 7Se_4.
+\end{align*}
+Thus $\mat\left(T, (Se_1, \dots, Se_4)\right)$ is diagonal, a contradiction.  Therefore, no such $S$ exists, as was to be shown.
+\end{proof}
 
+% Problem 15
+\begin{problem}{15}
+Suppose $T\in\Hom(\C^3)$ is such that $6$ and $7$ are eigenvalues of $T$.  Furthermore, suppose $T$ does not have a diagonal matrix with respect to any basis of $\C^3$.  Prove that there exists $(x, y, z)\in\C^3$ such that $T(x, y, z) = (17 + 8x, \sqrt{5} + 8y, 2\pi + 8z)$.  
+\end{problem}
+\begin{proof}
+By hypothesis, $T$ is not diagonalizable.  Hence by Theorem 5.44, $6$ and $7$ are the only eigenvalues of $T$.  In particular, $8$ is not an eigenvalue.  Thus
+\begin{equation*}
+\dim E(8, T) = \dim \Null(T - 8I) = 1.
+\end{equation*}
+So there exists $(x, y, z) \in \C^3$ such that $(T - 8I)(x, y, z) = (17, \sqrt{5}, 2\pi)$.  It follows
+\begin{align*}
+T(x, y, z) &= (17, \sqrt{5}, 2\pi) + 8(x, y, z)\\
+&=  (17 + 8x, \sqrt{5} + 8y, 2\pi + 8z),
+\end{align*}
+as was to be shown.
 \end{proof}
 \end{document}
