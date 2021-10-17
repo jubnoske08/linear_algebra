@@ -1,9 +1,10 @@
 \documentclass{extarticle}
+\sloppy
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PACKAGES            																						  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[11pt]{extsizes}
+\usepackage[10pt]{extsizes}
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amssymb}
@@ -11,7 +12,6 @@
 \usepackage{microtype} 
 \usepackage{amsmath}
 \usepackage{mathtools}
-\usepackage[varg]{txfonts}
 \usepackage{commath}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,13 +84,13 @@ Verify all the assertions in $4.5$ except the last one.
 \begin{proof}
 Suppose $w,z \in\C$, and let $a,b,c,d\in\R$ be such that $w = a+bi$ and $z = c + di$.
 \begin{itemize}
-\item Notice $z + \bar{z} = (c + di) + (c - di) = 2c = 2\Re(z)$.
-\item We have $z - \bar{z} = (c + di) - (c - di) = 2di = 2\Im(z)i$.  
-\item Notice $z\bar{z} = (c + di)(c - di) = c^2 + d^2 = \left(\sqrt{c^2 + d^2}\right)^2 = \left |z\right |^2$.
-\item We have $\widebar{w + z} = \widebar{(a + c) + (b + d)i} = (a - bi) + (c - di) = \bar{w} + \bar{z}$.  Also, $\widebar{wz} = \widebar{(ac - bd) + (ad + bc)i} = (ac - bd) - (ad + bc)i$ and $\bar{w}\bar{z} = (a-bi)(c-di) = (ac - bd)-(ad + bc)i$, so that $\widebar{wz} = \bar{w}\bar{z}$.
-\item Notice $\bar{\bar{z}} = \widebar{c - di} = c + di = z$.
+\item Notice $z + \widebar{z} = (c + di) + (c - di) = 2c = 2\Re(z)$.
+\item We have $z - \widebar{z} = (c + di) - (c - di) = 2di = 2\Im(z)i$.  
+\item Notice $z\widebar{z} = (c + di)(c - di) = c^2 + d^2 = \left(\sqrt{c^2 + d^2}\right)^2 = \left |z\right |^2$.
+\item We have $\widebar{w + z} = \widebar{(a + c) + (b + d)i} = (a - bi) + (c - di) = \widebar{w} + \widebar{z}$.  Also, $\widebar{wz} = \widebar{(ac - bd) + (ad + bc)i} = (ac - bd) - (ad + bc)i$ and $\widebar{w}\widebar{z} = (a-bi)(c-di) = (ac - bd)-(ad + bc)i$, so that $\widebar{wz} = \widebar{w}\widebar{z}$.
+\item Notice $\widebar{\widebar{z}} = \widebar{c - di} = c + di = z$.
 \item We have $\left|\Re(z)\right| = \left|c\right| = \sqrt{c^2}\leq \sqrt{c^2 + d^2} = \left|z\right|$, and similarly $\left|\Im{z}\right| = \left|d\right| = \sqrt{d^2}\leq \sqrt{c^2 + d^2} = \left|z\right|$.
-\item Notice $\left|\bar{z}\right| = \left|c - di\right| = \sqrt{c^2 + (-d)^2} = \sqrt{c^2 + d^2} = \left|z\right|$.
+\item Notice $\left|\widebar{z}\right| = \left|c - di\right| = \sqrt{c^2 + (-d)^2} = \sqrt{c^2 + d^2} = \left|z\right|$.
 \item We have 
 \begin{align*}
 \left|wz\right| &= \left|(ac - bd) + (ad + bc)i\right|\\

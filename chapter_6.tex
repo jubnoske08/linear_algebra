@@ -1,0 +1,157 @@
+\documentclass{extarticle}
+\sloppy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[10pt]{extsizes}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{microtype} 
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{commath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROBLEM ENVIRONMENT         																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS/LEMMAS/ETC.         																			  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm-non}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   																						  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\Hom}{\mathcal{L}}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand\widebar[1]{\mathop{\overline{#1}}}
+\newcommand{\restr}[1]{|_{#1}}
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiter\Mod{\lvert}{\rvert}
+\DeclarePairedDelimiter\Norm{\lVert}{\rVert}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION NUMBERING																				           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\thesection{\Alph{section}:}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START              																			           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-2em}Chapter 6: Inner Product Spaces}
+\author{\emph{Linear Algebra Done Right}, by Sheldon Axler}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION A            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Inner Products and Norms}
+
+% Problem 1
+\begin{problem}{1}
+Show that the function that takes $\left((x_1,x_2), (y_1,y_2)\right)\in \R^2\times \R^2$ to $\Mod{x_1y_1} + \Mod{x_2y_2}$ is not an inner product on $\R^2$.
+\end{problem}
+\begin{proof}
+Suppose it were.  First notice
+\begin{align*}
+\inp{(1, 1) + (-1, -1)}{(1, 1)} &= \inp{(0, 0)}{(1, 1)}\\
+&= \Mod{0\cdot 1} + \Mod{0\cdot 1}\\
+&= 0.
+\end{align*}
+Next, since inner products are additive in the first slot, we also have
+\begin{align*}
+\inp{(1, 1) + (-1, -1)}{(1, 1)} &= \inp{(1, 1)}{(1, 1)} + \inp{(-1, -1)}{(1, 1)}\\
+&= \Mod{1\cdot 1} + \Mod{1 \cdot 1} + \Mod{(-1)\cdot 1} + \Mod{(-1) \cdot 1}\\
+&= 4.
+\end{align*}
+But this implies $0 = 4$, a contradiction.  Hence we must conclude that the function does not in fact define an inner product.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $\F=\R$ and $V\neq \{0\}$.  Replace the positivity condition (which states that $\inp{v}{v}\geq0$ for all $v\in V$) in the definition of an inner product (6.3) with the condition that $\inp{v}{v} > 0$ for some $v\in V$.  Show that this change in the definition does not change the set of functions from $V\times V$ to $\R$ that are inner products on $V$.
+\end{problem}
+\begin{proof}
+Let $V$ be a nontrivial vector space over $\R$, let $A$ denote the set of functions $V\times V\to\R$ that are inner products on $V$ in the standard definition, and let $B$ denote the set of functions $V\times V\to \R$ under the modified definition.  We will show $A = B$.\\
+\indent Suppose $\inp{\cdot}{\cdot}_1\in A$.  Since $V\neq\{0\}$, there exists $v\in V-\{0\}$.  Then $\inp{v}{v}_1>0$, and so $\inp{\cdot}{\cdot}_1\in B$.  Thus $A\subseteq B$.\\ 
+\indent Conversely, suppose $\inp{\cdot}{\cdot}_2 \in B$.  Then there exists some $v'\in V$ such that $\inp{v'}{v'}_2 > 0$.  Suppose by way of contradiction there exists $u\in V$ is such that $\inp{u}{u}_2 < 0$.  Define $w = \alpha u + (1- \alpha) v'$ for $\alpha\in\R$.  It follows
+\begin{align*}
+\inp{w}{w}_2 &= \inp{\alpha u + (1- \alpha) v'}{\alpha u + (1- \alpha) v'}_2\\
+&= \inp{\alpha u}{\alpha u}_2 + 2\inp{\alpha u}{(1 - \alpha)v'}_2 + \inp{(1 - \alpha)v'}{(1 - \alpha)v'}_2\\
+&= \alpha^2\inp{u}{u}_2 + 2\alpha(1-\alpha)\inp{u}{v'}_2 + (1-\alpha)^2\inp{v'}{v'}_2.
+\end{align*}
+Notice the final expression is a polynomial in the indeterminate $\alpha$, call it $p$.  Since $p(0) = \inp{v'}{v'}_2 > 0$ and $p(1) = \inp{u}{u}_2 < 0$, by Bolzano's theorem there exists $\alpha_0\in(0, 1)$ such that $p(\alpha_0) = 0$.  That is, if $ w = \alpha_0u + (1 - \alpha_0)v'$, then $\inp{w}{w}_2 = 0$.  In particular, notice $\alpha_0\neq 0$, for otherwise $w = v'$, a contradiction since $\inp{v'}{v'}_2 > 0$.  Now, since $\inp{w}{w}_2 = 0$ iff $w = 0$ (by the definiteness condition of an inner product), it follows 
+\begin{equation*}
+u = \frac{\alpha_0 - 1}{\alpha_0} v.
+\end{equation*}
+Letting $t =  \frac{\alpha_0 - 1}{\alpha_0}$, we now have
+\begin{align*}
+\inp{u}{u}_2 &= \inp{tv'}{tv'}\\
+&= t^2\inp{v'}{v'}\\
+&> 0,
+\end{align*}
+where the inequality follows since $t\in(-1, 0)$ and $\inp{v'}{v'}_2 > 0$.  This contradicts our assumption that $\inp{u}{u}_2 < 0$, and so we have $\inp{\cdot}{\cdot}_2\in A$.  Therefore, $B\subseteq A$.  Since we've already shown $A\subseteq B$, this implies $A = B$, as was to be shown.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Let $V$ be finite-dimensional.  Suppose $T\in\Hom(V)$ is such that $\Norm{Tv}\leq \Norm{v}$ for every $v\in V$.  Prove that $T-\sqrt{2}I$ is invertible.
+\end{problem}
+\begin{proof}
+Let $v\in\Null(T - \sqrt{2}I)$, and suppose by way of contradiction that $v\neq 0$.  Then
+\begin{align*}
+Tv - \sqrt{2}v = 0 &\implies Tv = \sqrt{2}v\\
+&\implies \Norm{\sqrt{2}v}\leq \Norm{v}\\
+&\implies \sqrt{2}\cdot \Norm{v}\leq \Norm{v}\\
+&\implies \sqrt{2} \leq 1,
+\end{align*}
+a contradiction.  Hence $v = 0$ and $\Null(T - \sqrt{2}I) =\{0\}$, so that $T-\sqrt{2}I$ is injective.  Since $V$ is finite-dimensional, this implies $T-\sqrt{2}I$ is invertible, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $u,v\in V$.  Prove that $\Norm{au + bv} = \Norm{bu + av}$ for all $a,b\in\R$ if and only if $\Norm{u} = \Norm{v}$.
+\end{problem}
+\begin{proof}
+
+\end{proof}
+\end{document}
