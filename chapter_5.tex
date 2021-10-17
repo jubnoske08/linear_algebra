@@ -884,9 +884,9 @@ Suppose $T\in\Hom(\C^3)$ is such that $6$ and $7$ are eigenvalues of $T$.  Furth
 \begin{proof}
 By hypothesis, $T$ is not diagonalizable.  Hence by Theorem 5.44, $6$ and $7$ are the only eigenvalues of $T$.  In particular, $8$ is not an eigenvalue.  Thus
 \begin{equation*}
-\dim E(8, T) = \dim \Null(T - 8I) = 1.
+\dim E(8, T) = \dim \Null(T - 8I) = 0,
 \end{equation*}
-So there exists $(x, y, z) \in \C^3$ such that $(T - 8I)(x, y, z) = (17, \sqrt{5}, 2\pi)$.  It follows
+and hence $T - 8I$ is surjective.  So there exists $(x, y, z) \in \C^3$ such that $(T - 8I)(x, y, z) = (17, \sqrt{5}, 2\pi)$.  It follows
 \begin{align*}
 T(x, y, z) &= (17, \sqrt{5}, 2\pi) + 8(x, y, z)\\
 &=  (17 + 8x, \sqrt{5} + 8y, 2\pi + 8z),
