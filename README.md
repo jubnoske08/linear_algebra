@@ -17,6 +17,7 @@ ___
 * [Chapter 3: Linear Maps](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_3.tex&command=pdflatex&force=true)
 * [Chapter 4: Polynomials](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_4.tex&command=pdflatex&force=true)
 * [Chapter 5: Eigenvalues, Eigenvectors, and Invariant Subspaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_5.tex&command=pdflatex&force=true)
+* [Chapter 6: Inner Product Spaces](https://latexonline.cc/compile?git=https://github.com/jubnoske08/linear_algebra&target=chapter_6.tex&command=pdflatex&force=true)
 ___
 
 ## Thoughts on the Book
