@@ -125,11 +125,11 @@ u = \frac{\alpha_0 - 1}{\alpha_0} v.
 \end{equation*}
 Letting $t =  \frac{\alpha_0 - 1}{\alpha_0}$, we now have
 \begin{align*}
-\inp{u}{u}_2 &= \inp{tv'}{tv'}\\
-&= t^2\inp{v'}{v'}\\
+\inp{u}{u}_2 &= \inp{tv'}{tv'}_2\\
+&= t^2\inp{v'}{v'}_2\\
 &> 0,
 \end{align*}
-where the inequality follows since $t\in(-1, 0)$ and $\inp{v'}{v'}_2 > 0$.  This contradicts our assumption that $\inp{u}{u}_2 < 0$, and so we have $\inp{\cdot}{\cdot}_2\in A$.  Therefore, $B\subseteq A$.  Since we've already shown $A\subseteq B$, this implies $A = B$, as was to be shown.
+where the inequality follows since $t\in(-1, 0)$ and $\inp{v'}{v'}_2 > 0$.  This contradicts our assumption that $\inp{u}{u}_2 < 0$, and so we have $\inp{\cdot}{\cdot}_2\in A$.  Therefore, $B\subseteq A$.  Since we've already shown $A\subseteq B$, this implies $A = B$, as desired.
 \end{proof}
 
 % Problem 5
@@ -152,6 +152,106 @@ a contradiction.  Hence $v = 0$ and $\Null(T - \sqrt{2}I) =\{0\}$, so that $T-\s
 Suppose $u,v\in V$.  Prove that $\Norm{au + bv} = \Norm{bu + av}$ for all $a,b\in\R$ if and only if $\Norm{u} = \Norm{v}$.
 \end{problem}
 \begin{proof}
-
+$(\Rightarrow)$ Suppose $\Norm{au + bv} = \Norm{bu + av}$ for all $a,b\in\R$.  Then this equation holds when $a = 1$ and $b = 0$.  But then we must have $\Norm{u} = \Norm{v}$, as desired.\\
+\indent $(\Leftarrow)$ Conversely, suppose $\Norm{u} = \Norm{v}$.  Let $a,b\in\R$ be arbitrary, and notice
+\begin{align}
+\Norm{au + bv} &= \inp{au + bv}{au + bv} \nonumber \\
+&= \inp{au}{au} + \inp{au}{bv} + \inp{bv}{au} + \inp{bv}{bv} \nonumber \\
+&= a^2\Norm{u}^2 + ab\left(\inp{u}{v} + \inp{v}{u}\right) + b^2\Norm{v}^2. \label{eq1}
+\end{align}
+Also, we have
+\begin{align}
+\Norm{bu + av} &= \inp{bu + av}{bu + av} \nonumber \\
+&= \inp{bu}{bu} + \inp{bu}{av} + \inp{av}{bu} + \inp{av}{av} \nonumber \\
+&= b^2\Norm{u}^2 + ab\left(\inp{u}{v} + \inp{v}{u}\right) + a^2\Norm{v}^2. \label{eq2}
+\end{align}
+Since $\Norm{u} = \Norm{v}$, \eqref{eq1} equals \eqref{eq2}, and hence $\Norm{au + bv} = \Norm{bu + av}$.  Since $a,b$ were arbitrary, the result follows.
 \end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $u,v\in V$ and $\Norm{u}\leq 1$ and $\Norm{v}\leq 1$.  Prove that 
+\begin{equation*}
+\sqrt{1 - \Norm{u}^2}\sqrt{1 - \Norm{v}^2}\leq 1 - \Mod{\inp{u}{v}}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+By the Cauchy-Schwarz Inequality, we have $\Mod{\inp{u}{v}}\leq \Norm{u}\Norm{v}$.  Since $\Norm{u}\leq 1$ and $\Norm{v}\leq 1$, this implies
+\begin{align*}
+0 \leq 1 -\Norm{u}\Norm{v} \leq 1 -\Mod{\inp{u}{v}},
+\end{align*}
+and hence it's enough to show
+\begin{equation*}
+\sqrt{1 - \Norm{u}^2}\sqrt{1 - \Norm{v}^2} \leq 1 -\Norm{u}\Norm{v}.
+\end{equation*}
+Squaring both sides, it suffices to prove 
+\begin{equation}
+\left(1 - \Norm{u}^2\right)\left(1 - \Norm{v}^2\right) \leq \left(1 -\Norm{u}\Norm{v}\right)^2. \label{eq3}
+\end{equation}
+Notice
+\begin{align*}
+\left(1 -\Norm{u}\Norm{v}\right)^2 - \left(1 - \Norm{u}^2\right)\left(1 - \Norm{v}^2\right) &= \Norm{u}^2 - 2\Norm{u}\Norm{v} + \Norm{v}^2\\
+&= \left(\Norm{u} - \Norm{v}\right)^2\\
+&\geq 0,
+\end{align*}
+and hence inequality \eqref{eq3} holds, completing the proof.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Prove that
+\begin{equation*}
+16 \leq (a + b + c + d)\left(\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}\right)
+\end{equation*}
+for all positive numbers $a,b,c,d$.
+\end{problem}
+\begin{proof}
+Define
+\begin{align*}
+x = \left(\sqrt{a}, \sqrt{b}, \sqrt{c}, \sqrt{d} \right)\quad\text{and}\quad y = \left(\sqrt{\frac{1}{a}}, \sqrt{\frac{1}{b}}, \sqrt{\frac{1}{c}}, \sqrt{\frac{1}{d}}\right).
+\end{align*}
+Then the Cauchy-Schwarz Inequality implies
+\begin{align*}
+(a + b + c + d)\left(\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}\right) &\geq \left|\sqrt{a}\sqrt{\frac{1}{a}} + \sqrt{b}\sqrt{\frac{1}{b}} + \sqrt{c}\sqrt{\frac{1}{c}} + \sqrt{d}\sqrt{\frac{1}{d}}\right|^2\\
+&= \left|1 + 1 + 1 + 1\right|^2\\
+&= 16,
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $u,v$ are nonzero vectors in $\R^2$.  Prove that
+\begin{equation*}
+\inp{u}{v} = \Norm{u}\Norm{v}\cos\theta,
+\end{equation*}
+where $\theta$ is the angle between $u$ and $v$ (thinking of $u$ and $v$ as arrows with initial point at the origin).
+\end{problem}
+\begin{proof}
+Let $A$ denote the line segment from the origin to $u$, let $B$ denote the line segment from the origin to $v$, and let $C$ denote the line segment from $v$ to $u$.  Then $A$ has length $\Norm{u}$, $B$ has length $\Norm{v}$ and $C$ has length $\Norm{u - v}$.  Letting $\theta$ denote the angle between $A$ and $B$, by the Law of Cosines we have
+\begin{align*}
+C^2 = A^2 + B^2 - 2BC\cos\theta,
+\end{align*} 
+or equivalently
+\begin{align*}
+\Norm{u - v}^2 = \Norm{u}^2 + \Norm{v}^2 - 2\Norm{u}\Norm{v}\cos\theta.
+\end{align*}
+It follows
+\begin{align*}
+2\Norm{u}\Norm{v}\cos\theta &= \Norm{u}^2 + \Norm{v}^2 - \Norm{u-v}^2\\
+&= \inp{u}{u} + \inp{v}{v} - \inp{u-v}{u-v}\\
+&= \inp{u}{u} + \inp{v}{v} - \left(\inp{u}{u} - 2\inp{u}{v} + \inp{v}{v}\right)\\
+&= 2\inp{u}{v}.
+\end{align*}
+Dividing both sides by $2$ gives the desired result.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Prove that 
+\begin{equation*}
+\left(\sum_{j = 1}^na_j b_j\right)^2 \leq \left(\sum_{j = 1}^nj{a_j}^2\right)\left(\sum_{j=1}^n\frac{{b_j}^2}{j}\right)
+\end{equation*}
+for all real numbers $a_1,\dots,a_n$ and $b_1,\dots,b_n$.
+\end{problem}
 \end{document}
