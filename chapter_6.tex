@@ -212,8 +212,8 @@ x = \left(\sqrt{a}, \sqrt{b}, \sqrt{c}, \sqrt{d} \right)\quad\text{and}\quad y =
 \end{align*}
 Then the Cauchy-Schwarz Inequality implies
 \begin{align*}
-(a + b + c + d)\left(\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}\right) &\geq \left|\sqrt{a}\sqrt{\frac{1}{a}} + \sqrt{b}\sqrt{\frac{1}{b}} + \sqrt{c}\sqrt{\frac{1}{c}} + \sqrt{d}\sqrt{\frac{1}{d}}\right|^2\\
-&= \left|1 + 1 + 1 + 1\right|^2\\
+(a + b + c + d)\left(\frac{1}{a} + \frac{1}{b} + \frac{1}{c} + \frac{1}{d}\right) &\geq \left(\sqrt{a}\sqrt{\frac{1}{a}} + \sqrt{b}\sqrt{\frac{1}{b}} + \sqrt{c}\sqrt{\frac{1}{c}} + \sqrt{d}\sqrt{\frac{1}{d}}\right)^2\\
+&= (1 + 1 + 1 + 1)^2\\
 &= 16,
 \end{align*}
 as desired.
@@ -253,5 +253,176 @@ Prove that
 \left(\sum_{j = 1}^na_j b_j\right)^2 \leq \left(\sum_{j = 1}^nj{a_j}^2\right)\left(\sum_{j=1}^n\frac{{b_j}^2}{j}\right)
 \end{equation*}
 for all real numbers $a_1,\dots,a_n$ and $b_1,\dots,b_n$.
+\end{problem}
+\begin{proof}
+Let
+\begin{equation*}
+u = \left(a_1, \sqrt{2}a_2, \dots, \sqrt{n}a_n\right)\quad\text{and}\quad v =\left(b_1, \frac{1}{\sqrt{2}}b_2,\dots, \frac{1}{\sqrt{n}}b_n\right).
+\end{equation*}
+Since $\inp{u}{v} = \sum_{k=1}^na_kb_k$, the Cauchy-Schwarz Inequality yields
+\begin{align*}
+\left(a_1b_1 +\dots + a_nb_n\right)^2 &\leq \Norm{u}^2\Norm{v}^2\\
+&=\left({a_1}^2 + 2{a_2}^2 + \dots + n{a_n}^2\right)\left({b_1}^2 + \frac{{b_2}^2}{2} + \dots + \frac{{b_n}^2}{n}\right),
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Prove or disprove: there is an inner product on $\R^2$ such that the associated norm is given by 
+\begin{equation*}
+\Norm{(x,y)} = \max\{\Mod{x},\Mod{y}\}
+\end{equation*}
+for all $(x, y)\in\R^2$.
+\end{problem}
+\begin{proof}
+Suppose such an inner product existed.  Then by the Parallelogram Equality, it follows
+\begin{align*}
+\Norm{(1, 0) + (0, 1)}^2 + \Norm{(1, 0) - (0, 1)}^2 = 2\left(\Norm{(1,0)}^2 + \Norm{(0,1)}^2\right).
+\end{align*}
+After simplification, this implies $2 = 4$, a contradiction.  Hence no such inner product exists.
+\end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $V$ is a real inner product space.  Prove that
+\begin{equation*}
+\inp{u}{v} = \frac{\Norm{u+v}^2 - \Norm{u - v}^2}{4}
+\end{equation*}
+for all $u,v\in V$.
+\end{problem}
+\begin{proof}
+Suppose $V$ is a real inner product space and let $u,v\in V$.  It follows
+\begin{align*}
+\frac{\Norm{u+v}^2 - \Norm{u - v}^2}{4} &= \frac{\left(\Norm{u}^2 + 2\inp{u}{v} +\Norm{v}^2\right) - \left(\Norm{u}^2 - 2\inp{u}{v} +\Norm{v}^2\right)}{4}\\
+&= \frac{4\inp{u}{v}}{4}\\
+&= \inp{u}{v},
+\end{align*}
+as desired.
+\end{proof}
+
+% Problem 20
+\begin{problem}{20}
+Suppose $V$ is a complex inner product space.  Prove that
+\begin{equation*}
+\inp{u}{v} = \frac{\Norm{u+v}^2 - \Norm{u - v}^2 + \Norm{u + iv}^2i - \Norm{u -iv}^2i}{4}
+\end{equation*}
+for all $u,v\in V$.
+\end{problem}
+\begin{proof}
+Notice we have
+\begin{align*}
+\Norm{u + v}^2 &= \inp{u + v}{u + v}\\
+&=\Norm{u}^2 +\inp{u}{v} + \inp{v}{u} + \Norm{v}^2
+\end{align*}
+and
+\begin{align*}
+-\Norm{u - v}^2 &= -\inp{u - v}{u - v}\\
+&=-\Norm{u}^2 + \inp{u}{v} + \inp{v}{u} - \Norm{v}^2.
+\end{align*}
+Also, we have
+\begin{align*}
+\Norm{u + iv}^2i &= i\left(\inp{u + iv}{u+iv}\right)\\
+&= i\left(\Norm{u}^2 + \inp{u}{iv} + \inp{iv}{u} + \inp{iv}{iv}\right)\\
+&= i\left(\Norm{u}^2 - i\inp{u}{v} + i\inp{v}{u} + \Norm{v}^2\right)\\
+&= i\Norm{u}^2 + \inp{u}{v} - \inp{v}{u} + i\Norm{v}^2
+\end{align*}
+and
+\begin{align*}
+-\Norm{u - iv}^2i &= -i\left(\inp{u - iv}{u-iv}\right)\\
+&= -i\left(\Norm{u}^2 - \inp{u}{iv} - \inp{iv}{u} + \inp{iv}{iv}\right)\\
+&= -i\left(\Norm{u}^2 + i\inp{u}{v} - i\inp{v}{u} + \Norm{v}^2\right)\\
+&= -i\Norm{u}^2 + \inp{u}{v} - \inp{v}{u} - i\Norm{v}^2.
+\end{align*}
+Thus it follows
+\begin{align*}
+\Norm{u+v}^2 - \Norm{u - v}^2 + \Norm{u + iv}^2i - \Norm{u -iv}^2i = 4\inp{u}{v}.
+\end{align*}
+Dividing both sides by $4$ yields the desired result.
+\end{proof}
+
+%% Problem 21
+%\begin{problem}{21}
+%A norm on a vector space $U$ is a function $\Norm{\cdot}: U\to [0,\infty)$ such that $\Norm{u} = 0$ if and only if $u=0$, $\Norm{\alpha u} = \Mod{\alpha}\Norm{u}$ for all $\alpha\in\F$ and all $u\in U$, and $\Norm{u + v}\leq\Norm{u} + \Norm{v}$ for all $u,v\in U$.  Prove that a norm satisfying the parallelogram equality comes from an inner product (in other words, show that if $\Norm{\cdot}$ is a norm on $U$ satisfying the parallelogram equality, then there is an inner product $\inp{\cdot}{\cdot}$ on $U$ such that $\Norm{u} = \inp{u}{u}^{1/2}$ for all $u\in U$).
+%\end{problem}
+%\begin{proof}
+%\begin{equation*}
+%60 * 0.15 = 0.10 * 60 + 0.05 * 60 = 6 + 3 = 9
+%\end{equation*}
+%\end{proof}
+
+% Problem 23
+\begin{problem}{23}
+Suppose $V_1, \dots, V_m$ are inner product spaces.  Show that the equation
+\begin{equation*}
+\inp{(u_1,\dots, u_m)}{(v_1,\dots, v_m)} = \inp{u_1}{v_1} + \dots + \inp{u_m}{v_m}
+\end{equation*}
+defines an inner product on $V_1\times \dots \times V_m$. 
+\end{problem}
+\begin{proof}
+We prove that this definition satisfies each property of an inner product in turn.\\
+\textbf{Positivity: } Let $(v_1,\dots, v_m)\in V_1\times\dots V_m$.  Since $\inp{v_k}{v_k}$ is an inner product on $V_k$ for $k = 1,\dots, m$, we have $\inp{v_k}{v_k}\geq 0$.  Thus
+\begin{equation*}
+\inp{(v_1,\dots, v_m)}{(v_1,\dots, v_m)} = \inp{v_1}{v_1} + \dots + \inp{v_m}{v_m} \geq 0.
+\end{equation*}
+\textbf{Definiteness: } First suppose $\inp{(v_1,\dots, v_m)}{(v_1,\dots, v_m)} = 0$ for $(v_1,\dots, v_m)\in V_1\times\dots\times V_m$.  Then
+\begin{equation*}
+\inp{v_1}{v_1} + \dots + \inp{v_m}{v_m} = 0.
+\end{equation*}
+By positivity of each inner product on $V_k$ (for $k = 1,\dots, m$), we must have $\inp{v_k}{v_k}\geq 0$.  Thus the equation above holds only if $\inp{v_k}{v_k} = 0$ for each $k$, which is true iff $v_k = 0$ (by definiteness of the inner product on $V_k$).  Hence $(v_1, \dots, v_m) = (0, \dots, 0)$.  Conversely, suppose $(v_1,\dots, v_m) = (0, \dots, 0)$.  Then 
+\begin{align*}
+\inp{(v_1,\dots, v_m)}{(v_1,\dots, v_m)} &= \inp{v_1}{v_1} + \dots + \inp{v_m}{v_m}\\
+&= \inp{0}{0} + \dots + \inp{0}{0}\\
+&= 0 + \dots + 0\\
+&= 0,
+\end{align*}
+where the third equality follows from definiteness of the inner product on each $V_k$, respectively.\\
+\textbf{Additivity in first slot: } Let 
+\begin{equation*}
+(u_1,\dots, u_m), (v_1,\dots, v_m), (w_1,\dots, w_m)\in V_1\times\dots\times V_m.
+\end{equation*}  
+It follows
+\begin{align*}
+\langle (u_1, \dots, u_m) + &(v_1,\dots, v_m)), (w_1,\dots, w_m)\rangle \\
+&= \inp{(u_1 + v_1, \dots, u_m + v_m)}{(w_1,\dots, w_m)}\\
+&= \inp{u_1 + v_1}{w_1} + \dots + \inp{u_m + v_m}{w_m}\\
+&= \inp{u_1}{w_1} + \inp{v_1}{w_1} + \dots + \inp{u_m}{w_m} + \inp{v_m}{w_m}\\
+&= \inp{(u_1,\dots,u_m)}{(w_1,\dots, w_m)} + \inp{(v_1,\dots, v_m)}{(w_1,\dots,w_m)},
+\end{align*}
+where the third equality follows from additivity in the first slot of each inner product on $V_k$, respectively.\\
+\textbf{Homogeneity in the first slot: } Let $\lambda\in\F$ and 
+\begin{equation*}
+(u_1,\dots, u_m),(v_1,\dots, v_m)\in V_1\times \dots \times V_m.
+\end{equation*}
+It follows
+\begin{align*}
+\inp{\lambda(u_1,\dots, u_m)}{(v_1,\dots, v_m)} &= \inp{(\lambda u_1,\dots, \lambda u_m)}{(v_1,\dots, v_m)} \\
+&= \inp{\lambda u_1}{v_1} + \dots + \inp{\lambda u_m}{v_m}\\
+&= \lambda\inp{u_1}{v_1} + \dots + \lambda\inp{u_m}{v_m}\\
+&= \lambda(\inp{u_1}{v_1} + \dots + \inp{u_m}{v_m})\\
+&=\lambda\inp{(u_1,\dots, u_m)}{(v_1,\dots, v_m)},
+\end{align*}
+where the third equality follows from homogeneity in the first slot of each inner product on $V_k$, respectively.\\
+\textbf{Conjugate symmetry: } Again let
+\begin{equation*}
+(u_1,\dots, u_m),(v_1,\dots, v_m)\in V_1\times \dots \times V_m.
+\end{equation*}
+It follows
+\begin{align*}
+\inp{(u_1,\dots, u_m)}{(v_1,\dots, v_m)} &=  \inp{u_1}{v_1} + \dots + \inp{u_m}{v_m}\\
+&= \widebar{\inp{v_1}{u_1}} + \dots + \widebar{\inp{v_m}{u_m}}\\
+&= \widebar{\inp{u_1}{v_1} + \dots + \inp{u_m}{v_m}}\\
+&= \widebar{\inp{(v_1,\dots, v_m)}{(u_1,\dots, u_m)}},
+\end{align*}
+where the second equality follows from conjugate symmetry of each inner product on $V_k$, respectively.
+\end{proof}
+
+% Problem 24
+\begin{problem}{24}
+Suppose $S\in\Hom(V)$ is an injective operator on $V$.  Define $\inp{\cdot}{\cdot}_1$ by
+\begin{equation*}
+\inp{u}{v}_1 = \inp{Su}{Sv}
+\end{equation*}
+for $u,v\in V$.  Show that $\inp{\cdot}{\cdot}_1$ is an inner product on $V$.
 \end{problem}
 \end{document}
