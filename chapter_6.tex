@@ -425,4 +425,109 @@ Suppose $S\in\Hom(V)$ is an injective operator on $V$.  Define $\inp{\cdot}{\cdo
 \end{equation*}
 for $u,v\in V$.  Show that $\inp{\cdot}{\cdot}_1$ is an inner product on $V$.
 \end{problem}
+\begin{proof}
+We prove that this definition satisfies each property of an inner product in turn.\\
+\textbf{Positivity: } Let $v\in V$.  Then $\inp{v}{v}_1 = \inp{Sv}{Sv} \geq 0$.\\
+\textbf{Definiteness: } Suppose $\inp{v}{v} = 0$ for some $v\in V$.  This is true iff $\inp{Sv}{Sv} = 0$ (by definition) which is true iff $Sv = 0$ (by definiteness of $\inp{\cdot}{\cdot}$), which is true iff $v = 0$ (since $S$ is injective).\\
+\textbf{Additivity in first slot: } Let $u, v, w\in V$.  Then
+\begin{align*}
+\inp{u + v}{w}_1 &= \inp{S(u + v)}{Sw}\\
+&= \inp{Su + Sv}{Sw}\\
+&= \inp{Su}{Sw} + \inp{Sv}{Sw}\\
+&= \inp{u}{w}_1 + \inp{v}{w}_1.
+\end{align*}
+\textbf{Homogeneity in first slot: } Let $\lambda\in\F$ and $u, v\in V$.  Then
+\begin{align*}
+\inp{\lambda u}{v}_1 &= \inp{S(\lambda u)}{Sv}\\
+&= \inp{\lambda Su}{Sv}\\
+&= \lambda \inp{Su}{Sv}\\
+&= \lambda\inp{u}{v}_1.
+\end{align*}
+\textbf{Conjugate symmetry} Let $u,v\in V$.  Then
+\begin{align*}
+\inp{u}{v}_1 &= \inp{Su}{Sv}\\
+&= \widebar{\inp{Sv}{Su}}\\
+&= \widebar{\inp{v}{u}_1}.
+\end{align*}
+\end{proof}
+
+% Problem 25
+\begin{problem}{25}
+Suppose $S\in\Hom(V)$ is not injective.  Define $\inp{\cdot}{\cdot}_1$ as in the exercise above.  Explain why $\inp{\cdot}{\cdot}_1$ is not an inner product on $V$.
+\end{problem}
+\begin{proof}
+If $S$ is not injective, then $\inp{\cdot}{\cdot}_1$ fails the definiteness requirement in the definition of an inner product.  In particular, there exists $v\neq 0$ such that $Sv =0$.  Hence $\inp{v}{v}_1 = \inp{Sv}{Sv} = 0$ for a nonzero $v$.
+\end{proof}
+
+% Problem 27
+\begin{problem}{27}
+Suppose $u,v,w\in V$.  Prove that
+\begin{equation*}
+\norm{w - \frac{1}{2}(u + v)}^2 = \frac{\norm{w - u}^2 + \norm{w - v}^2}{2} - \frac{\norm{u - v}^2}{4}.
+\end{equation*}
+\end{problem}
+\begin{proof}
+We have
+\begin{align*}
+\norm{w - \frac{1}{2}(u + v)}^2 &= \norm{\left(\frac{w - u}{2}\right) + \left(\frac{w - v}{2} \right)}^2\\
+&=  2\norm{\frac{w - u}{2}}^2 + 2 \norm{\frac{w - v}{2}}^2 - \norm{\left(\frac{w-u}{2}\right) - \left(\frac{w-v}{2}\right)}^2\\
+&= \frac{\norm{w-u}^2 + \norm{w - v}}{2} - \norm{\frac{-u + v}{2}}\\
+&= \frac{\norm{w-u}^2 + \norm{w - v}}{2} - \frac{\norm{u - v}^2}{4},
+\end{align*}
+where the second equality follows by the Parallelogram Equality.
+\end{proof}
+
+% Problem 29
+\begin{problem}{29}
+For $u,v \in V$, define $d(u,v) = \norm{u - v}$.  
+\begin{enumerate}[(a)]
+\item Show that $d$ is a metric on $V$.
+\item Show that if $V$ is finite-dimensional, then $d$ is a complete metric on $V$ (meaning that every Cauchy sequence converges).
+\item Show that every finite-dimensional subspace of $V$ is a closed subset of $V$ (with respect to the metric $d$).
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item We show that $d$ satisfies each property of the definition of a metric in turn.\\
+\textbf{Identity of indiscernibles: } Let $u, v\in V$.  It follows
+\begin{align*}
+d(u, v) = 0 &\iff \sqrt{\inp{u-v}{u-v}} = 0\\
+&\iff \inp{u - v, u- v} = 0\\
+&\iff u - v = 0\\
+&\iff u = v.
+\end{align*}
+\textbf{Symmetry: } Let $u, v\in V$.  We have
+\begin{align*}
+d(u, v) &= \norm{u - v}\\
+&= \norm{(-1)(u - v)}\\
+&= \norm{v - u}\\
+&= d(v, u).
+\end{align*}
+\textbf{Triangle inequality: } Let $u, v, w\in V$.  Notice
+\begin{align*}
+d(u,v) + d(v, w) &= \norm{u - v} + \norm{v - w}\\
+&\leq \norm{(u - v) + (v - w)}\\
+&= \norm{u, w}\\
+&= d(u,w).
+\end{align*}
+\item Suppose $V$ is a $p$-dimensional vector space with basis $e_1,\dots, e_p$.  Assume $\{v_k\}_{k = 1}^\infty$ is Cauchy.  Then for $\epsilon > 0$, there exists $N\in\Z^+$ such that $\norm{v_m - v_n} < \epsilon$ whenever $m,n > N$.  Given any $v_i$ in our Cauchy sequence, we adopt the notation that $\alpha_{i, 1}, \dots, \alpha_{i, p}\in \F$ are always defined such that 
+\begin{equation*}
+v_i = \alpha_{i, 1}e_1 + \dots + \alpha_{i, p}e_p.
+\end{equation*}
+Now, let's define
+\begin{equation*}
+c = \inf_{m,n > N}\left\{\frac{\norm{v_m - v_n}}{\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}}\right\}.
+\end{equation*}
+Then
+\begin{align*}
+c\left(\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}\right) \leq \norm{v_m - v_n}  < \epsilon
+\end{align*}
+whenever $m,n > N$.  This implies that $\{\alpha_{k, i}\}_{k = 1}^\infty$ is Cauchy in $\R$ for each $i = 1,\dots, p$.  Since $\R$ is complete, these sequences converge.  So let $\alpha_i = \lim_{k \to \infty}\alpha_{k, i}$ for each $i$, and define $v = \alpha_1 e_1 + \dots + \alpha_p e_p$.  It follows
+\begin{align*}
+\norm{v_j - v} &= \norm{(\alpha_{j, 1} - \beta_1)e_1 + \dots + (\alpha_{j, p}-\beta_p)e_p}\\
+&\leq \abs{\alpha_{j, 1}-\alpha_1}\norm{e_1} + \dots + \abs{\alpha_{j, p}-\alpha_p}\norm{e_p}.
+\end{align*}
+Since $\alpha_{j, i}\to \alpha_i$ for $i = 1,\dots, p$, the RHS can be made arbitrarily small by choosing sufficiently large $M\in\Z^+$ and considering $j > M$.  Thus $\{v_k\}_{k = 1}^\infty$ converges to $v$, and $V$ is indeed complete with respect to $\norm{\cdot}$. 
+\end{enumerate}
+\end{proof}
 \end{document}
