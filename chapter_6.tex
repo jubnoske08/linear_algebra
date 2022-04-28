@@ -38,6 +38,7 @@
 \newtheorem*{thm-non}{Theorem}
 \newtheorem{lemma}[thm]{Lemma}
 \newtheorem{corollary}[thm]{Corollary}
+\newtheorem*{definition}{Definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MY COMMANDS   																						  %
@@ -477,6 +478,46 @@ We have
 where the second equality follows by the Parallelogram Equality.
 \end{proof}
 
+The next problem requires some extra work to prove.  We first include a definition and prove a theorem.
+\begin{definition}
+Suppose $\norm{\cdot}_1$ and $\norm{\cdot}_2$ are norms on vector space $V$.  We say $\norm{\cdot}_1$ and $\norm{\cdot}_2$ are \emph{equivalent} if there exist $0 < C_1\leq C_2$ such that 
+\begin{equation*}
+C_1 \norm{v}_1 \leq \norm{v}_2 \leq C_2 \norm{v}_1
+\end{equation*}
+for all $v\in V$.
+\end{definition}
+\begin{thm-non}
+Any two norms on a finite-dimensional vector space are equivalent.
+\end{thm-non}
+\begin{proof}
+Let $V$ be finite-dimensional with basis $e_1,\dots, e_n$.  If suffices to prove that every norm on $V$ is equivalent to the $\ell_1$-style norm $\norm{\cdot}_1$ defined by
+\begin{equation*}
+\norm{v}_1 = \abs{\alpha_1} + \dots + \abs{\alpha_n}
+\end{equation*}
+for all $v = \alpha_1e_1 + \dots + \alpha_ne_n\in V$.\\
+\indent Let $\norm{\cdot}$ be a norm on $V$.  We wish to show $C_1\norm{v}_1 \leq \norm{v}\leq C_2\norm{v}_1$ for all $v\in V$ and some choice of $C_1,C_2$.  Since this is trivially true for $v = 0$, we need only consider $v\neq 0$, in which case we have
+\begin{align*}
+C_1 \leq \norm{u} \leq C_2, \tag{*}\label{key}
+\end{align*}
+where $u = v/\norm{v}_1$.  Thus it suffices to consider only vectors $v\in V$ such that $\norm{v}_1 = 1$.\\
+\indent We will now show that $\norm{\cdot}$ is continuous under $\norm{\cdot}_1$ and apply the extreme value theorem to deduce the desired result.  So let $\epsilon > 0$ and define $M = \max\{\norm{e_1}, \dots, \norm{e_n}\}$ and
+\begin{equation*}
+\delta = \frac{\epsilon}{M}.
+\end{equation*}
+It follows that if $u,v\in V$ are such that $\norm{u - v}_1 < \delta$, then
+\begin{align*}
+\abs{\norm{u} - \norm{v}} &\leq \norm{u - v}\\
+&\leq M\norm{u - v}_1\\
+&\leq M\delta \\
+&= \epsilon,
+\end{align*}
+and $\norm{\cdot}$ is indeed continuous under the topology induced by $\norm{\cdot}_1$.  Let $\mathcal{S} = \{u\in V\mid \norm{u}_1=1\}$ (the unit sphere with respect to $\norm{\cdot}_1$).  Since $\mathcal{S}$ is compact and $\norm{\cdot}$ is continuous on it, by the extreme value theorem we may define
+\begin{align*}
+C_1 = \min_{u \in \mathcal{S}}\norm{u}~~~\text{and}~~~C_2 =  \max_{u \in \mathcal{S}}\norm{u}.
+\end{align*}
+But now $C_1$ and $C_2$ satisfy \eqref{key}, completing the proof.
+\end{proof}
+
 % Problem 29
 \begin{problem}{29}
 For $u,v \in V$, define $d(u,v) = \norm{u - v}$.  
@@ -514,15 +555,15 @@ d(u,v) + d(v, w) &= \norm{u - v} + \norm{v - w}\\
 \begin{equation*}
 v_i = \alpha_{i, 1}e_1 + \dots + \alpha_{i, p}e_p.
 \end{equation*}
-Now, let's define
-\begin{equation*}
-c = \inf_{m,n > N}\left\{\frac{\norm{v_m - v_n}}{\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}}\right\}.
-\end{equation*}
-Then
+By the theorem above, $\norm{\cdot}$ is equivalent to $\norm{\cdot}_1$ (as defined in this theorem's proof).  Thus there exists some $c > 0$ such that, whenever $m,n > N$, we have
 \begin{align*}
-c\left(\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}\right) \leq \norm{v_m - v_n}  < \epsilon
+c\norm{v_m - v_n}_1 \leq \norm{v_m - v_n}  < \epsilon,
 \end{align*}
-whenever $m,n > N$.  This implies that $\{\alpha_{k, i}\}_{k = 1}^\infty$ is Cauchy in $\R$ for each $i = 1,\dots, p$.  Since $\R$ is complete, these sequences converge.  So let $\alpha_i = \lim_{k \to \infty}\alpha_{k, i}$ for each $i$, and define $v = \alpha_1 e_1 + \dots + \alpha_p e_p$.  It follows
+and hence 
+\begin{equation*}
+c\left(\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}\right) < \epsilon.
+\end{equation*}
+This implies that $\{\alpha_{k, i}\}_{k = 1}^\infty$ is Cauchy in $\R$ for each $i = 1,\dots, p$.  Since $\R$ is complete, these sequences converge.  So let $\alpha_i = \lim_{k \to \infty}\alpha_{k, i}$ for each $i$, and define $v = \alpha_1 e_1 + \dots + \alpha_p e_p$.  It follows
 \begin{align*}
 \norm{v_j - v} &= \norm{(\alpha_{j, 1} - \beta_1)e_1 + \dots + (\alpha_{j, p}-\beta_p)e_p}\\
 &\leq \abs{\alpha_{j, 1}-\alpha_1}\norm{e_1} + \dots + \abs{\alpha_{j, p}-\alpha_p}\norm{e_p}.
