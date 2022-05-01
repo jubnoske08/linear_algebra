@@ -555,20 +555,34 @@ d(u,v) + d(v, w) &= \norm{u - v} + \norm{v - w}\\
 \begin{equation*}
 v_i = \alpha_{i, 1}e_1 + \dots + \alpha_{i, p}e_p.
 \end{equation*}
-By the theorem above, $\norm{\cdot}$ is equivalent to $\norm{\cdot}_1$ (as defined in this theorem's proof).  Thus there exists some $c > 0$ such that, whenever $m,n > N$, we have
+By our previous theorem, $\norm{\cdot}$ is equivalent to $\norm{\cdot}_1$ (where $\norm{\cdot}_1$ is defined in that theorem's proof).  Thus there exists some $c > 0$ such that, whenever $m,n > N$, we have
 \begin{align*}
 c\norm{v_m - v_n}_1 \leq \norm{v_m - v_n}  < \epsilon,
 \end{align*}
 and hence 
 \begin{equation*}
-c\left(\sum_{k = 1}^p\abs{\alpha_{m, k} - \alpha_{n, k}}\right) < \epsilon.
+c\left(\sum_{i = 1}^p\abs{\alpha_{m, i} - \alpha_{n, i}}\right) < \epsilon.
 \end{equation*}
 This implies that $\{\alpha_{k, i}\}_{k = 1}^\infty$ is Cauchy in $\R$ for each $i = 1,\dots, p$.  Since $\R$ is complete, these sequences converge.  So let $\alpha_i = \lim_{k \to \infty}\alpha_{k, i}$ for each $i$, and define $v = \alpha_1 e_1 + \dots + \alpha_p e_p$.  It follows
 \begin{align*}
 \norm{v_j - v} &= \norm{(\alpha_{j, 1} - \beta_1)e_1 + \dots + (\alpha_{j, p}-\beta_p)e_p}\\
 &\leq \abs{\alpha_{j, 1}-\alpha_1}\norm{e_1} + \dots + \abs{\alpha_{j, p}-\alpha_p}\norm{e_p}.
 \end{align*}
-Since $\alpha_{j, i}\to \alpha_i$ for $i = 1,\dots, p$, the RHS can be made arbitrarily small by choosing sufficiently large $M\in\Z^+$ and considering $j > M$.  Thus $\{v_k\}_{k = 1}^\infty$ converges to $v$, and $V$ is indeed complete with respect to $\norm{\cdot}$. 
+Since $\alpha_{j, i}\to \alpha_i$ for $i = 1,\dots, p$, the RHS can be made arbitrarily small by choosing sufficiently large $M\in\Z^+$ and considering $j > M$.  Thus $\{v_k\}_{k = 1}^\infty$ converges to $v$, and $V$ is indeed complete with respect to $\norm{\cdot}$.
+\item Suppose $U$ is a finite-dimensional subspace of $V$, and suppose $\{u_k\}_{k=1}^\infty\subseteq U$ is Cauchy.  By (b), $\lim_{k \to \infty}u_k \in U$, hence $U$ contains all its limit points.  Thus $U$ is closed. \qedhere
 \end{enumerate}
+
+% Problem 31
+\begin{problem}{31}
+Use inner products to prove Apollonius's Identity: In a triangle with sides of length $a$, $b$, and $c$, let $d$ be the length of the line segment from the midpoint of the side of length $c$ to the opposite vertex.  Then
+\begin{equation*}
+a^2 + b^2 = \frac{1}{2}c^2 + 2d^2.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Consider a triangle formed by vectors $v, w\in\R^2$ and the origin such that $\norm{w} = a$, $\norm{v} = c$, and $\norm{w - v} = b$.  The identity follows by applying Problem 27 with $u = 0$.
 \end{proof}
+\end{proof}
+
+
 \end{document}
