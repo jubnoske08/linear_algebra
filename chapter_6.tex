@@ -705,6 +705,43 @@ e_3 = 6\sqrt{5}\left(x^2 - x + \frac{1}{6}\right),
 and we're done.
 \end{proof}
 
+% Problem 7
+\begin{problem}{7}
+Find a polynomial $q\in\poly_2(\R)$ such that
+\begin{equation*}
+p\left(\frac{1}{2}\right)=\int_0^1p(x)q(x)\,dx
+\end{equation*}
+for every $p\in\poly_2(\R)$.  
+\end{problem}
+\begin{proof}
+Consider the inner product $\inp{p}{q} = \int_0^1p(x)q(x)\,dx$ on $\poly_2(\R)$.  Define $\varphi\in\Hom(\poly_2(\R))$ by $\varphi(p) = p\left(\frac{1}{2}\right)$ and let $e_1, e_2, e_3$ be the orthonormal basis found in Problem 5.  By the Riesz Representation Theorem, there exists $q\in\poly_2(\R)$ such that $\varphi(p) = \inp{p}{q}$ for all $p\in\poly_2(\R)$.  That is, such that 
+\begin{equation*}
+p\left(\frac{1}{2}\right) = \int_0^1p(x)q(x)\,dx.
+\end{equation*}
+Equation 6.43 in the proof of the Riesz Representation Theorem fashions a way to find $q$.  In particular, we have 
+\begin{align*}
+q(x) &= \widebar{\varphi(e_1)}e_1 + \widebar{\varphi(e_2)}e_2 + \widebar{\varphi(e_3)}e_3\\
+&= e_1 + 2\sqrt{3}\left(\frac{1}{2} - \frac{1}{2}\right)e_2 + 6\sqrt{5}\left(\frac{1}{4} - \frac{1}{2} + \frac{1}{6}\right)e_3\\
+&= 1 + 6\sqrt{5}\left(\frac{-1}{12}\right)\left[6\sqrt{5}\left(x^2 - x + \frac{1}{6}\right)\right]\\
+&= -15(x^2 - x) - \frac{3}{2},
+\end{align*}
+as desired.
+\end{proof}
 
+% Problem 9
+\begin{problem}{9}
+What happens if the Gram-Schmidt Procedure is applied to a list of vectors that is not linearly independent?
+\end{problem}
+\begin{proof}
+Suppose $v_1,\dots,v_m$ are linearly dependent.  Let $j$ be the smallest integer in $\{1,\dots, m\}$ such that $v_j \in \Span(v_1,\dots, v_{j - 1})$.  Then $v_1,\dots, v_{j - 1}$ are linearly independent.  The first $j - 1$ steps of the Gram-Schmidt Procedure will produce an orthonormal list $e_1,\dots, e_{j - 1}$.  At step $j$, however, notice
+\begin{align*}
+v_j - \inp{v_j}{e_1}e_1 - \dots - \inp{v_j}{e_{j - 1}}e_{j-1} = v_j - v_j = 0,
+\end{align*}
+and we are left trying to assign $e_j$ to $\frac{0}{0}$, which is undefined.  Thus the procedure cannot be applied to a linearly dependent list.
+\end{proof}
 
+% Problem 11
+\begin{problem}{11}
+Suppose $\inp{\cdot}{\cdot}_1$ and $\inp{\cdot}{\cdot}_2$ are inner products on $V$ such that $\inp{v}{w}_1 = 0$ if and only if $\inp{v}{w}_2 = 0$.  Prove that there is a positive number $c$ such that $\inp{v}{w}_1 = c\inp{v}{w}_2$ for every $v,w\in V$.
+\end{problem}
 \end{document}
