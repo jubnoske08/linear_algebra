@@ -1,0 +1,18 @@
+name: Build LaTeX document
+on: [push]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+           root_file: |
+               chapter_1.tex
+               chapter_2.tex
+               chapter_3.tex
+               chapter_4.tex
+               chapter_5.tex
+               chapter_6.tex
