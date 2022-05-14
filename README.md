@@ -1,5 +1,4 @@
-# Linear Algebra Done Right
-## by Sheldon Axler
+# Linear Algebra Done Right (Sheldon Axler)
 
 > *"There is hardly any theory which is more elementary [than linear algebra], in spite of the fact that generations of professors and textbook writers have obscured its simplicity by preposterous calculations with matrices."* -Jean Dieudonné
 
