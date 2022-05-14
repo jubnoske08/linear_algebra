@@ -745,7 +745,7 @@ and we are left trying to assign $e_j$ to $\frac{0}{0}$, which is undefined.  Th
 Suppose $\inp{\cdot}{\cdot}_1$ and $\inp{\cdot}{\cdot}_2$ are inner products on $V$ such that $\inp{v}{w}_1 = 0$ if and only if $\inp{v}{w}_2 = 0$.  Prove that there is a positive number $c$ such that $\inp{v}{w}_1 = c\inp{v}{w}_2$ for every $v,w\in V$.
 \end{problem}
 \begin{proof}
-Let $v, w\in V$ be arbitrary.  By hypothesis, if $v$ and $w$ are orthogonal relative to one of the inner products, they're orthogonal relative to the other.  Hence any choice of $c\in \R$ satisfies $\inp{v}{w}_1 = c\inp{v}{w}_2$.  So suppose $v$ and $w$ are not orthogonal relative to either inner product.  Then both $v$ and $w$ must be nonzero (by Theorem 6.7, parts b and c, respectively).  Thus $\inp{v}{v}_1$, $\inp{w}{w}_1$, $\inp{v}{v}_2$, and $\inp{w}{w}_1$ are all nonzero as well.  It now follows
+Let $v, w\in V$ be arbitrary.  By hypothesis, if $v$ and $w$ are orthogonal relative to one of the inner products, they're orthogonal relative to the other.  Hence any choice of $c\in \R$ would satisfy $\inp{v}{w}_1 = c\inp{v}{w}_2$.  So suppose $v$ and $w$ are not orthogonal relative to either inner product.  Then both $v$ and $w$ must be nonzero (by Theorem 6.7, parts b and c, respectively).  Thus $\inp{v}{v}_1$, $\inp{w}{w}_1$, $\inp{v}{v}_2$, and $\inp{w}{w}_1$ are all nonzero as well.  It now follows
 \begin{align*}
 0 &= \inp{v}{w}_1 - \frac{\inp{v}{w}_1}{\inp{v}{v}_1}\inp{v}{v}_1\\
 &= \inp{v}{w}_1 - \left\langle v, \widebar{\left(\frac{\inp{v}{w}_1}{\inp{v}{v}_1}\right)}v \right\rangle_1\\
