@@ -495,7 +495,7 @@ for all $v = \alpha_1e_1 + \dots + \alpha_ne_n\in V$.\\
 C_1 \leq \norm{u} \leq C_2, \tag{*}\label{key}
 \end{align*}
 where $u = v/\norm{v}_1$.  Thus it suffices to consider only vectors $v\in V$ such that $\norm{v}_1 = 1$.\\
-\indent We will now show that $\norm{\cdot}$ is continuous under $\norm{\cdot}_1$ and apply the extreme value theorem to deduce the desired result.  So let $\epsilon > 0$ and define $M = \max\{\norm{e_1}, \dots, \norm{e_n}\}$ and
+\indent We will now show that $\norm{\cdot}$ is continuous under $\norm{\cdot}_1$ and apply the Extreme Value Theorem to deduce the desired result.  So let $\epsilon > 0$ and define $M = \max\{\norm{e_1}, \dots, \norm{e_n}\}$ and
 \begin{equation*}
 \delta = \frac{\epsilon}{M}.
 \end{equation*}
@@ -506,7 +506,7 @@ It follows that if $u,v\in V$ are such that $\norm{u - v}_1 < \delta$, then
 &\leq M\delta \\
 &= \epsilon,
 \end{align*}
-and $\norm{\cdot}$ is indeed continuous under the topology induced by $\norm{\cdot}_1$.  Let $\mathcal{S} = \{u\in V\mid \norm{u}_1=1\}$ (the unit sphere with respect to $\norm{\cdot}_1$).  Since $\mathcal{S}$ is compact and $\norm{\cdot}$ is continuous on it, by the extreme value theorem we may define
+and $\norm{\cdot}$ is indeed continuous under the topology induced by $\norm{\cdot}_1$.  Let $\mathcal{S} = \{u\in V\mid \norm{u}_1=1\}$ (the unit sphere with respect to $\norm{\cdot}_1$).  Since $\mathcal{S}$ is compact and $\norm{\cdot}$ is continuous on it, by the Extreme Value Theorem we may define
 \begin{align*}
 C_1 = \min_{u \in \mathcal{S}}\norm{u}~~~\text{and}~~~C_2 =  \max_{u \in \mathcal{S}}\norm{u}.
 \end{align*}
@@ -817,7 +817,7 @@ Now, let $h(x) = xg(x)$.  Since $h$ is continuous on $[-1, 1]$, there exists an 
 \begin{align*}
 0 = \int_{-1}^1h(x)^2dx = \int_a^bh(x)^2dx \geq (b-a)h(m)^2 > 0,
 \end{align*} 
-which is absurd.  Thus we conclude no such $g$ exists.
+which is absurd.  Thus it must be that no such $g$ exists.
 \end{proof}
 
 % Problem 17
@@ -854,6 +854,19 @@ whereas
 i\Phi_u(v) = i\inp{v}{u}.
 \end{equation*}
 Thus $\Phi_{iu} \neq i\Phi_u$, and indeed $\Phi$ is not a linear map, since is is not homogeneous.
+\item Suppose $u, u'\in V$ are such that $\Phi_u = \Phi_{u'}$.  Then, for all $v\in V$, we have
+\begin{align*}
+&\Phi_u(v) = \Phi_{u'}(v)\\
+\implies &\inp{v}{u} = \inp{v}{u'}\\
+\implies &\inp{v}{u} - \inp{v}{u'} = 0\\
+\implies &\inp{v}{u - u'} = 0.
+\end{align*}
+In particular, choosing $v = u - u'$, the above implies $\inp{u - u'}{u - u'}=0$, which is true iff $u - u' = 0$.  Thus we conclude $u = u'$, so that $\Phi$ is indeed injective.
+\item Suppose $\F = \R$ and $\dim V = n$.  Notice that since $\Phi: V\hookrightarrow V'$, we have
+\begin{align*}
+\dim V = \dim\Null\Phi + \dim\Range\Phi = \dim\Range\Phi
+\end{align*}
+Thus $\Phi$ is surjective as well, and we have $V \cong V'$, as was to be shown.  \qedhere
 \end{enumerate}
 \end{proof}
 \end{document}
