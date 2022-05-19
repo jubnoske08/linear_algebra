@@ -777,6 +777,83 @@ as well.  By combining Equations \eqref{eq4} and \eqref{eq5}, we conclude
 \begin{equation*}
  \frac{\inp{v}{v}_1}{\inp{v}{v}_2} =  \frac{\inp{w}{w}_1}{\inp{w}{w}_2}.
 \end{equation*}
-Since $v$ and $w$ were arbitrary nonzero vectors in $V$, choosing $c = \norm{u}_1/\norm{u}_2$ for any $u\neq 0$ guarantees $\inp{v}{w}_1 = c\inp{v}{w}_2$ for every $v,w\in V$, as was to be shown.
+Since $v$ and $w$ were arbitrary nonzero vectors in $V$, choosing $c = {\norm{u}_1}^2/{\norm{u}_2}^2$ for any $u\neq 0$ guarantees $\inp{v}{w}_1 = c\inp{v}{w}_2$ for every $v,w\in V$, as was to be shown.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Suppose $v_1,\dots, v_m$ is a linearly independent list in $V$.  Show that there exists $w\in V$ such that $\inp{w}{v_j} > 0$ for all $j \in \{1, \dots, m\}$.  
+\end{problem}
+\begin{proof}
+Let $W = \Span(v_1,\dots, v_m)$.  Given $v\in W$, let $a_1,\dots, a_m\in\F$ be such that $v = a_1v_1 + \dots + a_mv_m$.  Define $\varphi\in\Hom(W)$ by
+\begin{align*}
+\varphi(v) = a_1 + \dots + a_m.
+\end{align*}
+By the Riesz Representation Theorem, there exists $w\in W$ such that $\varphi(v) = \inp{v}{w}$ for all $v\in W$.  But then $\varphi(v_j) = 1$ for $j \in\{1,\dots, m\}$, and indeed such a $w\in V$ exists.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Suppose $C_\R([-1, 1])$ is the vector space of continuous real-valued functions on the interval $[-1, 1]$ with inner product given by
+\begin{equation*}
+\inp{f}{g} = \int_{-1}^1f(x)g(x)dx
+\end{equation*}
+for $f,g\in C_\R([-1, 1])$.  Let $\varphi$ be the linear functional on $C_\R([-1, 1])$ defined by $\varphi(f) = f(0)$.  Show that there does not exist $g\in C_\R([-1,1])$ such that 
+\begin{equation*}
+\varphi(f) = \inp{f}{g}
+\end{equation*}
+for every $f\in C_\R([-1, 1])$.  
+\end{problem}
+\begin{proof}
+Suppose not.  Then there exists $g\in C_\R([-1,1])$ such that 
+\begin{equation*}
+\varphi(f) = \inp{f}{g}
+\end{equation*}
+for every $f\in C_\R([-1, 1])$.  Choose $f(x) = x^2 g(x)$.  Then $f(0) = 0$, and hence
+\begin{equation*}
+\int_{-1}^1 f(x) g(x)dx = \int_{-1}^1 [xg(x)]^2dx = 0.
+\end{equation*}
+Now, let $h(x) = xg(x)$.  Since $h$ is continuous on $[-1, 1]$, there exists an interval $[a, b]\subseteq [-1, 1]$ such that $h(x)\neq 0$ for all $x \in [a, b]$.  By the Extreme Value Theorem, $h(x)^2$ has a minimum at some $m\in[a,b]$.  Thus $h(m)^2> 0$, and we now conclude
+\begin{align*}
+0 = \int_{-1}^1h(x)^2dx = \int_a^bh(x)^2dx \geq (b-a)h(m)^2 > 0,
+\end{align*} 
+which is absurd.  Thus we conclude no such $g$ exists.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+For $u\in V$, let $\Phi_u$ denote the linear functional on $V$ defined by
+\begin{equation*}
+(\Phi_u)(v) = \inp{v}{u}
+\end{equation*}
+for $v \in V$.
+\begin{enumerate}[(a)]
+\item Show that if $\F = \R$, then $\Phi$ is a linear map from $V$ to $V'$.
+\item Show that if $\F = \C$ and $V\neq \{0\}$, then $\Phi$ is not a linear map.
+\item Show that $\Phi$ is injective.
+\item Suppose $\F = \R$ and $V$ is finite-dimensional.  Use parts (a) and (c) and a dimension-counting argument (but without using 6.42) to show that $\Phi$ is an isomorphism from $V$ to $V'$.
+\end{enumerate}
+\end{problem}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Suppose $\F=\R$.  Let $u, u'\in V$ and $\alpha\in\R$.  Then, for all $v\in V$, we have
+\begin{equation*}
+\Phi_{u + u'}(v) = \inp{v}{u + u'} = \inp{v}{u} + \inp{v}{u'} = \Phi_u(v) + \Phi_{u'}(v)
+\end{equation*}
+and 
+\begin{equation*}
+\Phi_{\alpha u}(v) = \inp{v}{\alpha u} = \overline{\alpha}\inp{v}{u} = \alpha\inp{v}{u} = \alpha\Phi_u(v).
+\end{equation*}
+Thus $\Phi$ is indeed a linear map.
+\item Suppose $\F = \C$ and $V \neq \{0\}$.  Let $u\in V$.  Then, given $v\in V$, we have
+\begin{equation*}
+\Phi_{iu}(v) = \inp{v}{iu} = \overline{i}\inp{v}{u},
+\end{equation*}
+whereas
+\begin{equation*}
+i\Phi_u(v) = i\inp{v}{u}.
+\end{equation*}
+Thus $\Phi_{iu} \neq i\Phi_u$, and indeed $\Phi$ is not a linear map, since is is not homogeneous.
+\end{enumerate}
 \end{proof}
 \end{document}
