@@ -462,6 +462,22 @@ v + Tv = Tw. \label{eq14}
 Combining Equations \ref{eq13} and \ref{eq14}, we see $Tw = w$.  Therefore it must be that $T= I$, as was to be shown.
 \end{proof}
 
+% Problem 4
+\begin{problem}{4}
+Suppose $P\in\Hom(V)$ and $P^2 = P$.  Prove that $V= \Null P \oplus \Range P$.  
+\end{problem}
+\begin{proof}
+First notice $0 = P^2 - P = P(P - I)$, hence $(P - I)v \in \Null P$ for all $v\in V$.  Next notice we can write $v = Pv - (P - I)v$.  Since of course $Pv\in \Range P$, this yields
+\begin{align*}
+V = \Null P + \Range P.
+\end{align*}
+To see this sum is direct, suppose $w \in \Null P \cap \Range P$.  Then $Pw = 0$ (since $w\in \Null P$) and there exists $u\in V$ such that $w = Pu$ (since $w \in \Range P$).  Combining these two equations with the hypothesis that $P^2 = P$, we now have
+\begin{align*}
+w = Pu = P^2 u = P(Pu) = Pw = 0,
+\end{align*}
+and thus the sum is indeed direct, as desired.
+\end{proof}
+
 % Problem 5
 \begin{problem}{5}
 Suppose $S,T\in\Hom(V)$ and $S$ is invertible.  Suppose $p\in\poly(\F)$ is a polynomial.  Prove that 

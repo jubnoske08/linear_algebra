@@ -864,9 +864,63 @@ Thus $\Phi_{iu} \neq i\Phi_u$, and indeed $\Phi$ is not a linear map, since is i
 In particular, choosing $v = u - u'$, the above implies $\inp{u - u'}{u - u'}=0$, which is true iff $u - u' = 0$.  Thus we conclude $u = u'$, so that $\Phi$ is indeed injective.
 \item Suppose $\F = \R$ and $\dim V = n$.  Notice that since $\Phi: V\hookrightarrow V'$, we have
 \begin{align*}
-\dim V = \dim\Null\Phi + \dim\Range\Phi = \dim\Range\Phi
+\dim V = \dim\Null\Phi + \dim\Range\Phi = \dim\Range\Phi.
 \end{align*}
 Thus $\Phi$ is surjective as well, and we have $V \cong V'$, as was to be shown.  \qedhere
 \end{enumerate}
 \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION C            																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Orthogonal Complements and Minimization Problems}
+
+% Problem 1
+\begin{problem}{1}
+Suppose $v_1,\dots, v_m \in V$.  Prove that 
+\begin{equation*}
+\{v_1, \dots, v_m\}^\perp = (\Span(v_1,\dots, v_m))^\perp.
+\end{equation*}
+\end{problem}
+\begin{proof}
+Suppose $v\in \{v_1,\dots, v_m\}^\perp$.  Then $\inp{v}{v_k}=0$ for $k=1,\dots,m$.  Let $u\in \Span(v_1,\dots, v_m)$ be arbitrary.  We want to show $\inp{v}{u} = 0$, since this implies $v \in (\Span(v_1,\dots, v_m))^\perp$ and hence $\{v_1, \dots, v_m\}^\perp \subseteq (\Span(v_1,\dots, v_m))^\perp$.  To see this, notice 
+\begin{align*}
+\inp{v}{u} &= \inp{v}{\alpha_1v_1 + \dots + \alpha_m v_m}\\
+&= \alpha_1\inp{v}{v_1} + \dots + \alpha_m\inp{v}{v_m}\\
+&= 0,
+\end{align*}
+as desired.  Next suppose $v'\in (\Span(v_1,\dots, v_m))^\perp$.  Since $v_1,\dots,v_m$ are all clearly elements of $\Span(v_1,\dots, v_m)$, clearly $v'\in \{v_1, \dots, v_m\}^\perp$, and thus $(\Span(v_1,\dots, v_m))^\perp \subseteq \{v_1, \dots, v_m\}^\perp$.  Therefore we conclude $\{v_1, \dots, v_m\}^\perp = (\Span(v_1,\dots, v_m))^\perp$.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $U$ is a subspace of $V$ with basis $u_1,\dots, u_m$ and
+\begin{equation*}
+u_1, \dots, u_m, w_1, \dots, w_n 
+\end{equation*}
+is a basis of $V$.  Prove that if the Gram-Schmidt Procedure is applied to the basis of $V$ above, producing a list $e_1,\dots, e_m, f_1,\dots, f_n$, then $e_1,\dots, e_m$ is an orthonormal basis of $U$ and $f_1,\dots, f_n$ is an orthonormal basis of $U^\perp$.
+\end{problem}
+\begin{proof}
+By 6.31, $\Span(u_1,\dots, u_m) = \Span(e_1,\dots, e_m)$.  Since $e_1,\dots, e_m$ is an orthonormal list by construction (and linearly independent by 6.26), $e_1,\dots, e_m$ is indeed an orthonormal basis of $U$.  Next, since each of $f_i$ is orthogonal to each $e_j$, so too is each $f_i$ orthogonal to any element of $U$.  Thus $f_k\in U^\perp$ for $k=1,\dots,n$.  Now, since $\dim U^\perp = \dim V - \dim U = n$ by 6.50, we conclude $f_1,\dots, f_n$ is an orthonormal list of length $\dim U^\perp$ and hence an orthonormal basis of $U^\perp$.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$.  Show that $P_{U^\perp}= I - P_U$, where $I$ is the identity operator on $V$.
+\end{problem}
+\begin{proof}
+For $v\in V$, write $v = u + w$, where $u\in U$ and $w \in U^\perp$.  It follows
+\begin{align*}
+P_{U^\perp}(v) &= w\\
+&= (u + w) - u\\
+&= Iv - P_Uv,
+\end{align*}
+and therefore $P_{U^\perp}= I - P_U$, as desired.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $V$ is finite-dimensional and $P\in\Hom(V)$ is such that $P^2 = P$ and every vector in $\Null P$ is orthogonal to every vector in $\Range P$.  Prove that there exists a subspace $U$ of $V$ such that $P = P_U$.
+\end{problem}
 \end{document}
