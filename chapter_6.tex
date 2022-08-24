@@ -958,4 +958,29 @@ U = \Span\left((1, 1, 0, 0), (1, 1, 1, 2)\right).
 \end{align*}
 Find $u\in U$ such that $\norm{u - (1, 2, 3, 4)}$ is as small as possible.
 \end{problem} 
+\begin{proof}
+We first apply the Gram-Schmidt Procedure to $v_1 = (1, 1, 0, 0)$ and $v_2 = (1, 1, 1, 2)$.  This yields
+\begin{align*}
+e_1 &= \frac{v_1}{\norm{v_1}} \\
+&= \frac{(1, 1, 0, 0)}{\norm{(1, 1, 0, 0)}}\\
+&= \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)
+\end{align*} 
+and
+\begin{align*}
+e_2 &= \frac{v_2 - \inp{v_2}{e_1}e_1}{\norm{v_2 - \inp{v_2}{e_1}e_1}}\\
+&= \frac{(1, 1, 1, 2) - \left\langle(1, 1, 1, 2), \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)\right\rangle \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)}{\norm{(1, 1, 1, 2) - \left\langle(1, 1, 1, 2), \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)\right\rangle \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)}}\\
+&= \frac{(1, 1, 1, 2) - \frac{2}{\sqrt{2}} \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)}{\norm{(1, 1, 1, 2) - \frac{2}{\sqrt{2}} \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right)}}\\
+&= \frac{(0, 0, 1, 2)}{\norm{(0, 0, 1, 2)}}\\
+&= \left(0, 0, \frac{1}{\sqrt{5}}, \frac{2}{\sqrt{5}}\right).
+\end{align*}
+Now, with our orthonormal basis $e_1, e_2$, it follows by 6.55(i) and 6.56 that $\norm{u - (1, 2, 3, 4)}$ is minimized by the vector
+\begin{align*}
+u &= P_U(1, 2, 3, 4)\\
+&= \inp{(1, 2, 3, 4)}{e_1} e_1 + \inp{(1, 2, 3, 4)}{e_2}e_2\\
+&= \frac{3}{\sqrt{2}} \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0, 0\right) + \frac{11}{\sqrt{2}}\left(0, 0, \frac{1}{\sqrt{5}}, \frac{2}{\sqrt{5}}\right)\\
+&= \left(\frac{3}{2}, \frac{3}{2}, 0, 0\right) +  \left(0, 0, \frac{11}{5}, \frac{22}{5}\right)\\
+&=  \left(\frac{3}{2}, \frac{3}{2}, \frac{11}{5}, \frac{22}{5}\right), 
+\end{align*}
+completing the proof.
+\end{proof}
 \end{document}
