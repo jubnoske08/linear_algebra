@@ -110,4 +110,42 @@ T^\ast(z_1,\dots, z_n) = (z_2, \dots, z_n, 0),
 as desired.
 \end{proof}
 
+% Problem 2
+\begin{problem}{2}
+Suppose $T\in\Hom(V)$ and $\lambda\in\F$.  Prove that $\lambda$ is an eigenvalue of $T$ if and only if $\bar{\lambda}$ is an eigenvalue of $T^\ast$.
+\end{problem}
+\begin{proof}
+Suppose $\lambda$ is an eigenvalue of $T$.  Then there exists $v\in V$ such that $Tv = \lambda v$.  It follows
+\begin{align*}
+\lambda \text{ is not an eigenvalue of }T &\iff T - \lambda I\text{ is invertible}\\
+&\iff S(T - \lambda I) = (T- \lambda I)S = I \\
+&~~~~~~~~~~\text{ for some }S\in\Hom(V)\\
+&\iff S^\ast(T^\ast - \lambda I)^\ast = (T- \lambda I)^\ast S^\ast = I^\ast\\
+&~~~~~~~~~~\text{ for some }S^\ast\in\Hom(V)\\
+&\iff (T - \lambda I)^\ast\text{ is invertible}\\
+&\iff T^\ast - \bar{\lambda}I \text{ is invertible}\\
+&\iff \bar{\lambda} \text{ is not an eigenvalue of }T^\ast.
+\end{align*}
+Since the first statement and the last statement are equivalent, so too are their contrapositives.  Hence $\lambda$ is an eigenvalue of $T$ if and only if $\bar{\lambda}$ is an eigenvalue of $T^\ast$, as was to be shown.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $T\in\Hom(V)$ and $U$ is a subspace of $V$.  Prove that $U$ is invariant under $T$ if and only if $U^\perp$ is invariant under $T^\ast$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ First suppose $U$ is invariant under $T$, and let $x\in U^\perp$.  For any $u\in U$, it follows
+\begin{align*}
+\inp{T^\ast x}{u} &= \inp{x}{Tu}\\
+&= 0,
+\end{align*}
+where the second equality follows since $Tu\in U$ (by hypothesis).  Thus $T^\ast x\in U^\perp$ for all $x\in U^\perp$.  That is, $U^\perp$ is invariant under $T^\ast$.\\
+\indent $(\Leftarrow)$ Now suppose $U^\perp$ is invariant under $T^\ast$, and let $y\in U$.  For any $u'\in U^\perp$, it follows
+\begin{align*}
+\inp{T y}{u'} &= \inp{y}{T^\ast u'}\\
+&= 0,
+\end{align*}
+where the second equality follows since $T^\ast u'\in U^\perp$ (by hypothesis).  Thus $T y\in U$ for all $y\in U$.  That is, $U$ is invariant under $T$, completing the proof.
+\end{proof}
+
 \end{document}
