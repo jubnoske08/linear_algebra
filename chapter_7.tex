@@ -148,4 +148,64 @@ where the second equality follows since $Tu\in U$ (by hypothesis).  Thus $T^\ast
 where the second equality follows since $T^\ast u'\in U^\perp$ (by hypothesis).  Thus $T y\in U$ for all $y\in U$.  That is, $U$ is invariant under $T$, completing the proof.
 \end{proof}
 
+% Problem 5
+\begin{problem}{5}
+Prove that 
+\begin{align*}
+\dim\Null T^\ast = \dim\Null T + \dim W - \dim V
+\end{align*}
+and
+\begin{align*}
+\dim\Range T^* = \dim\Range T
+\end{align*}
+for every $T\in\Hom(V, W)$.
+\end{problem}
+\begin{proof}
+Let $T\in\Hom(V, W)$.  Notice
+\begin{align*}
+\dim\Null T^\ast &= \dim\left(\Range T\right)^\perp\\
+&=\dim W - \dim\Range T\\
+&=\dim W + \dim\Null T - \dim V,
+\end{align*}
+where the first equality follows by 7.7(a), the second equality follows by 6.50, and the third equality follows by the Fundamental Theorem of Linear Maps.  Next notice
+\begin{align*}
+\dim\Range T^\ast &= \dim\left(\Null T\right)^\perp\\
+&= \dim V - \dim\Null T\\
+&= \dim \Range T,
+\end{align*}
+where the first equality follows by 7.7(b), and the second and third equalities follow again by the same theorems above.
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $S,T\in\Hom(V)$ are self-adjoint.  Prove that $ST$ is self-adjoint if and only if $ST=TS$.
+\end{problem}
+\begin{proof}
+$(\Rightarrow)$ Suppose $ST$ is self-adjoint.  We have
+\begin{align*}
+ST &= (ST)^\ast\\
+&= T^\ast S^\ast\\
+&=TS,
+\end{align*}
+where the second equality follows by 7.6(e).\\
+\indent $(\Leftarrow)$ Conversely, suppose $ST = TS$.  It follows
+\begin{align*}
+(ST)^\ast &= (TS)^\ast\\
+&= S^\ast T^\ast,
+\end{align*}
+where the second equality again follows by 7.6(e), completing the proof.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $V$ is a complex inner product space with $V\neq\{0\}$.  Show that the set of self-adjoint operators on $V$ is not a subspace of $\Hom(V)$.
+\end{problem}
+\begin{proof}
+Let $\mathcal{A}$ denote the set of self-adjoint operators on $V$, and suppose $T\in\mathcal{A}$.  By 7.6(b), notice $(iT)^\ast = -iT^\ast$, so that $\mathcal{A}$ is not closed under scalar multiplication.  Thus $\mathcal{A}$ is not a subspace of $\Hom(V)$.
+\end{proof}
+
+% Problem 11
+\begin{problem}{11}
+Suppose $P\in\Hom(V)$ is such that $P^2 = P$.  Prove that there is a subspace $U$ of $V$ such that $P = P_U$ if and only if $P$ is self-adjoint.
+\end{problem}
 \end{document}
