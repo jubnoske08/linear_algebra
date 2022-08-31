@@ -208,4 +208,26 @@ Let $\mathcal{A}$ denote the set of self-adjoint operators on $V$, and suppose $
 \begin{problem}{11}
 Suppose $P\in\Hom(V)$ is such that $P^2 = P$.  Prove that there is a subspace $U$ of $V$ such that $P = P_U$ if and only if $P$ is self-adjoint.
 \end{problem}
+\begin{proof}
+$(\Rightarrow)$ First suppose there is a subspace $U\subseteq V$ such that $P = P_U$, and let $v_1,v_2\in V$.  It follows
+\begin{align*}
+\inp{Pv_1}{v_2} &= \inp{u_1}{u_2 + w_2}\\
+&= \inp{u_1}{u_2} + \inp{u_1}{w_2}\\
+&= \inp{u_1}{u_2}\\
+&= \inp{u_1}{u_2} + \inp{w_1}{u_2}\\
+&= \inp{u_1 + w_1}{u_2}\\
+&= \inp{v_1}{Pv_2},
+\end{align*}
+and thus $P = P^\ast$.\\
+\indent $(\Leftarrow)$ Conversely, suppose $P = P^\ast$.  Let $v\in V$.  Notice $P(v - Pv)= Pv - P^2v = 0$, and hence $v - Pv\in\Null P$.  By 7.7(c), we know $\Null P = \left(\Range T^\ast\right)^\perp$.  By hypothesis, $P$ is self-adjoint, and hence we have $v-Pv \in \left(\Range T\right)^\perp$.  Notice we may write
+\begin{align*}
+v = Pv + (v - Pv),
+\end{align*}
+where $Pv \in \Range P$ and $v-Pv \in \left(\Range T\right)^\perp$.  Let $U = \Range P$.  Since the above holds for all $v\in V$, we conclude $P = P_U$, and the proof is complete.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Give an example of an operator $T\in\Hom(\C^4)$ such that $T$ is normal but not self-adjoint.
+\end{problem}
 \end{document}
