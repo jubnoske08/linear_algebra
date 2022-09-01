@@ -230,4 +230,98 @@ where $Pv \in \Range P$ and $v-Pv \in \left(\Range T\right)^\perp$.  Let $U = \R
 \begin{problem}{13}
 Give an example of an operator $T\in\Hom(\C^4)$ such that $T$ is normal but not self-adjoint.
 \end{problem}
+\begin{proof}
+Let $T$ be the operator on $\F^2$ whose matrix with respect to the standard basis is
+\begin{align*}
+\begin{bmatrix}
+2 & -3 & 0 & 0\\
+3 &  2 & 0 & 0\\
+0 &  0 & 0 & 0\\
+0 &  0 & 0 & 0
+\end{bmatrix}.
+\end{align*} 
+We claim $T$ is both normal and not self-adjoint.  To see that $T$ is not self-adjoint, notice that the entry in row $2$, column $1$ does not equal the complex conjugate of the entry in row $1$ column $2$.\\
+\indent Next, notice
+\begin{align*}
+\mat(TT^\ast) &= 
+\begin{bmatrix}
+2 & -3 & 0 & 0\\
+3 &  2 & 0 & 0\\
+0 &  0 & 0 & 0\\
+0 &  0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+2  & 3 & 0 & 0\\
+-3 & 2 & 0 & 0\\
+0  & 0 & 0 & 0\\
+0  & 0 & 0 & 0
+\end{bmatrix}
+= 
+\begin{bmatrix}
+13  & 0 & 0 & 0\\
+0 & 13 & 0 & 0\\
+0  & 0 & 0 & 0\\
+0  & 0 & 0 & 0
+\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+\mat(T^\ast T) &= 
+\begin{bmatrix}
+2 & 3 & 0 & 0\\
+-3 &  2 & 0 & 0\\
+0 &  0 & 0 & 0\\
+0 &  0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+2  & -3 & 0 & 0\\
+3 & 2 & 0 & 0\\
+0  & 0 & 0 & 0\\
+0  & 0 & 0 & 0
+\end{bmatrix}
+= 
+\begin{bmatrix}
+13  & 0 & 0 & 0\\
+0 & 13 & 0 & 0\\
+0  & 0 & 0 & 0\\
+0  & 0 & 0 & 0
+\end{bmatrix},
+\end{align*}
+and hence $TT^\ast$ and $T^\ast T$ have the same matrix.  Thus $TT^\ast = T^\ast T$, and $T$ is normal.   
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Fix $u,x\in V$.  Define $T\in\Hom(V)$ by
+\begin{align*}
+Tv = \inp{v}{u}x
+\end{align*}
+for every $v\in V$.
+\begin{itemize}[(a)]
+\item Suppose $\F = \R$.  Prove that $T$ is self-adjoint if and only if $u,x$ is linearly dependent.
+\item Prove that $T$ is normal if and only if $u,x$ is linearly dependent.
+\end{itemize}
+\end{problem}
+\begin{proof}
+We first derive a useful formula for $T^\ast$ which we'll use in both (a) and (b).  Let $w_1,w_2\in V$ and notice
+\begin{align*}
+\inp{w_1}{T^\ast w_2} &= \inp{Tw_1}{w_2}\\
+&= \inp{\inp{w_1}{u}x}{w_2}\\
+&= \inp{w_1}{u}\inp{x}{w_2}\\
+&= \inp{w_1}{\widebar{\inp{x}{w_2}}u}\\
+&= \inp{w_1}{\inp{w_2}{x}u},
+\end{align*}
+and thus $T^\ast w_2 = \inp{w_2}{x}u$.  Since $w_2$ is arbitrary, we may rewrite this as $T^\ast v = \inp{v}{x}u$ for all $v\in V$.
+\begin{itemize}[(a)]
+\item $(\Rightarrow)$ Suppose $T$ is self-adjoint.  Then we have
+\begin{align*}
+\inp{v}{u}x - \inp{v}{x}u = Tv - T^\ast v = 0
+\end{align*}
+for all $v\in V$.  In particular, we have
+\begin{align*}
+\inp{u}{u}x - \inp{u}{x}u = 0.
+\end{align*}
+We may assume both $u$ and $x$ are nonzero (for otherwise there is nothing to prove).  Hence $\inp{u}{u}\neq 0$, which forces $\inp{u}{x}$ to be nonzero as well, and thus the equation above shows $u,x$ is linearly dependent.
+\end{itemize}
+\end{proof}
 \end{document}
