@@ -231,7 +231,7 @@ where $Pv \in \Range P$ and $v-Pv \in \left(\Range T\right)^\perp$.  Let $U = \R
 Give an example of an operator $T\in\Hom(\C^4)$ such that $T$ is normal but not self-adjoint.
 \end{problem}
 \begin{proof}
-Let $T$ be the operator on $\F^2$ whose matrix with respect to the standard basis is
+Let $T$ be the operator on $\C^4$ whose matrix with respect to the standard basis is
 \begin{align*}
 \begin{bmatrix}
 2 & -3 & 0 & 0\\
@@ -312,7 +312,7 @@ We first derive a useful formula for $T^\ast$ which we'll use in both (a) and (b
 &= \inp{w_1}{\inp{w_2}{x}u},
 \end{align*}
 and thus $T^\ast w_2 = \inp{w_2}{x}u$.  Since $w_2$ is arbitrary, we may rewrite this as $T^\ast v = \inp{v}{x}u$ for all $v\in V$.
-\begin{itemize}[(a)]
+\begin{enumerate}[(a), listparindent=1.5em]
 \item $(\Rightarrow)$ Suppose $T$ is self-adjoint.  Then we have
 \begin{align*}
 \inp{v}{u}x - \inp{v}{x}u = Tv - T^\ast v = 0
@@ -321,7 +321,34 @@ for all $v\in V$.  In particular, we have
 \begin{align*}
 \inp{u}{u}x - \inp{u}{x}u = 0.
 \end{align*}
-We may assume both $u$ and $x$ are nonzero (for otherwise there is nothing to prove).  Hence $\inp{u}{u}\neq 0$, which forces $\inp{u}{x}$ to be nonzero as well, and thus the equation above shows $u,x$ is linearly dependent.
-\end{itemize}
+We may assume both $u$ and $x$ are nonzero, for otherwise there is nothing to prove.  Hence $\inp{u}{u}\neq 0$, which forces $\inp{u}{x}$ to be nonzero as well, and thus the equation above shows $u,x$ is linearly dependent.\\
+\indent $(\Leftarrow)$ Conversely, suppose $u,x$ is linearly dependent.  We may again assume both $u$ and $x$ are nonzero, for otherwise $T=0$, which is self-adjoint.  Thus there exists a nonzero $\alpha\in\R$ such that $u = \alpha x$.  It follows
+\begin{align*}
+Tv &= \inp{v}{u}x\\
+&= \inp{v}{\alpha x}\frac{1}{\alpha} u\\
+&= \inp{v}{x}u\\
+&= T^\ast,
+\end{align*}
+and thus $T$ is self-adjoint, completing the proof.
+\item $(\Rightarrow)$ Suppose $T$ is normal and let $v\in V$.  It follows
+\begin{align*}
+\inp{\inp{v}{u}x}{x}u &= T^\ast(\inp{v}{u}x)\\
+&= T^\ast Tv\\
+&= TT^\ast v\\
+&= T(\inp{v}{x}u)\\
+&= \inp{\inp{v}{x}u}{u}x.
+\end{align*}
+We may assume both $u$ and $x$ are nonzero, for otherwise there is nothing to prove.  Since the above holds for $v = u$, we may conclude $\inp{\inp{v}{u}x}{x} \neq 0$, which also forces $\inp{\inp{v}{x}u}{u} \neq 0$.  Thus $u, x$ is linearly dependent.\\
+\indent $(\Leftarrow)$ Conversely, suppose $u,x$ is linearly dependent.  We may again assume both $u$ and $x$ are nonzero, for otherwise $T = 0$, which is normal.  Thus there exists a nonzero $\alpha\in\R$ such that $u = \alpha x$.  It follows
+\begin{align*}
+T^\ast Tv &= T^\ast(\inp{v}{u}x)\\
+&= \inp{\inp{v}{u}x}{x}u\\
+&= \left\langle\inp{v}{\alpha x}\frac{1}{\alpha} u, \frac{1}{\alpha}u\right\rangle \alpha x\\
+&= \inp{\inp{v}{x}u}{u}x\\
+&= T(\inp{v}{x}u)\\
+&= TT^\ast v,
+\end{align*}
+and thus $T$ is normal, completing the proof. \qedhere
+\end{enumerate}
 \end{proof}
 \end{document}
