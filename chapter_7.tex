@@ -240,7 +240,7 @@ Let $T$ be the operator on $\C^4$ whose matrix with respect to the standard basi
 0 &  0 & 0 & 0
 \end{bmatrix}.
 \end{align*} 
-We claim $T$ is both normal and not self-adjoint.  To see that $T$ is not self-adjoint, notice that the entry in row $2$, column $1$ does not equal the complex conjugate of the entry in row $1$ column $2$.\\
+We claim $T$ is normal and not self-adjoint.  To see that $T$ is not self-adjoint, notice that the entry in row $2$, column $1$ does not equal the complex conjugate of the entry in row $1$ column $2$.\\
 \indent Next, notice
 \begin{align*}
 \mat(TT^\ast) &= 
@@ -311,7 +311,7 @@ We first derive a useful formula for $T^\ast$ which we'll use in both (a) and (b
 &= \inp{w_1}{\widebar{\inp{x}{w_2}}u}\\
 &= \inp{w_1}{\inp{w_2}{x}u},
 \end{align*}
-and thus $T^\ast w_2 = \inp{w_2}{x}u$.  Since $w_2$ is arbitrary, we may rewrite this as $T^\ast v = \inp{v}{x}u$ for all $v\in V$.
+and thus $T^\ast w_2 = \inp{w_2}{x}u$.  Since $w_2$ was arbitrary, we may rewrite this as $T^\ast v = \inp{v}{x}u$ for all $v\in V$.
 \begin{enumerate}[(a), listparindent=1.5em]
 \item $(\Rightarrow)$ Suppose $T$ is self-adjoint.  Then we have
 \begin{align*}
@@ -350,5 +350,44 @@ T^\ast Tv &= T^\ast(\inp{v}{u}x)\\
 \end{align*}
 and thus $T$ is normal, completing the proof. \qedhere
 \end{enumerate}
+\end{proof}
+
+% Problem 16
+\begin{problem}{16}
+Suppose $T\in\Hom(V)$ is normal.  Prove that
+\begin{align*}
+\Range T = \Range T^\ast.
+\end{align*}
+\end{problem}
+\begin{proof}
+Suppose $T\in\Hom(V)$ is normal.  We first prove $\Null T = \Null T^\ast$.  It follows
+\begin{align*}
+v\in\Null T &\iff Tv = 0\\
+&\iff \norm{Tv} = 0\\
+&\iff \norm{T^\ast v} = 0\\
+&\iff T^\ast v = 0\\
+&\iff v\in\Null T^\ast,
+\end{align*}
+where the third equivalence follows by 7.20, and indeed we have $\Null T = \Null T^\ast$.  This implies $(\Null T)^\perp = (\Null T^\ast)^\perp$,
+and by 7.7(b) and 7.7(c), this is equivalent to $\Range T^\ast = \Range T$, as desired.
+\end{proof}
+
+% Problem 17
+\begin{problem}{17}
+Suppose $T\in\Hom(V)$ is normal.  Prove that
+\begin{align*}
+\Null T^k = \Null T \quad \text{and} \quad \Range T^k = \Range T
+\end{align*}
+for every positive integer $k$.
+\end{problem}
+\begin{proof}
+To show $\Null T^k = \Null T$, we first prove $\Null T^k = \Null T^{k + 1}$ for all $k\in\Z^+$.  Let $m\in\Z^+$.  Clearly, if $v\in\Null T^m$, then $v\in\Null T^{m+1}$, and hence $\Null T^m \subseteq\Null T^{m+1}$.  Next, suppose $v\in\Null T^{m + 1}$.  Then $T(T^m v)=0$, and hence $T^mv\in\Null T$.  By Problem 16, this implies $T^mv\in\Null T^\ast$, and by 7.7(a) we have $T^m\in(\Range T)^\perp$.  Since of course $T^mv\in\Range T$ as well, we must have $T^mv = 0$.  Thus $v \in \Null T^m$, and therefore $\Null T^{m+1} \subseteq \Null T^m$.  Thus $\Null T^m = \Null T^{m + 1}$.  Since $m$ was arbitrary, this implies $\Null T^k = \Null T$ for all $k\in\Z^+$, as desired.\\
+\indent Now we will show $\Range T^k = \Range T$ for all $k\in\Z^+$.  Let $n\in\Z^+$.  If $n=1$, there's nothing to prove, so we may assume $n>1$.  Suppose $w\in \Range T^{n}$.  Then there exists $v\in V$ such that $T^nv = w$, and hence $T(T^{n-1}v) = w$, so that $w\in\Range T$ as well and we have $\Range T^n\subseteq \Range T$.  Next, notice 
+\begin{align*}
+\dim \Range T^n &= \dim V - \dim \Null T^n\\
+&= \dim V - \dim\Null T\\
+&= \dim \Range T,
+\end{align*}
+where the second equality follows from the previous paragraph.  Since $\Range T^n$ is a subspace of $\Range T$ of the same dimension, it must equal $\Range T$.  And since $n$ was arbitrary, we conclude $\Range T^k = \Range T$ for all $k\in\Z^+$, completing the proof.
 \end{proof}
 \end{document}
