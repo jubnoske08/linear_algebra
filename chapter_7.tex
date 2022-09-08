@@ -381,7 +381,7 @@ Suppose $T\in\Hom(V)$ is normal.  Prove that
 for every positive integer $k$.
 \end{problem}
 \begin{proof}
-To show $\Null T^k = \Null T$, we first prove $\Null T^k = \Null T^{k + 1}$ for all $k\in\Z^+$.  Let $m\in\Z^+$.  Clearly, if $v\in\Null T^m$, then $v\in\Null T^{m+1}$, and hence $\Null T^m \subseteq\Null T^{m+1}$.  Next, suppose $v\in\Null T^{m + 1}$.  Then $T(T^m v)=0$, and hence $T^mv\in\Null T$.  By Problem 16, this implies $T^mv\in\Null T^\ast$, and by 7.7(a) we have $T^m\in(\Range T)^\perp$.  Since of course $T^mv\in\Range T$ as well, we must have $T^mv = 0$.  Thus $v \in \Null T^m$, and therefore $\Null T^{m+1} \subseteq \Null T^m$.  Thus $\Null T^m = \Null T^{m + 1}$.  Since $m$ was arbitrary, this implies $\Null T^k = \Null T$ for all $k\in\Z^+$, as desired.\\
+To show $\Null T^k = \Null T$, we first prove $\Null T^k = \Null T^{k + 1}$ for all $k\in\Z^+$.  Let $m\in\Z^+$.  If $m = 1$, there's nothing to prove, so we may assume $m > 1$.  Clearly, if $v\in\Null T^m$, then $v\in\Null T^{m+1}$, and hence $\Null T^m \subseteq\Null T^{m+1}$.  Next, suppose $v\in\Null T^{m + 1}$.  Then $T(T^m v)=0$, and hence $T^mv\in\Null T$.  By Problem 16, this implies $T^mv\in\Null T^\ast$, and by 7.7(a) we have $T^m\in(\Range T)^\perp$.  Since of course $T^mv\in\Range T$ as well, we must have $T^mv = 0$.  Thus $v \in \Null T^m$, and therefore $\Null T^{m+1} \subseteq \Null T^m$.  Thus $\Null T^m = \Null T^{m + 1}$.  Since $m$ was arbitrary, this implies $\Null T^k = \Null T$ for all $k\in\Z^+$, as desired.\\
 \indent Now we will show $\Range T^k = \Range T$ for all $k\in\Z^+$.  Let $n\in\Z^+$.  If $n=1$, there's nothing to prove, so we may assume $n>1$.  Suppose $w\in \Range T^{n}$.  Then there exists $v\in V$ such that $T^nv = w$, and hence $T(T^{n-1}v) = w$, so that $w\in\Range T$ as well and we have $\Range T^n\subseteq \Range T$.  Next, notice 
 \begin{align*}
 \dim \Range T^n &= \dim V - \dim \Null T^n\\
@@ -390,4 +390,36 @@ To show $\Null T^k = \Null T$, we first prove $\Null T^k = \Null T^{k + 1}$ for 
 \end{align*}
 where the second equality follows from the previous paragraph.  Since $\Range T^n$ is a subspace of $\Range T$ of the same dimension, it must equal $\Range T$.  And since $n$ was arbitrary, we conclude $\Range T^k = \Range T$ for all $k\in\Z^+$, completing the proof.
 \end{proof}
+
+% Problem 19
+\begin{problem}{19}
+Suppose $T\in\Hom(\C^3)$ is normal and $T(1, 1, 1) = (2, 2, 2)$.  Suppose $(z_1,z_2,z_3)\in\Null T$.  Prove that $z_1 + z_2 + z_3 = 0$.
+\end{problem}
+\begin{proof}
+By Problem 16, $\Null T = \Null T^\ast$, hence $T^\ast(z_1, z_2, z_3) = 0$.  Therefore, we have
+\begin{align*}
+2(z_1 + z_2 + z_3) &= \inp{(2, 2, 2)}{(z_1, z_2, z_3)}\\
+&= \inp{T(1, 1, 1)}{(z_1, z_2, z_3)} \\
+&= \inp{(1, 1, 1)}{T^\ast(z_1, z_2, z_3)}\\
+&= \inp{(1, 1, 1)}{(0, 0, 0)}\\
+&= 0,
+\end{align*}
+and so $z_1 + z_2 + z_3 = 0$, as was to be shown. 
+\end{proof}
+
+% Problem 21
+\begin{problem}{21}
+Fix a positive integer $n$.  In the inner product space of continuous real-valued functions on $[-\pi, \pi]$ with inner product
+\begin{align*}
+\inp{f}{g} = \int_{-\pi}^\pi f(x)g(x)dx,
+\end{align*}
+let 
+\begin{align*}
+V = \Span(1, \cos x, \cos 2x, \dots, \cos nx, \sin x, \sin 2x, \dots, \sin nx).
+\end{align*}
+\begin{enumerate}[(a)]
+\item Define $D\in\Hom(V)$ by $Df = f'$.  Show that $D^\ast = -D$.  Conclude that $D$ is normal but not self-adjoint.
+\item Define $T\in\Hom(V)$ by $Tf = f''$.  Show that $T$ is self-adjoint.
+\end{enumerate}
+\end{problem}
 \end{document}

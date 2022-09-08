@@ -654,6 +654,76 @@ e_3 &=  \frac{v_3 - \inp{v_3}{e_1} e_1 - \inp{v_3}{e_2}e_2}{\norm{v_3 - \inp{v_3
 and we're done.
 \end{proof}
 
+% Problem 4
+\begin{problem}{4}
+Suppose $n$ is a positive integer.  Prove that
+\begin{align*}
+\frac{1}{\sqrt{2\pi}}, \frac{\cos x}{\sqrt{\pi}}, \frac{\cos 2x}{\sqrt{\pi}}, \dots, \frac{\cos nx}{\sqrt{\pi}}, \frac{\sin x}{\sqrt{\pi}}, \frac{\sin 2x}{\sqrt{\pi}}, \dots, \frac{\sin nx}{\sqrt{\pi}}
+\end{align*}
+is an orthonormal list of vectors in $\mathcal{C}[-\pi, \pi]$, the vector space of continuous real-valued functions on $[-\pi, \pi]$ with inner product
+\begin{align*}
+\inp{f}{g} = \int_{-\pi}^\pi f(x)g(x)dx.
+\end{align*}
+\end{problem}
+\begin{proof}
+First we show that all vectors in the list have norm $1$.  Notice
+\begin{align*}
+\norm{\frac{1}{\sqrt{2\pi}}} &= \sqrt{\int_{-\pi}^\pi\frac{1}{2\pi}dx}\\
+&=\sqrt{ \frac{1}{2\pi}\int_{-\pi}^\pi dx}\\
+&= 1.
+\end{align*}
+And for $k\in\Z^+$, we have
+\begin{align*}
+\norm{\frac{\cos(kx)}{\sqrt{\pi}}} &= \sqrt{\frac{1}{\pi}\int_{-\pi}^\pi \cos(kx)^2dx}\\
+&= \sqrt{\frac{1}{\pi}\left[\frac{\sin(2kx)}{4k} + \frac{x}{2}\right]_{-\pi}^\pi}\\
+&= \sqrt{\frac{1}{\pi}\left[\frac{\pi}{2} - \left(-\frac{\pi}{2}\right)\right]}\\
+&= 1,
+\end{align*}
+and
+\begin{align*}
+\norm{\frac{\sin(kx)}{\sqrt{\pi}}} &= \sqrt{\frac{1}{\pi}\int_{-\pi}^\pi \sin(kx)^2dx}\\
+&= \sqrt{\frac{1}{\pi}\left[\frac{x}{2} - \frac{\cos(2kx)}{4k}\right]_{-\pi}^\pi}\\
+&= \sqrt{\frac{1}{\pi}\left[\frac{\pi}{2} - \left(-\frac{\pi}{2}\right)\right]}\\
+&= 1,
+\end{align*}
+so indeed all vectors have norm $1$.  Now we show them to be pairwise orthogonal.  Suppose $j,k\in\Z$ are such that $j \neq k$.  It follows from basic calculus
+\begin{align*}
+\left\langle \frac{\sin(jx)}{\sqrt{\pi}}, \frac{\sin(kx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\pi}\int_{-\pi}^\pi\sin(jx)\sin(kx)dx\\
+&= \frac{1}{\pi}\left[\frac{k\sin(jx)\cos(kx) + j\cos(jx)\sin(kx)}{j^2 - k^2}\right]_{-\pi}^\pi\\
+&= 0,
+\end{align*}
+\begin{align*}
+\left\langle \frac{\sin(jx)}{\sqrt{\pi}}, \frac{\cos(kx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\pi}\int_{-\pi}^\pi\sin(jx)\cos(kx)dx\\
+&= -\frac{1}{\pi}\left[\frac{k\sin(jx)\sin(kx) + j\cos(jx)\cos(kx)}{j^2 - k^2}\right]_{-\pi}^\pi\\
+&= -\frac{1}{\pi}\left[\left(\frac{j\cos(j\pi)\cos(k\pi)}{j^2- k^2} \right) - \left(\frac{j\cos(-j\pi)\cos(-k\pi)}{j^2- k^2}\right) \right]\\
+&= 0,
+\end{align*}
+\begin{align*}
+\left\langle \frac{\cos(jx)}{\sqrt{\pi}}, \frac{\cos(kx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\pi}\int_{-\pi}^\pi\cos(jx)\cos(kx)dx\\
+&= \frac{1}{\pi}\left[\frac{j\sin(j x)\cos(k x) - k\cos(j x)\sin(k x)}{j^2 - k^2}\right]_{-\pi}^\pi\\
+&= 0,
+\end{align*}
+\begin{align*}
+\left\langle \frac{\sin(jx)}{\sqrt{\pi}}, \frac{\cos(jx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\pi}\int_{-\pi}^\pi\sin(jx)\cos(jx)dx\\
+&= \left[-\frac{\cos^2(jx)}{2j}\right]_{-\pi}^\pi\\
+&= 0,
+\end{align*}
+\begin{align*}
+\left\langle \frac{1}{\sqrt{2\pi}}, \frac{\cos(jx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\sqrt{2}\pi}\int_{-\pi}^\pi\cos(jx)dx\\
+&= \frac{1}{\sqrt{2}\pi}\left[\frac{\sin(jx)}{j}\right]_{-\pi}^\pi\\
+&= 0,
+\end{align*}
+and
+\begin{align*}
+\left\langle \frac{1}{\sqrt{2\pi}}, \frac{\sin(jx)}{\sqrt{\pi}}\right\rangle &= \frac{1}{\sqrt{2}\pi}\int_{-\pi}^\pi\sin(jx)dx\\
+&= \frac{1}{\sqrt{2}\pi}\left[-\frac{\cos(jx)}{j}\right]_{-\pi}^\pi\\
+&= \frac{1}{\sqrt{2}\pi}\left[-\frac{\cos(j\pi) - \cos(-j\pi)}{j}\right]\\
+&= 0.
+\end{align*}
+Thus the list is indeed an orthonormal list in $\mathcal{C}[-\pi, \pi]$.
+\end{proof}
+
+
 % Problem 5
 \begin{problem}{5}
 On $\poly_2(\R)$, consider the inner product given by 
