@@ -29,7 +29,7 @@
   separator sign none
   }%
   {} 
-\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % THEOREMS/LEMMAS/ETC.         																			  %
@@ -422,4 +422,42 @@ V = \Span(1, \cos x, \cos 2x, \dots, \cos nx, \sin x, \sin 2x, \dots, \sin nx).
 \item Define $T\in\Hom(V)$ by $Tf = f''$.  Show that $T$ is self-adjoint.
 \end{enumerate}
 \end{problem}
+\begin{proof}
+From Problem 4 of 6B, recall that
+\begin{align*}
+\frac{1}{\sqrt{2\pi}}, \frac{\cos x}{\sqrt{\pi}}, \frac{\cos 2x}{\sqrt{\pi}}, \dots, \frac{\cos nx}{\sqrt{\pi}}, \frac{\sin x}{\sqrt{\pi}}, \frac{\sin 2x}{\sqrt{\pi}}, \dots, \frac{\sin nx}{\sqrt{\pi}}
+\end{align*}
+is an orthonormal list, and hence it is an orthonormal basis of $V$.  
+\begin{enumerate}[(a)]
+\item For $k = 1,\dots, n$, define
+\begin{align*}
+e_k = \frac{\cos(kx)}{\sqrt{\pi}}\quad\text{and}\quad f_k= \frac{\sin(kx)}{\sqrt{\pi}}.
+\end{align*}
+Next, notice
+\begin{align*}
+De_k = -\frac{k\sin(kx)}{\sqrt{\pi}} = -kf_k\quad\text{and}\quad Df_k = \frac{k\cos(kx)}{\sqrt{\pi}} = ke_k,
+\end{align*}
+and thus, for any $v,w\in V$, it follows
+\begin{align*}
+\inp{v}{D^\ast w} &= \inp{Dv}{w}\\
+&= \left\langle D\left(\left\langle v, \frac{1}{\sqrt{2\pi}}\right\rangle \frac{1}{\sqrt{2\pi}}+\sum_{k=1}^n\left(\inp{v}{e_k}e_k + \inp{v}{f_k}f_k\right)\right), w\right\rangle\\
+&= \left\langle \sum_{k=1}^n\left(-k\inp{v}{e_k}f_k + k\inp{v}{f_k}e_k\right), w\right\rangle\\
+&= -\sum_{k = 1}^nk\inp{v}{e_k}\inp{f_k}{w} + \sum_{k = 1}^nk\inp{v}{f_k}\inp{e_k}{w}\\
+&= -\sum_{k= 1}^nk\inp{w}{f_k}\inp{v}{e_k} +  \sum_{k = 1}^nk\inp{w}{e_k}\inp{v}{f_k}\\
+&= \sum_{k = 1}^nk\inp{w}{e_k}\inp{v}{f_k} - \sum_{k= 1}^nk\inp{w}{f_k}\inp{v}{e_k}\\
+&= \left\langle v, \sum_{k=1}^nk\inp{w}{e_k}f_k \right\rangle - \left\langle v, \sum_{k=1}^nk\inp{w}{f_k}e_k \right\rangle\\
+&= \left\langle v, \sum_{k=1}^n\left(k\inp{w}{e_k}f_k - k\inp{w}{f_k}e_k \right)\right\rangle\\
+&= \left\langle v,  -D\left(\left\langle w, \frac{1}{\sqrt{2\pi}}\right\rangle \frac{1}{\sqrt{2\pi}}+\sum_{k=1}^n\left(\inp{w}{e_k}e_k + \inp{w}{f_k}f_k\right)\right)\right\rangle\\
+&= \inp{v}{-Dw},
+\end{align*}
+and thus $D^\ast = -D$, showing that $D$ is not self-adjoint.  Moreover, notice that this implies
+\begin{align*}
+DD^\ast = D(-D) = -DD = (D^\ast)D = D^\ast D,
+\end{align*}
+so that $D$ is normal.  This shows that there exist operators which are normal but not self-adjoint.
+
+\item 
+\end{enumerate}
+
+\end{proof}
 \end{document}
