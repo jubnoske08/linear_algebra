@@ -433,7 +433,7 @@ is an orthonormal list, and hence it is an orthonormal basis of $V$.
 \begin{align*}
 e_k = \frac{\cos(kx)}{\sqrt{\pi}}\quad\text{and}\quad f_k= \frac{\sin(kx)}{\sqrt{\pi}}.
 \end{align*}
-Next, notice
+Notice
 \begin{align*}
 De_k = -\frac{k\sin(kx)}{\sqrt{\pi}} = -kf_k\quad\text{and}\quad Df_k = \frac{k\cos(kx)}{\sqrt{\pi}} = ke_k,
 \end{align*}
@@ -454,10 +454,13 @@ and thus $D^\ast = -D$, showing that $D$ is not self-adjoint.  Moreover, notice 
 \begin{align*}
 DD^\ast = D(-D) = -DD = (D^\ast)D = D^\ast D,
 \end{align*}
-so that $D$ is normal.  This shows that there exist operators which are normal but not self-adjoint.
+so that $D$ is normal.  Notice that this proves that there exist operators which are normal but not self-adjoint.
 
-\item 
+\item Notice $T = D^2$, and hence
+\begin{align*} 
+T^\ast = (DD)^\ast = D^\ast D^\ast = (-D)(-D) = D^2  = T.
+\end{align*}
+Thus $T$ is self-adjoint. \qedhere
 \end{enumerate}
-
 \end{proof}
 \end{document}
