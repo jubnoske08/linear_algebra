@@ -454,7 +454,7 @@ and thus $D^\ast = -D$, showing that $D$ is not self-adjoint.  Moreover, notice 
 \begin{align*}
 DD^\ast = D(-D) = -DD = (D^\ast)D = D^\ast D,
 \end{align*}
-so that $D$ is normal.  Notice that this proves that there exist operators which are normal but not self-adjoint.
+so that $D$ is normal, completing the proof.
 
 \item Notice $T = D^2$, and hence
 \begin{align*} 
@@ -463,4 +463,60 @@ T^\ast = (DD)^\ast = D^\ast D^\ast = (-D)(-D) = D^2  = T.
 Thus $T$ is self-adjoint. \qedhere
 \end{enumerate}
 \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION B           																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Spectral Theorem}
+
+% Problem 1
+\begin{problem}{1}
+True or false (and give a proof of your answer): There exists $T\in\Hom(\R^3)$ such that $T$ is not self-adjoint (with respect to the usual inner product) and such that there is a basis of $\R^3$ consisting of eigenvectors of $T$.
+\end{problem}
+\begin{proof}
+The statement is true.  To see this, consider the linear operator $T$ defined by its action on the basis $(1, 0, 0), (0, 1, 0), (0, 1, 1)$:
+\begin{align*}
+T(1, 0, 0) &= (0, 0, 0)\\
+T(0, 1, 0) &= (0, 0, 0)\\
+T(0, 1, 1) &= (0, 1, 1).
+\end{align*}
+Notice $T(1, 0, 0) = 0\cdot (1, 0, 0)$ and $T(0, 1, 0) = 0\cdot (0, 1, 0)$, so that $(1, 0, 0)$ and $(0, 1, 0)$ are eigenvectors with eigenvalue $0$.  Also, $(0, 1, 1)$ is an eigenvector with eigenvalue $1$.  Thus $(1, 0, 0,), (0, 1, 0), (0, 1, 1)$ is a basis of $\R^3$ consisting of eigenvectors of $T$.  That $T$ is not self-adjoint follows from the contrapositive of 7.22, since $(0, 1, 0)$ and $(0, 1, 1)$ correspond to distinct eigenvalues yet they are not orthogonal.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Give an example of an operator $T\in\Hom(\C^3)$ such that $2$ and $3$ are the only eigenvalues of $T$ and $T^2 - 5T + 6I \neq 0$.
+\end{problem}
+\begin{proof}
+Define $T\in\Hom(\C^3)$ by its action on the standard basis:
+\begin{align*}
+Te_1 &= 2e_2\\
+Te_2 &= e_1 + 2e_2\\
+Te_3 &= 3e_3.
+\end{align*}
+Then 
+\begin{align*}
+\mat(T) = \begin{bmatrix}2 & 1 & 0\\ 0 & 2 & 0\\ 0 & 0 & 3\end{bmatrix}.
+\end{align*}
+By 5.32, the only eigenvalues of $T$ are the entries on the diagonal: $2$ and $3$.  Now notice
+\begin{align*}
+(T^2 - 5T + 6I)e_2 &= (T - 3I)(T - 2I)e_2\\
+&= (T - 3I)(Te_2 - 2e_2)\\
+&= (T - 3I)(e_1 + 2e_2 - 2e_2)\\
+&= (T - 3I)e_1\\
+&= Te_1 - 3e_1\\
+&= -e_1,
+\end{align*}
+so that $T^2 - 5T + 6I\neq 0$.  Thus $T$ is an operator of the desired form.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Suppose $\F=\R$ and $T\in\Hom(V)$.  Prove that $T$ is self-adjoint if and only if all pairs of eigenvectors corresponding to distinct eigenvalues of $T$ are orthogonal and 
+\begin{align*}
+V = E(\lambda_1, T)\oplus \dots \oplus E(\lambda_m, T),
+\end{align*}
+where $\lambda_1,\dots,\lambda_m$ denote the distinct eigenvalues of $T$.
+\end{problem}
 \end{document}
