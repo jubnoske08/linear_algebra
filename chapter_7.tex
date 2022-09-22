@@ -519,4 +519,34 @@ V = E(\lambda_1, T)\oplus \dots \oplus E(\lambda_m, T),
 \end{align*}
 where $\lambda_1,\dots,\lambda_m$ denote the distinct eigenvalues of $T$.
 \end{problem}
+\begin{proof}
+$(\Leftarrow)$ Suppose all pairs of eigenvectors corresponding to distinct eigenvalues of $T$ are orthogonal and 
+\begin{align*}
+V = E(\lambda_1, T)\oplus \dots \oplus E(\lambda_m, T),
+\end{align*}
+where $\lambda_1,\dots,\lambda_m$ denote the distinct eigenvalues of $T$.  By 5.41, $V$ has a basis consisting of eigenvectors of $T$.  Dividing each element of the basis by its norm produces an orthonormal basis consisting of eigenvectors of $T$.  By the Real Spectral Theorem, $T$ is self-adjoint, as desired.\\
+\indent $(\Rightarrow)$ Conversely, suppose $T$ is self-adjoint as suppose $v_1,v_2\in V$ are eigenvectors of $T$ corresponding to eigenvalues $\lambda_1,\lambda_2\in\R$ such that $\lambda_1\neq\lambda_2$.  It follows
+\begin{align*}
+0 &= \inp{Tv_1}{v_2} - \inp{v_1}{Tv_2}\\
+&= \inp{\lambda_1 v_1}{v_2} - \inp{v_1}{\lambda_2 v_2}\\
+&= \lambda_1\inp{v_1}{v_2} - \widebar{\lambda_2}\inp{v_1}{v_2}\\
+&= \lambda_1\inp{v_1}{v_2} - \lambda_2\inp{v_1}{v_2}\\
+&= (\lambda_1 - \lambda_2)\inp{v_1}{v_2}.
+\end{align*}
+Since $\lambda_1\neq \lambda_2$, it must be that $\inp{v_1}{v_2}=0$.  Thus all pairs of eigenvectors corresponding to distinct eigenvalues of $T$ are orthogonal.  By the Real Spectral Theorem, since $T$ is self-adjoint, $T$ is diagonalizable.  And by 5.34, this implies
+\begin{align*}
+V = E(\lambda_1, T)\oplus \dots \oplus E(\lambda_m, T),
+\end{align*}
+where $\lambda_1,\dots,\lambda_m$ denote the distinct eigenvalues of $T$, completing the proof.
+\end{proof}
+
+% Problem 6
+\begin{problem}{6}
+Prove that a normal operator on a complex vector space is self-adjoint if and only if all its eigenvalues are real.
+\end{problem}
+\begin{proof}
+Let $T$ be a normal operator on a complex vector space, $V$.\\
+\indent $(\Rightarrow)$ Suppose $T$ is self-adjoint.  Then by 7.13, all eigenvalues of $T$ are real.\\
+\indent $(\Leftarrow)$ Conversely, suppose all eigenvalues of $T$ are real.  By the Complex Spectral Theorem, there exists an orthonormal basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Thus there exist $\lambda_1,\dots, \lambda_n\in\R$ such that $Tv_k = \lambda_k v_k$ for $k = 1,\dots, n$.  Thus $\mat(T)$ is diagonal, and all entries along the diagonal are real.  Therefore $\mat(T)$ equals the conjugate transpose of $\mat(T)$.  By 7.10, this implies $\mat(T) = \mat(T^\ast)$, and we conclude $T = T^\ast$, so that $T$ is indeed self-adjoint.
+\end{proof}
 \end{document}
