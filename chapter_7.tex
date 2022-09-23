@@ -549,4 +549,53 @@ Let $T$ be a normal operator on a complex vector space, $V$.\\
 \indent $(\Rightarrow)$ Suppose $T$ is self-adjoint.  Then by 7.13, all eigenvalues of $T$ are real.\\
 \indent $(\Leftarrow)$ Conversely, suppose all eigenvalues of $T$ are real.  By the Complex Spectral Theorem, there exists an orthonormal basis $v_1,\dots, v_n$ of $V$ consisting of eigenvectors of $T$.  Thus there exist $\lambda_1,\dots, \lambda_n\in\R$ such that $Tv_k = \lambda_k v_k$ for $k = 1,\dots, n$.  Thus $\mat(T)$ is diagonal, and all entries along the diagonal are real.  Therefore $\mat(T)$ equals the conjugate transpose of $\mat(T)$.  By 7.10, this implies $\mat(T) = \mat(T^\ast)$, and we conclude $T = T^\ast$, so that $T$ is indeed self-adjoint.
 \end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $V$ is a complex inner product space and $T\in\Hom(V)$ is a normal operator such that $T^9 = T^8$.  Prove that $T$ is self-adjoint and $T^2 = T$.   
+\end{problem}
+\begin{proof}
+By the Complex Spectral Theorem, since $T$ is normal, $V$ has an orthonormal basis $v_1,\dots, v_n$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\C$ be the corresponding eigenvalues, so that
+\begin{align*}
+Tv_k = \lambda_k v_k
+\end{align*}
+for $k = 1,\dots, n$.  Repeatedly applying $T$ to both sides of the equation above $8$ times yields
+\begin{align*}
+T^9v_k = (\lambda_k)^9 v_k\quad\text{and}\quad T^8v_k = (\lambda_k)^8 v_k.
+\end{align*}
+Since $T^9 = T^8$, we conclude $(\lambda_k)^9 = (\lambda_k)^8$ and thus $\lambda_k\in\{0, 1\}$.  In particular, all eigenvalues of $T$ are real, hence by Problem 6 we have that $T$ is self-adjoint.\\
+\indent To see that $T^2 = T$, notice 
+\begin{align*}
+T^2v_k &= (\lambda_k)^2v_k\\
+&= \lambda_k v_k\\
+&=Tv_k,
+\end{align*}
+where the second equality follows from the fact that $\lambda_k\in\{0,1\}$, and the proof is complete.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Suppose $V$ is a complex inner product space.  Prove that every normal operator on $V$ has a square root.  (An operator $S\in\Hom(V)$ is called a \textbf{\textit{square root}} of $T\in\Hom(V)$ if $S^2 = T$.)
+\end{problem}
+\begin{proof}
+Suppose $T\in\Hom(V)$ is normal.  By the Complex Spectral Theorem, $V$ has an orthonormal basis $v_1,\dots, v_n$ consisting of eigenvectors of $T$.  Let $\lambda_1,\dots, \lambda_n\in\C$ be the corresponding eigenvalues, so that
+\begin{align*}
+Tv_k = \lambda_k v_k
+\end{align*}
+for $k = 1,\dots, n$.  Define $S\in\Hom(V)$ by its action on this basis:
+\begin{align*}
+Sv_k = \sqrt{\lambda_k}v_k,
+\end{align*}
+choosing the complex square root $\sqrt{\lambda_k}$ by some definite rule.  Let $v\in V$.  Then there exist $\alpha_1,\dots, \alpha_n\in\C$ such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
+\begin{align*}
+S^2 v &= S^2( \alpha_1v_1 + \dots + \alpha_nv_n)\\
+&= S\left(\alpha_1\sqrt{\lambda_1}v_1 + \dots + \alpha_n\sqrt{\lambda_n}v_n\right)\\
+&= \alpha_1S\left(\sqrt{\lambda_1}v_1\right) + \dots + \alpha_nS\left(\sqrt{\lambda_n}v_n\right)\\
+&= \alpha_1\lambda_1v_1 + \dots + \alpha_n\lambda_n v_n\\
+&= \alpha_1Tv_1 + \dots + \alpha_nTv_n\\
+&= T( \alpha_1v_1 + \dots + \alpha_nv_n)\\
+&= Tv.
+\end{align*}
+Thus $S^2 = T$, and indeed $T$ has a square root, as was to be shown.
+\end{proof}
 \end{document}
