@@ -4,7 +4,7 @@
 
 ## About
 
-Solutions to the 3rd edition of *Linear Algebra Done Right*, by Sheldon Axler.  
+Solutions to the 3rd edition of *Linear Algebra Done Right*, by Sheldon Axler.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ Solutions to the 3rd edition of *Linear Algebra Done Right*, by Sheldon Axler.
 
 ## Thoughts on the Book
 
-For some reason, Axler's approach to linear algebra is polarizing, with many praising the book's more abstract approach and others criticizing it for his decision to defer use of the determinant until the end of the book. 
+When I decided to go back and review some linear algebra, I spent some time looking at various options for a text and settled on Axler's book (I had read parts of the 2nd edition in the summer before graduate school, and I remembered it being quite good).  His approach to linear algebra is pretty polarizing, with many praising the book's more abstract approach and others criticizing it for his decision to defer use of the determinant until the end of the book. 
 
 I happen to enjoy this style, and I think it really streamlines the presentation of linear algebra pedagogically.  But I also understand this might not suit everyone's taste, and two good alternatives are the excellent books by [Hoffman & Kunze](https://www.amazon.com/Linear-Algebra-2nd-Kenneth-Hoffman/dp/0135367972) and [Friedberg et al](https://www.amazon.com/Linear-Algebra-5th-Stephen-Friedberg/dp/0134860241). 
 
