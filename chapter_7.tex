@@ -590,12 +590,51 @@ choosing the complex square root $\sqrt{\lambda_k}$ by some definite rule.  Let 
 \begin{align*}
 S^2 v &= S^2( \alpha_1v_1 + \dots + \alpha_nv_n)\\
 &= S\left(\alpha_1\sqrt{\lambda_1}v_1 + \dots + \alpha_n\sqrt{\lambda_n}v_n\right)\\
-&= \alpha_1S\left(\sqrt{\lambda_1}v_1\right) + \dots + \alpha_nS\left(\sqrt{\lambda_n}v_n\right)\\
 &= \alpha_1\lambda_1v_1 + \dots + \alpha_n\lambda_n v_n\\
 &= \alpha_1Tv_1 + \dots + \alpha_nTv_n\\
 &= T( \alpha_1v_1 + \dots + \alpha_nv_n)\\
 &= Tv.
 \end{align*}
 Thus $S^2 = T$, and indeed $T$ has a square root, as was to be shown.
+\end{proof}
+
+\begin{problem}{11}
+Prove or give a counterexample: every self-adjoint operator on $V$ has a cube root.  (An operator $T\in\Hom(V)$ is called a \textbf{\textit{cube root}} of $T\in\Hom(V)$ if $S^3 = T$.)
+\end{problem}
+\begin{proof}
+Suppose $T\in\Hom(V)$ is self-adjoint.  Regardless of whether $\F=\R$ or $\F =\R$, both Spectral Theorems imply that $V$ has an orthonormal basis $v_1,\dots, v_n$ consisting of eigenvectors of $T$.  By 7.13, all eigenvalues of $T$ are real.  So let $\lambda_1,\dots, \lambda_n\in\R$ be the eigenvalues corresponding to $v_1,\dots, v_n$, so that
+\begin{align*}
+Tv_k = \lambda_k v_k
+\end{align*}
+for $k = 1,\dots, n$.  Define $S\in\Hom(V)$ by its action on this basis:
+\begin{align*}
+Sv_k = (\lambda_k)^\frac{1}{3}v_k,
+\end{align*}
+Let $v\in V$.  Then there exist $\alpha_1,\dots, \alpha_n\in\C$ such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
+\begin{align*}
+S^3 v &= S^3( \alpha_1v_1 + \dots + \alpha_nv_n)\\
+&= S^2\left(\alpha_1(\lambda_1)^\frac{1}{3}v_1 + \dots + \alpha_n(\lambda_n)^\frac{1}{3}v_n\right)\\
+&= S\left(\alpha_1(\lambda_1)^\frac{2}{3}v_1 + \dots + \alpha_n(\lambda_n)^\frac{2}{3} v_n\right)\\
+&= \alpha_1\lambda_1v_1 + \dots + \alpha_n\lambda_n v_n\\
+&= \alpha_1Tv_1 + \dots + \alpha_nTv_n\\
+&= T( \alpha_1v_1 + \dots + \alpha_nv_n)\\
+&= Tv.
+\end{align*}
+Thus $S^3 = T$, and indeed $T$ has a cube root.  Thus, all self-adjoint operators on a finite-dimensional inner product space have a cube root.
+\end{proof}
+
+% Problem 13
+\begin{problem}{13}
+Give an alternative proof of the Complex Spectral Theorem that avoids Schur's Theorem and instead follows the pattern of the proof of the Real Spectral Theorem.
+\end{problem}
+\begin{proof}
+The equivalence of statements (a) and (b) follows immediately from 5.41.  We proceed by first proving (c) implies (a) and then prove (a) implies (a).\\
+\indent Suppose (c) holds, so that $T$ has a diagonal matrix with respect to some orthonormal basis of $V$.  The matrix of $T^\ast$ (with respect to the same basis) is obtained by taking the conjugate transpose of the matrix of $T$; hence $T^\ast$ also has a diagonal matrix.  Any two diagonal matrices commute; thus $T$ commutes with $T^\ast$, which means that $T$ is normal.  That is, (a) holds.\\
+\indent We will prove that (a) implies (b) by induction on $\dim V$.  For our base case, suppose $\dim V= 1$.  Since 5.21 guarantees the existence of an eigenvector of $T$, clearly (b) is true.  Next assume that $\dim V > 1$ and that (a) implies (b) for all complex inner product spaces of smaller dimension.\\
+\indent Suppose (a) holds, so that $T$ is normal.  Let $u$ be an eigenvector of $T$ with $\norm{u} = 1$, and set $U = \Span(u)$.  We claim $U$ is invariant under $T$.  To see this, suppose $v\in U$.  Then there exists $\alpha\in\C$ such that $v = \alpha u$.  It follows
+\begin{align*}
+Tv = T(\alpha u) = \alpha Tu \in U,
+\end{align*}
+and hence $U$ is indeed invariant under $T$.  By Problem 3 of 7A, this implies that $U^\perp$ is invariant under $T^\ast$.
 \end{proof}
 \end{document}
