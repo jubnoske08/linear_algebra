@@ -628,9 +628,64 @@ Thus $S^3 = T$, and indeed $T$ has a cube root.  Thus, all self-adjoint operator
 Give an alternative proof of the Complex Spectral Theorem that avoids Schur's Theorem and instead follows the pattern of the proof of the Real Spectral Theorem.
 \end{problem}
 \begin{proof}
-The equivalence of statements (a) and (b) follows immediately from 5.41. 
-\indent Suppose (c) holds, so that $T$ has a diagonal matrix with respect to some orthonormal basis of $V$.  The matrix of $T^\ast$ (with respect to the same basis) is obtained by taking the conjugate transpose of the matrix of $T$; hence $T^\ast$ also has a diagonal matrix.  Any two diagonal matrices commute; thus $T$ commutes with $T^\ast$, which means that $T$ is normal.  That is, (a) holds.\\
+Suppose (c) holds, so that $T$ has a diagonal matrix with respect to some orthonormal basis of $V$.  The matrix of $T^\ast$ (with respect to the same basis) is obtained by taking the conjugate transpose of the matrix of $T$; hence $T^\ast$ also has a diagonal matrix.  Any two diagonal matrices commute; thus $T$ commutes with $T^\ast$, which means that $T$ is normal.  That is, (a) holds.\\
 \indent We will prove that (a) implies (b) by induction on $\dim V$.  For our base case, suppose $\dim V= 1$.  Since 5.21 guarantees the existence of an eigenvector of $T$, clearly (b) is true in this case.  Next assume that $\dim V > 1$ and that (a) implies (b) for all complex inner product spaces of smaller dimension.\\
-\indent Suppose (a) holds, so that $T$ is normal.  Let $u$ be an eigenvector of $T$ with $\norm{u} = 1$, and set $U = \Span(u)$.  Clearly $U$ is invariant under $T$.  By Problem 3 of 7A, this implies that $U^\perp$ is invariant under $T^\ast$ as well.
+\indent Suppose (a) holds, so that $T$ is normal.  Let $u$ be an eigenvector of $T$ with $\norm{u} = 1$, and set $U = \Span(u)$.  Clearly $U$ is invariant under $T$.  By Problem 3 of 7A, this implies that $U^\perp$ is invariant under $T^\ast$ as well.  But of course $T^\ast$ is also normal, and since $\dim U^\perp = \dim V - 1$, our inductive hypothesis implies that there exists an orthonormal basis of $U^\perp$ consisting of eigenvectors of $T\mid_{U^\perp}$.  Adjoining $u$ to this basis gives an orthonormal basis of $V$ consisting of eigenvectors of $T$, completing the proof that (a) implies (b).\\
+\indent We have proved that (c) implies (a) and that (a) implies (b).  Clearly (b) implies (c), and the proof is complete.
+\end{proof}
+
+% Problem 15
+\begin{problem}{15}
+Find the value of $x$ such that the matrix
+\begin{align*}
+\begin{bmatrix}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & x 
+\end{bmatrix}
+\end{align*}
+is normal.
+\end{problem}
+\begin{proof}
+Let $M$ be the above matrix.  We wish to find $x\in \F$ such that $MM^\ast = M^\ast M$.  Notice
+\begin{align*}
+MM^\ast &= \begin{bmatrix}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & x 
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & x 
+\end{bmatrix}\\
+&= 
+\begin{bmatrix}
+2 & 1 & 1 \\
+1 & 2 & x \\
+1 & x & 1 + x^2 
+\end{bmatrix}
+\end{align*}
+and
+\begin{align*}
+M^\ast M &= 
+\begin{bmatrix}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & x 
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & x 
+\end{bmatrix}\\
+&= 
+\begin{bmatrix}
+2 & 1 & x \\
+1 & 2 & 1 \\
+x & 1 & 1 + x^2 
+\end{bmatrix}.
+\end{align*}
+Thus it must be that $x = 1$.
 \end{proof}
 \end{document}
