@@ -481,7 +481,7 @@ T(1, 0, 0) &= (0, 0, 0)\\
 T(0, 1, 0) &= (0, 0, 0)\\
 T(0, 1, 1) &= (0, 1, 1).
 \end{align*}
-Notice $T(1, 0, 0) = 0\cdot (1, 0, 0)$ and $T(0, 1, 0) = 0\cdot (0, 1, 0)$, so that $(1, 0, 0)$ and $(0, 1, 0)$ are eigenvectors with eigenvalue $0$.  Also, $(0, 1, 1)$ is an eigenvector with eigenvalue $1$.  Thus $(1, 0, 0,), (0, 1, 0), (0, 1, 1)$ is a basis of $\R^3$ consisting of eigenvectors of $T$.  That $T$ is not self-adjoint follows from the contrapositive of 7.22, since $(0, 1, 0)$ and $(0, 1, 1)$ correspond to distinct eigenvalues yet they are not orthogonal.
+Notice $T(1, 0, 0) = 0\cdot (1, 0, 0)$ and $T(0, 1, 0) = 0\cdot (0, 1, 0)$, so that $(1, 0, 0)$ and $(0, 1, 0)$ are eigenvectors with eigenvalue $0$.  Also, $(0, 1, 1)$ is an eigenvector with eigenvalue $1$.  Thus $(1, 0, 0), (0, 1, 0), (0, 1, 1)$ is a basis of $\R^3$ consisting of eigenvectors of $T$.  That $T$ is not self-adjoint follows from the contrapositive of 7.22, since $(0, 1, 0)$ and $(0, 1, 1)$ correspond to distinct eigenvalues yet they are not orthogonal.
 \end{proof}
 
 % Problem 3
@@ -688,4 +688,104 @@ x & 1 & 1 + x^2
 \end{align*}
 Thus it must be that $x = 1$.
 \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION C           																			           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Positive Operators and Isometries}
+
+% Problem 1
+\begin{problem}{1}
+Prove or give a counterexample: If $T\in\Hom(V)$ is self-adjoint and there exists an orthonormal basis $e_1,\dots, e_n$ of $V$ such that $\inp{Te_j}{e_j}\geq 0 $ for each $j$, then $T$ is a positive operator.
+\end{problem}
+\begin{proof}
+The statement is false.  To see this, let $e_1, e_2\in \R^2$ be the standard basis and consider $T\in\Hom(\R^2)$ defined by
+\begin{align*}
+Te_1 &= e_1\\
+Te_2 &= -e_2.
+\end{align*}
+Then
+\begin{align*}
+\mat(T) = \begin{bmatrix}
+1 & 0\\
+0 & -1
+\end{bmatrix},
+\end{align*}
+and since $\mat(T)$ is diagonal, $T$ must be self-adjoint by the Real Spectral Theorem.  But notice that the basis 
+\begin{align*}
+v_1 &= \frac{1}{\sqrt{2}}(e_1 + e_2)\\
+v_2 &= \frac{1}{\sqrt{2}}(e_1 - e_2)
+\end{align*}
+is orthonormal and that
+\begin{align*}
+\inp{Tv_1}{v_1} = \inp{v_2}{v_1} = 0
+\end{align*}
+and
+\begin{align*}
+\inp{Tv_2}{v_2} = \inp{v_1}{v_2} = 0.
+\end{align*}
+Thus $T$ is of the desired form, but $T$ is not a positive operator, since 
+\begin{align*}
+\inp{Te_2}{e_2} = \inp{-e_2}{e_2} = -1,
+\end{align*}
+completing the proof.
+\end{proof}
+
+% Problem 3
+\begin{problem}{3}
+Suppose $T$ is a positive operator on $V$ and $U$ is a subspace of $V$ invariant under $T$.  Prove that $T\mid_{U}\in\Hom(U)$ is a positive operator on $U$.
+\end{problem}
+\begin{proof}
+That $T\mid_{U}$ is self-adjoint follows by 7.28.  Let $u\in U$.  Then, since
+\begin{align*}
+\inp{T\mid_{U}(u)}{u} &= \inp{Tu}{u} > 0,
+\end{align*}
+$T\mid_{U}$ is a positive operator on $U$, as was to be shown.
+\end{proof}
+
+% Problem 5
+\begin{problem}{5}
+Prove that the sum of two positive operators on $V$ is positive.
+\end{problem}
+\begin{proof}
+Let $S,T\in\Hom(V)$ be positive operators.  Notice
+\begin{align*}
+(S + T)^\ast = S^\ast + T^\ast = S + T,
+\end{align*}
+hence $S + T$ is self-adjoint.  Next, let $v\in V$.  It follows
+\begin{align*}
+\inp{(S + T)v}{v} &= \inp{Sv + Tv}{v}\\
+&= \inp{Sv}{v} + \inp{Tv}{v}\\
+&\geq 0,
+\end{align*}
+and thus $S + T$ is a positive operator as well. 
+\end{proof}
+
+% Problem 7
+\begin{problem}{7}
+Suppose $T$ is a positive operator on $V$.  Prove that $T$ is invertible if and only if
+\begin{align*}
+\inp{Tv}{v} > 0
+\end{align*}
+for every $v\in V$ with $v\neq 0$.
+\end{problem}
+\begin{proof}
+Let $T$ be a positive operator on $V$.\\
+\indent $(\Rightarrow)$ Suppose $T$ is invertible and let $v\in V\setminus\{0\}$.  Since $T$ is a positive operator, by 7.35(e) there exists $R\in\Hom(V)$ such that $T = R^2$.  Since $T$ is invertible, so is $R$.  In particular, $R$ is injective, and thus $Rv\neq 0$.  It follows
+\begin{align*}
+\inp{Tv}{v} &= \inp{R^2}{v}\\
+&= \inp{Rv}{R^\ast v}\\
+&= \inp{Rv}{Rv}\\
+&= \norm{Rv}^2\\
+&> 0,
+\end{align*} 
+completing the proof in one direction.\\
+\indent $(\Leftarrow)$ Now suppose $\inp{Tv}{v} > 0$ for every $v\in V\setminus\{0\}$.  Assume by way of contraction that $T$ is not invertible, so that there exists $w\in V\setminus\{0\}$ such that $Tw = 0$.  But then $\inp{Tw}{w} = \inp{0}{w} = 0$, a contradiction.  Thus $T$ must be invertible, completing the proof.
+\end{proof}
+
+% Problem 9
+\begin{problem}{9}
+Prove or disprove: the identity operator on $\F^2$ has infinitely many self-adjoint square roots.
+\end{problem}
 \end{document}
