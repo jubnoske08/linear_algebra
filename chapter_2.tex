@@ -229,7 +229,7 @@ Suppose $p_0, p_1,\dots, p_m$ are polynomials in $\mathcal{P}_m(\F)$ such that $
 \end{problem}
 \begin{proof}
 Suppose it were.  We will show that this implies $p_0, p_1,\dots, p_m$ spans $\mathcal{P}_m(\F)$ and that this in turn leads to a contradiction by explicitly constructing a polynomial that is not in this span.
-\par Note that the list $1,z,\dots, z^{m+1}$ spans $\mathcal{P}_m(\F)$ and has length $m+1$, hence every linearly independent list must have length $m+1$ or less.  If $\Span(p_0, p_1,\dots, p_m)\neq \mathcal{P}_m(\F)$, there exists some $p\not\in\Span(p_0,p_1,\dots, p_m)$, and thus the list $p_0,p_1, \dots,p_m, p$ is linearly independent and of length $m+2$, a contradiction.  And so we must have $\Span(p_0,p_1,\dots,p_m) = \mathcal{P}_m(\F)$.
+\par Note that the list $1,z,\dots, z^m$ spans $\mathcal{P}_m(\F)$ and has length $m+1$, hence every linearly independent list must have length $m+1$ or less.  If $\Span(p_0, p_1,\dots, p_m)\neq \mathcal{P}_m(\F)$, there exists some $p\not\in\Span(p_0,p_1,\dots, p_m)$, and thus the list $p_0,p_1, \dots,p_m, p$ is linearly independent and of length $m+2$, a contradiction.  And so we must have $\Span(p_0,p_1,\dots,p_m) = \mathcal{P}_m(\F)$.
 \par Now define the polynomial $q\equiv 1$.  Then $q\in\Span(p_0, p_1,\dots, p_m)$, and hence there exist $a_0,\dots, a_m\in\F$ such that 
 \begin{equation*}
 q = a_0p_0+a_1p_1 + \dots + a_mp_m,
@@ -261,7 +261,7 @@ But then we have
 u = \frac{a_1}{c}(cv_1) + \dots + \frac{a_n}{c}(cv_n)
 \end{equation*}
 and so $cv_1,\dots,cv_n$ span $V$ as well.  Thus we have more than one basis for all finite-dimensional vector spaces.
-\par Essentially the same proof shows the same thing for infinite-dimensional vector spaces.  So let $W$ be an infinite-dimensional vector space with basis $w_1,w_2,\dots$.  We claim that for any $c\in\F$, the list $cw_1,cw_2,\dots$ is a basis as well.  Clearly the list is again linearly independent, and to see that it still spans $V$, let $u\in V$.  Then, since $w_1,w_2,\dots$ spans $W$, there exist $a_1, a_2,\dots \in \F$ such that
+\par Essentially the same proof shows the same thing for infinite-dimensional vector spaces.  So let $W$ be an infinite-dimensional vector space with basis $w_1,w_2,\dots$.  We claim that for any $c\in\F^{\times}$ (nonzero), the list $cw_1,cw_2,\dots$ is a basis as well.  Clearly the list is again linearly independent, and to see that it still spans $W$, let $u\in W$.  Then, since $w_1,w_2,\dots$ spans $W$, there exist $a_1, a_2,\dots \in \F$ such that
 \begin{equation*}
 u = a_1w_1 + a_2w_2 + \dots
 \end{equation*}
@@ -317,12 +317,12 @@ v_1 = \begin{pmatrix}3\\1\\0\\0\\0\end{pmatrix}, ~ v_2 = \begin{pmatrix}0\\0\\7\
 \end{align*}
 is a basis of $\R^5$ expanding the basis from $(a)$.  To see that it spans $\R^5$, let $u=(u_1,u_2,u_3,u_4,u_5)\in\R^5$.  Notice 
 \begin{multline*}
-u_2v_1 + u_4v_2 + u_5v_3+ (u_1 - 2u_2)v_4 + (u_3 - 6u_4)v_5 = \\
-\begin{pmatrix} 3u_2 \\ u_2 \\ 0 \\ 0\\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 7u_4 \\ u_4 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \\ u_5 \end{pmatrix} + \begin{pmatrix} u_1 -2u_2\\ 0 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ u_3 - 6u_4 \\ 0 \\ 0 \end{pmatrix}.
+u_2v_1 + u_4v_2 + u_5v_3+ (u_1 - 3u_2)v_4 + (u_3 - 7u_4)v_5 = \\
+\begin{pmatrix} 3u_2 \\ u_2 \\ 0 \\ 0\\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 7u_4 \\ u_4 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \\ u_5 \end{pmatrix} + \begin{pmatrix} u_1 -3u_2\\ 0 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ u_3 - 7u_4 \\ 0 \\ 0 \end{pmatrix}.
 \end{multline*}
 Simplifying the RHS, we have
 \begin{equation*}
-\begin{pmatrix} 3u_2 \\ u_2 \\ 0 \\ 0\\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 7u_4 \\ u_4 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \\ u_5 \end{pmatrix} + \begin{pmatrix} u_1 -2u_2\\ 0 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ u_3 - 6u_4 \\ 0 \\ 0 \end{pmatrix} = 
+\begin{pmatrix} 3u_2 \\ u_2 \\ 0 \\ 0\\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 7u_4 \\ u_4 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \\ u_5 \end{pmatrix} + \begin{pmatrix} u_1 -3u_2\\ 0 \\ 0 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ u_3 - 7u_4 \\ 0 \\ 0 \end{pmatrix} = 
 \begin{pmatrix} u_1 \\ u_2 \\ u_3 \\ u_4\\ u_5 \end{pmatrix},
 \end{equation*}
 and so indeed $v_1,\dots, v_5$ span $\R^5$.  To see that they are linearly independent, suppose $a_1,\dots,a_5\in\R$ are such that 
@@ -428,8 +428,8 @@ Show that the subspaces of $\R^3$ are precisely $\{0\}$, $\R^3$, all lines in $\
 A subspace of $\R^3$ can have a basis of length $0,1,2$ or $3$.  We consider each in turn:
 \begin{itemize}
 \item[$0$:] The only basis of length $0$ is the empty basis, which generates $\{0\}$.
-\item[$1$:] Any basis of length $1$ contains a single $x\in\R^\times$.  Notice $\Span(x)=\{ax\in\R\mid a\in\R\}$, and hence bases of length $1$ generate lines through the origin.
-\item[$2$:] Any basis of length $2$ consists of two linearly independent $x,y\in\R^\times$.  Notice $\Span(x,y)=\{ax + by\in\R^2\mid a,b\in\R\}$, and hence bases of length $2$ generate planes through the origin.
+\item[$1$:] Any basis of length $1$ contains a single nonzero vector $x\in\R^3$.  Notice $\Span(x)=\{ax\mid a\in\R\}$, and hence bases of length $1$ generate lines through the origin.
+\item[$2$:] Any basis of length $2$ consists of two linearly independent vectors $x,y\in\R^3$.  Notice $\Span(x,y)=\{ax + by\mid a,b\in\R\}$, and hence bases of length $2$ generate planes through the origin.
 \item[$3$:] Any basis of length $3$ is simply a basis of $\R^3$ and hence generates all of $\R^3$.
 \end{itemize}
 Since we've exhausted all possibilities, all subspaces of $\R^3$ have been classified as one of these four types.
@@ -541,7 +541,7 @@ a_1(v_2 - v_1) + \dots + a_{m-1}(v_m - v_{m-1}) = 0.
 \end{equation*}
 Expanding, we see
 \begin{equation*}
-(-a_1)v_1 + (a_1 - a_2)v_2 + \dots + (a_{m-2} - a_m)v_{m-1} = 0.
+(-a_1)v_1 + (a_1 - a_2)v_2 + \dots + (a_{m-2} - a_{m-1})v_{m-1} + a_{m-1}v_m = 0.
 \end{equation*}
 But since $v_1,\dots,v_{m-1}$ is linearly independent by hypothesis, each of the coefficients must be zero.  Thus $a_1 = 0$ and $a_{k-1} = a_{k}$ for $k = 2, \dots, m- 1$, and hence we must have $a_2=\dots = a_{m-1}=0$ as well.  Therefore, our list is linearly independent, and indeed $\dim W \geq m-1$.
 \end{proof}

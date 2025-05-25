@@ -103,7 +103,7 @@ T((x_1,y_1,z_1) + (x_2,y_2,z_2)) &= T(x_1 + x_2, y_1 + y_2, z_1 + z_2)\\
 &= (2x_1 - 4y_1 + 3z_1, 6x_1) + (2x_2 - 4y_2 + 3z_2, 6x_2)\\
 &= T(x_1, y_1, z_1) + T(x_2, y_2,z_2).
 \end{align*}
-Now, for $\lambda\in\F$ and $(x,y,z)\in\R^3$, we have
+Now, for $\lambda\in\R$ and $(x,y,z)\in\R^3$, we have
 \begin{align*}
 T(\lambda(x,y,z)) &= T(\lambda x, \lambda y, \lambda z)\\
 &= (2(\lambda x) - 4(\lambda y) + 3(\lambda z), 6(\lambda x))\\
@@ -220,7 +220,7 @@ and so the distributive properties hold.
 Show that every linear map from a $1$-dimensional vector space to itself is multiplication by some scalar.  More precisely, prove that if $\dim V= 1$ and $T\in\Hom(V,V)$, then there exists $\lambda\in\F$ such that $Tv = \lambda v$ for all $v\in V$.
 \end{problem}
 \begin{proof}
-Since $\dim V = 1$, a basis of $V$ consists of a single vector.  So let $w\in V$ be such a basis.  Then there exists $\alpha\in\F$ such that $v = \alpha w$ and $\lambda\in \F$ such that $Tw = \lambda w$.  It follows
+Since $\dim V = 1$, a basis of $V$ consists of a single vector.  So let $w\in V$ be such a basis.  Then for any $v\in V$, there exists $\alpha\in\F$ such that $v = \alpha w$.  Since $Tw\in V$ and $w$ spans $V$, there exists $\lambda\in \F$ such that $Tw = \lambda w$.  It follows
 \begin{equation*}
 Tv = T(\alpha w) = \alpha Tw = \alpha\lambda w = \lambda(\alpha w) = \lambda v,
 \end{equation*}
@@ -245,7 +245,7 @@ Then for $x_1 + y_1i, x_2 + y_2i\in\C$, it follows
 \begin{align*}
 \varphi((x_1 + y_1i) + (x_2 + y_2i)) &= \varphi((x_1 + x_2) + (y_1 + y_2)i)\\
 &= (x_1 + x_2) - (y_1 + y_2)i\\
-&= (x_1 - y_1)i + (x_2 - y_2)i\\
+&= (x_1 - y_1i) + (x_2 - y_2i)\\
 &= \varphi(x_1 + y_1i) + \varphi(x_2 + y_2i)
 \end{align*}
 and so $\varphi$ satisfies the additivity requirement.  However, we have
@@ -264,30 +264,27 @@ and hence $\varphi$ fails the homogeneity requirement of a linear map.
 Suppose $V$ is finite-dimensional.  Prove that every linear map on a subspace of $V$ can be extended to a linear map on $V$.  In other words, show that if $U$ is a subspace of $V$ and $S\in\Hom(U,W)$, then there exists $T\in\Hom(V,W)$ such that $Tu = Su$ for all $u\in U$.
 \end{problem}
 \begin{proof}
-Suppose $U$ is a subspace of $V$ and $S\in\Hom(U,W)$.  Let $v_1,\dots, u_m$ be a basis of $U$ and let $v_1,\dots, v_m, v_{m+1},\dots, v_n$ be an extension of this basis to $V$.  For any $z\in V$, there exist $a_1,\dots, a_n\in\F$ such that $z =\sum_{k=1}^na_kv_k$, and so we define 
+Suppose $U$ is a subspace of $V$ and $S\in\Hom(U,W)$.  Let $u_1,\dots, u_m$ be a basis of $U$ and let $u_1,\dots, u_m, v_{m+1},\dots, v_n$ be an extension of this basis to $V$.  For any $z\in V$, there exist $a_1,\dots, a_n\in\F$ such that $z =\sum_{k=1}^ma_ku_k + \sum_{k=m+1}^na_kv_k$, and so we define 
 \begin{align*}
 T: V &\to W\\
-    \sum_{k = 1}^n a_kv_k &\mapsto \sum_{k = 1}^m a_kSv_k + \sum_{k = m+1}^n a_kv_k.
+    \sum_{k = 1}^m a_ku_k + \sum_{k = m+1}^n a_kv_k &\mapsto \sum_{k = 1}^m a_kSu_k.
 \end{align*}
 Since every $v\in V$ has a unique representation as a linear combination of elements of our basis, the map is well-defined.  We first show $T$ is a linear map.  So suppose $z_1,z_2\in V$.  Then there exist $a_1,\dots a_n\in \F$ and $b_1,\dots, b_n\in\F$ such that 
 \begin{equation*}
-z_1 = a_1v_1 + \dots + a_nv_n ~~~\text{and}~~~ z_2 = b_1v_1 + \dots + b_nv_n.
+z_1 = \sum_{k=1}^ma_ku_k + \sum_{k=m+1}^na_kv_k ~~~\text{and}~~~ z_2 = \sum_{k=1}^mb_ku_k + \sum_{k=m+1}^nb_kv_k.
 \end{equation*}
 It follows
 \begin{align*}
-T(z_1 + z_2) &= T\left(\sum_{k=1}^na_kv_k + \sum_{k=1}^nb_kv_k\right)\\
-&= T\left(\sum_{k=1}^n(a_k + b_k)v_k\right)\\
-&= \sum_{k=1}^m(a_k + b_k)Sv_k + \sum_{k=m+1}^n(a_k + b_k)v_k\\
-&= \left(\sum_{k=1}^ma_kSv_k + \sum_{k=m+1}^na_kv_k\right) + \left(\sum_{k=1}^mb_kSv_k + \sum_{k=m+1}^nb_kv_k\right)\\
-&= T\left(\sum_{k=1}^na_kv_k\right) + T\left(\sum_{k=1}^nb_kv_k \right)\\
+T(z_1 + z_2) &= T\left(\sum_{k=1}^m(a_k + b_k)u_k + \sum_{k=m+1}^n(a_k + b_k)v_k\right)\\
+&= \sum_{k=1}^m(a_k + b_k)Su_k\\
+&= \sum_{k=1}^ma_kSu_k + \sum_{k=1}^mb_kSu_k\\
 &= Tz_1 + Tz_2
 \end{align*}
-and so $T$ is additive.  To see that $T$ is homogeneous, let $\lambda \in\F$ and $z\in V$, so that we may write $z =\sum_{k=1}^na_kv_k$ for some $a_1,\dots,a_n\in\F$. We have
+and so $T$ is additive.  To see that $T$ is homogeneous, let $\lambda \in\F$ and $z\in V$, so that we may write $z =\sum_{k=1}^ma_ku_k + \sum_{k=m+1}^na_kv_k$ for some $a_1,\dots,a_n\in\F$. We have
 \begin{align*}
-T(\lambda z) &= T\left(\lambda \sum_{k=1}^na_kv_k\right)\\
-&= T\left(\sum_{k=1}^n(\lambda a_k)v_k\right)\\
-&= S\left(\sum_{k=1}^m(\lambda a_k)v_k\right) + \sum_{k=m+1}^n(\lambda a_k)v_k\\
-&= \lambda S\left(\sum_{k=1}^ma_kv_k\right) + \lambda\sum_{k=m+1}^n a_kv_k\\
+T(\lambda z) &= T\left(\sum_{k=1}^m(\lambda a_k)u_k + \sum_{k=m+1}^n(\lambda a_k)v_k\right)\\
+&= \sum_{k=1}^m(\lambda a_k)Su_k\\
+&= \lambda\sum_{k=1}^ma_kSu_k\\
 &= \lambda\left(S\left(\sum_{k=1}^ma_kv_k\right) + \sum_{k=m+1}^n\lambda a_kv_k\right)\\
 &= \lambda T\left(\sum_{k=1}^na_kv_k\right)\\
 &= \lambda Tz
@@ -344,7 +341,7 @@ First we show $T$ is a linear map.  Suppose $x,y\in\R^5$.  Then
 \begin{align*}
 T(x + y) &= T((x_1, x_2, x_3,x_4, x_5) + (y_1, y_2, y_3,y_4, y_5) )\\
 &= T(x_1+y_1, x_2+y_2, x_3+y_3,x_4+y_4, x_5+y_5)\\
-&= (0, 0, 0, x_4 + y_5, x_5 + y_5)\\
+&= (0, 0, 0, x_4 + y_4, x_5 + y_5)\\
 &= (0, 0, 0, x_4, x_5) + (0, 0, 0, y_4, y_5)\\
 &= T(x) + T(y).
 \end{align*}
@@ -383,16 +380,16 @@ T(z_1,\dots, z_m) = z_1v_1 + \dots + z_m v_m.
 \begin{equation*}
 z_1v_1 + \dots + z_m v_m = w,
 \end{equation*}
-and hence every $w\in V$ can be expressed as a linear combination of $v_1,\dots, v_n$.  That is, $\Span(v_1,\dots,v_n)= V$.
-\item We claim injectivity of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent.  To see this, suppose $T$ is injective, and let $a_1,\dots, a_n\in\F$ such that 
+and hence every $w\in V$ can be expressed as a linear combination of $v_1,\dots, v_m$.  That is, $\Span(v_1,\dots,v_m)= V$.
+\item We claim injectivity of $T$ corresponds to $v_1,\dots, v_m$ being linearly independent.  To see this, suppose $T$ is injective, and let $a_1,\dots, a_m\in\F$ such that 
 \begin{equation*}
-a_1v_1 + \dots + a_nv_n = 0.
+a_1v_1 + \dots + a_mv_m = 0.
 \end{equation*}
 Then 
 \begin{equation*}
-T(a) = T(a_1,\dots, a_n) = a_1v_1 + \dots + a_nv_n = 0
+T(a) = T(a_1,\dots, a_m) = a_1v_1 + \dots + a_mv_m = 0
 \end{equation*}
-which is true iff $a = 0$ since $T$ is injective.  That is, $a_1=\dots = a_n=0$ and hence $v_1,\dots, v_n$ is linearly independent. \qedhere
+which is true iff $a = 0$ since $T$ is injective.  That is, $a_1=\dots = a_m=0$ and hence $v_1,\dots, v_m$ is linearly independent. \qedhere
 \end{enumerate}
 \end{proof}
 
@@ -719,9 +716,9 @@ V = R\oplus \Null T,
 \end{equation*}
 let $r_1,\dots, r_m$ be a basis of $R$ (where $m =\dim\Range T$), and let $v_1,\dots, v_n$ be a basis of $\Null T$ (where $n = \dim\Null T$).  Then $r_1,\dots, r_m, v_1,\dots,v_n$ is a basis of $V$.  It follows that $Tr_1,\dots, Tr_m$ is a basis of $\Range T$, and hence there is an extension of this list to a basis of $W$.  Suppose $Tr_1,\dots, Tr_m, w_1,\dots, w_p$ is such an extension (where $p = \dim W - m$).  Then, for $j = 1,\dots m$, we have
 \begin{equation*}
-Tr_j = \left(\sum_{i = 1}^m\delta_{i,j}\cdot Tr_t\right) + \left(\sum_{k = 1}^p 0\cdot w_k\right),
+Tr_j = \left(\sum_{i = 1}^m\delta_{i,j}\cdot Tr_i\right) + \left(\sum_{k = 1}^p 0\cdot w_k\right),
 \end{equation*}
-where $\delta_{i,j}$ is the Kronecker delta function.  Thus, column $j$ of $\mat(T)$ is has an entry of $1$ in row $j$ and $0$'s elsewhere, where $j$ ranges over $1$ to $m = \dim\Range T$.  Since $Tv_1 = \dots = Tv_n = 0$, the remaining columns of $\mat(T)$ are all zero.  Thus $\mat(T)$ has the desired form.
+where $\delta_{i,j}$ is the Kronecker delta function.  Thus, column $j$ of $\mat(T)$ has an entry of $1$ in row $j$ and $0$'s elsewhere, where $j$ ranges over $1$ to $m = \dim\Range T$.  Since $Tv_1 = \dots = Tv_n = 0$, the remaining columns of $\mat(T)$ are all zero.  Thus $\mat(T)$ has the desired form.
 \end{proof}
 
 % Problem 5
