@@ -174,13 +174,13 @@ Prove that $q$ is a polynomial with real coefficients.
 \begin{proof}
 Suppose $p$ has degree $n$.  Then there exist $c,\lambda_1,\dots,\lambda_n\in\C$ such that 
 \begin{equation*}
-p(z) = c(z_1 - \lambda_1)\cdots(z_n-\lambda_n).
+p(z) = c(z - \lambda_1)\cdots(z-\lambda_n).
 \end{equation*}
 Thus we have
 \begin{align*}
-q(z) &= c(z_1 - \lambda_1)\cdots(z_n-\lambda_n)\widebar{c\left(\overline{z_1} - \lambda_1\right)\cdots\left(\overline{z_n}-\lambda_n\right)}\\
-&= c\overline{c}(z_1 - \lambda_1)\left(z_1 - \overline{\lambda_1}\right)\cdots(z_n-\lambda_n)\left(z_n - \overline{\lambda_n}\right)\\
-&= |c|^2\left({z_1}^2 -2\Re(\lambda_1)z_1 + |\lambda_1|^2\right)\cdots\left({z_n}^2 -2\Re(\lambda_n)z_n + |\lambda_n|^2\right),
+q(z) &= c(z - \lambda_1)\cdots(z-\lambda_n)\widebar{c\left(\overline{z} - \lambda_1\right)\cdots\left(\overline{z}-\lambda_n\right)}\\
+&= c\overline{c}(z - \lambda_1)\left(z - \overline{\lambda_1}\right)\cdots(z-\lambda_n)\left(z - \overline{\lambda_n}\right)\\
+&= |c|^2\left(z^2 -2\Re(\lambda_1)z + |\lambda_1|^2\right)\cdots\left(z^2 -2\Re(\lambda_n)z + |\lambda_n|^2\right),
 \end{align*}
 so that $q(z)$ is the product of polynomials with real coefficients.  Thus $q$ is itself a polynomial with real coefficients, as was to be shown.
 \end{proof}
