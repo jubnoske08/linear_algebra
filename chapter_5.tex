@@ -172,7 +172,7 @@ and we're done.
 Define $T:\poly(\R)\to\poly(\R)$ by $Tp = p'$.  Find all eigenvalues and eigenvectors of $T$.
 \end{problem}
 \begin{proof}
-Let $p\in\poly(\R)$ be nonzero and suppose $Tp = \lambda p$ for some $\lambda\in\R$.  Note that $\deg p$ must be $0$, for otherwise, since $\deg p = \deg(Tp) = \deg p'$, we have a contradiction.  Thus the only eigenvalue of $T$ is $\lambda = 0$, and the corresponding eigenvectors are the constant, nonzero polynomials in $\poly(\R)$.  
+Let $p\in\poly(\R)$ be nonzero and suppose $Tp = \lambda p$ for some $\lambda\in\R$.  Note that $\deg p$ must be $0$, for otherwise, if $\deg p > 0$, then $\deg p' = \deg p - 1 < \deg p$, but $Tp = \lambda p$ would require $\deg(Tp) = \deg(\lambda p) = \deg p$, giving us a contradiction.  Thus $p$ must be constant, so $p' = 0$ and $Tp = 0 = \lambda p$, which forces $\lambda = 0$.  Thus the only eigenvalue of $T$ is $\lambda = 0$, and the corresponding eigenvectors are the constant, nonzero polynomials in $\poly(\R)$.  
 \end{proof}
 
 % Problem 13
@@ -307,7 +307,7 @@ Thus
 \begin{equation*}
 (\lambda_1 - \lambda_3)u + (\lambda_2 - \lambda_3)v = 0.
 \end{equation*}
-Since $u$ and $v$ are both eigenvectors of $T$, they are linearly independent.  Thus $\lambda_1 = \lambda_3$ and $\lambda_2 = \lambda_3$, and hence $\lambda_1 = \lambda_2 = \lambda_3$, showing that $u$ and $v$ indeed correspond to the same eigenvalue.
+If $u$ and $v$ are linearly independent, then from the equation $(\lambda_1 - \lambda_3)u + (\lambda_2 - \lambda_3)v = 0$, we must have $\lambda_1 = \lambda_3$ and $\lambda_2 = \lambda_3$, and hence $\lambda_1 = \lambda_2 = \lambda_3$. If $u$ and $v$ are linearly dependent, then they correspond to the same eigenvalue (since eigenvectors corresponding to different eigenvalues are linearly independent). In either case, $u$ and $v$ correspond to the same eigenvalue.
 \end{proof}
 
 % Problem 26
@@ -427,15 +427,17 @@ Suppose $T\in\Hom(V)$ and there exists a positive integer $n$ such that $T^n=0$.
 \begin{align*}
 (I - T)Sv &= (I- T)\left(v + Tv + \dots + T^{n-1}v\right)\\
 &= \left(v + Tv + \dots + T^{n-1}v\right) - T\left(v + Tv + \dots + T^{n-1}v\right)\\
-&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}\right) +  T^nv\\
-&= v 
+&= \left(v + Tv + \dots + T^{n-1}v\right) - \left(Tv + T^2v + \dots + T^nv\right)\\
+&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}v\right) - T^nv\\
+&= v - T^nv = v - 0 = v 
 \end{align*}
 and
 \begin{align*}
-S(I - T)v &= \left(v + Tv + \dots + T^{n-1}v\right)(I - T)\\
+S(I - T)v &= (I - T)\left(v + Tv + \dots + T^{n-1}v\right)\\
+&= \left(v + Tv + \dots + T^{n-1}v\right) - T\left(v + Tv + \dots + T^{n-1}v\right)\\
 &= \left(v + Tv + \dots + T^{n-1}v\right) - \left(Tv + T^2v + \dots + T^nv\right)\\
-&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}\right) +  T^nv\\
-&= v.
+&= v + \left(Tv + \dots + T^{n-1}v - Tv -T^2v - \dots - T^{n-1}v\right) - T^nv\\
+&= v - T^nv = v - 0 = v.
 \end{align*}
 Thus $I - T$ is indeed invertible, and $S$ is its inverse.
 \item Recall the power series expansion for $(1 - x)^{-1}$ when $\abs{x} < 1$:
@@ -518,7 +520,7 @@ $(\Leftarrow)$ Suppose $3$ or $-3$ is an eigenvalue of $T$.  Then there exists a
 \begin{equation*}
 Tv = 3v ~~~\text{or}~~~ Tv = -3v.
 \end{equation*}
-In the former case, we have $T^2v = 3Tv = 9v$, and in the latter we have $T^2 = -3Tv = 9v$.  In both cases, $9$ is an eigenvalue of $T^2$.\\
+In the former case, we have $T^2v = T(3v) = 3Tv = 3 \cdot 3v = 9v$, and in the latter we have $T^2v = T(-3v) = -3Tv = -3(-3v) = 9v$.  In both cases, $9$ is an eigenvalue of $T^2$.\\
 \indent $(\Rightarrow)$ If $9$ is an eigenvalue of $T^2$, then there exists a nonzero $w\in V$ such that $T^2w = 9w$.  Hence $T^2 - 9I$ is not invertible, whereby $(T - 3I)(T + 3I)$ is not invertible.  Thus, by Problem 9 of Section 3.D, either $T-3I$ or $T+3I$ is not invertible.  This implies either $3$ or $-3$ is an eigenvalue of $T$, as desired.
 \end{proof}
 

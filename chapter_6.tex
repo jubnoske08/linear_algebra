@@ -1074,7 +1074,7 @@ and let $U$ denote the subspace of $\mathcal{C}_\R[-\pi, \pi]$ consisting of the
 Notice also that $\sqrt{\int_{-\pi}^\pi \abs{\sin x - p(x)}^2 dx}$ is minimized if and only if  $\int_{-\pi}^\pi \abs{\sin x - p(x)}^2 dx$ is minimized.  Thus by 6.56, we may conclude $p(x) = P_U(\sin x)$ minimizes  $\int_{-\pi}^\pi \abs{\sin x - p(x)}^2 dx$.  To compute $P_U(\sin x)$, we first find an orthonormal basis of $\mathcal{C}_\R[-\pi, \pi]$ by applying the Gram-Schmidt Procedure to the basis $1, x, x^2, x^3, x^4, x^5$ of $U$.  A lengthy computation yields the orthonormal basis
 \begin{align*}
 e_1 &= \frac{1}{\sqrt{2\pi}} \\
-e_2 &= \frac{\sqrt{\frac{3}{2}}x}{x^{3/2}}\\
+e_2 &= \sqrt{\frac{3}{2\pi^3}}x\\
 e_3 &= -\frac{\sqrt{\frac{5}{2}}\left(\pi^2 - 3x^2\right)}{2\pi^{5/2}}\\
 e_4 &= -\frac{\sqrt{\frac{7}{2}}\left(3\pi^2x - 5x^3\right)}{2\pi^{7/2}}\\ 
 e_5 &= \frac{3\left(3\pi^4-30\pi^2x^2 + 35x^4\right)}{8\sqrt{2}\pi^{9/2}}\\

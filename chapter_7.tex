@@ -219,11 +219,11 @@ $(\Rightarrow)$ First suppose there is a subspace $U\subseteq V$ such that $P = 
 &= \inp{v_1}{Pv_2},
 \end{align*}
 and thus $P = P^\ast$.\\
-\indent $(\Leftarrow)$ Conversely, suppose $P = P^\ast$.  Let $v\in V$.  Notice $P(v - Pv)= Pv - P^2v = 0$, and hence $v - Pv\in\Null P$.  By 7.7(c), we know $\Null P = \left(\Range T^\ast\right)^\perp$.  By hypothesis, $P$ is self-adjoint, and hence we have $v-Pv \in \left(\Range T\right)^\perp$.  Notice we may write
+\indent $(\Leftarrow)$ Conversely, suppose $P = P^\ast$.  Let $v\in V$.  Notice $P(v - Pv)= Pv - P^2v = 0$, and hence $v - Pv\in\Null P$.  By 7.7(c), we know $\Null P = \left(\Range P^\ast\right)^\perp$.  By hypothesis, $P$ is self-adjoint, and hence we have $v-Pv \in \left(\Range P\right)^\perp$.  Notice we may write
 \begin{align*}
 v = Pv + (v - Pv),
 \end{align*}
-where $Pv \in \Range P$ and $v-Pv \in \left(\Range T\right)^\perp$.  Let $U = \Range P$.  Since the above holds for all $v\in V$, we conclude $P = P_U$, and the proof is complete.
+where $Pv \in \Range P$ and $v-Pv \in \left(\Range P\right)^\perp$.  Let $U = \Range P$.  Since the above holds for all $v\in V$, we conclude $P = P_U$, and the proof is complete.
 \end{proof}
 
 % Problem 13
@@ -602,7 +602,7 @@ Thus $S^2 = T$, and indeed $T$ has a square root, as was to be shown.
 Prove or give a counterexample: every self-adjoint operator on $V$ has a cube root.  (An operator $T\in\Hom(V)$ is called a \textbf{\textit{cube root}} of $T\in\Hom(V)$ if $S^3 = T$.)
 \end{problem}
 \begin{proof}
-Suppose $T\in\Hom(V)$ is self-adjoint.  Regardless of whether $\F=\R$ or $\F =\R$, both Spectral Theorems imply that $V$ has an orthonormal basis $v_1,\dots, v_n$ consisting of eigenvectors of $T$.  By 7.13, all eigenvalues of $T$ are real.  So let $\lambda_1,\dots, \lambda_n\in\R$ be the eigenvalues corresponding to $v_1,\dots, v_n$, so that
+Suppose $T\in\Hom(V)$ is self-adjoint.  Regardless of whether $\F=\R$ or $\F=\C$, both Spectral Theorems imply that $V$ has an orthonormal basis $v_1,\dots, v_n$ consisting of eigenvectors of $T$.  By 7.13, all eigenvalues of $T$ are real.  So let $\lambda_1,\dots, \lambda_n\in\R$ be the eigenvalues corresponding to $v_1,\dots, v_n$, so that
 \begin{align*}
 Tv_k = \lambda_k v_k
 \end{align*}
@@ -610,7 +610,7 @@ for $k = 1,\dots, n$.  Define $S\in\Hom(V)$ by its action on this basis:
 \begin{align*}
 Sv_k = (\lambda_k)^\frac{1}{3}v_k,
 \end{align*}
-Let $v\in V$.  Then there exist $\alpha_1,\dots, \alpha_n\in\C$ such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
+Let $v\in V$.  Then there exist $\alpha_1,\dots, \alpha_n\in\F$ such that $v = \alpha_1v_1 + \dots + \alpha_nv_n$.  It follows
 \begin{align*}
 S^3 v &= S^3( \alpha_1v_1 + \dots + \alpha_nv_n)\\
 &= S^2\left(\alpha_1(\lambda_1)^\frac{1}{3}v_1 + \dots + \alpha_n(\lambda_n)^\frac{1}{3}v_n\right)\\
